@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">カットインアプリ改善版</string>
+    <string name="request_overlay">オーバーレイ権限設定</string>
+</resources>
