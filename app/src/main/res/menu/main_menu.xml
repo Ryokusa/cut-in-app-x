@@ -5,4 +5,8 @@
     <item
         android:id="@+id/request_overlay"
         android:title="@string/request_overlay" />
+
+    <item
+        android:id="@+id/request_notification"
+        android:title="@string/request_notification" />
 </menu>

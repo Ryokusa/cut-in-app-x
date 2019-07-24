@@ -26,7 +26,6 @@ public class CutinService extends Service{
 
     private final String TAG = "FilterService";
     private final IBinder iBinder = new ServiceBinder();
-    private boolean onView = false;
     View v;
     LinearLayout layout;
     WindowManager windowManager;
@@ -58,9 +57,6 @@ public class CutinService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
-
-        //二度実行禁止
-        onView = true;
 
         //レイアウト読み込む用
         final LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
@@ -158,9 +154,6 @@ public class CutinService extends Service{
     public void onDestroy(){
         super.onDestroy();
         Log.i(TAG, "onDestroy()");
-
-        //二度実行禁止
-        onView = false;
 
         //View削除
         windowManager.removeView(v);
