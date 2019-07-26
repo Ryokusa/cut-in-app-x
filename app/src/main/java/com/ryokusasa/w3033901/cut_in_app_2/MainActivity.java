@@ -15,12 +15,14 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG = "MainActivity";   //Log
+
     /* サービス関連 */
     private boolean isConnection = false;   //サービスにつながってるか
     private CutinService mService;             //サービス
@@ -31,6 +33,11 @@ public class MainActivity extends AppCompatActivity {
     /* パーミッション関連 */
     private final int OVERLAY_PERMISSION_REQUEST_CODE = 893;    //リクエストコード
     private final int NOTIFICATION_PERMISSION_REQUEST_CODE = 810;
+
+
+    //カットイン関連
+    private ArrayList<CutIn> CutInList = new ArrayList<CutIn>();
+    private ArrayList<CutInHolder> CutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
 
 
     @Override
@@ -59,6 +66,9 @@ public class MainActivity extends AppCompatActivity {
         if (!checkOverlayPermission(this)) requestOverlayPermission();
     }
 
+    private void cutInHolderLoad(){
+        //TODO カットインホルダーを読み込んでviewに表示
+    }
 
     //カットインサービス開始
     public void startCutInService(Context context){
@@ -69,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //
+    //カットインサービス終了
     public void endCutInService(Context context){
         if(checkOverlayPermission(context) && isConnection){
             Intent intent = new Intent(MainActivity.this, CutinService.class);
@@ -87,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         return true;
     }
 
-    //メニュー選択時
+    //メニュー選択時処理
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
