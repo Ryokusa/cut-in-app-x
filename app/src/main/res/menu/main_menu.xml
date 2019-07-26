@@ -9,4 +9,8 @@
     <item
         android:id="@+id/request_notification"
         android:title="@string/request_notification" />
+
+    <item
+        android:id="@+id/cut_in_enable"
+        android:title="@string/cut_in_enable"/>
 </menu>

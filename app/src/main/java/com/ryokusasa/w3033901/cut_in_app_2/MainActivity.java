@@ -55,35 +55,28 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        Button startButton = (Button)findViewById(R.id.button);
-        startButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //サービス開始
-                if (checkOverlayPermission(v.getContext()) && !isConnection){
-                    Intent intent = new Intent(MainActivity.this, CutinService.class);
-                    startService(intent);
-                    bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-                }
-            }
-        });
-
-        Button endButton = (Button)findViewById(R.id.button2);
-        endButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.i("MainActivity", "onClick");
-                if(checkOverlayPermission(v.getContext()) && isConnection){
-                    Intent intent = new Intent(MainActivity.this, CutinService.class);
-                    unbindService(serviceConnection);
-                    stopService(intent);
-                    isConnection = false;
-                }
-            }
-        });
-
         //権限確認
         if (!checkOverlayPermission(this)) requestOverlayPermission();
+    }
+
+
+    //カットインサービス開始
+    public void startCutInService(Context context){
+        if (checkOverlayPermission(context) && !isConnection){
+            Intent intent = new Intent(MainActivity.this, CutinService.class);
+            startService(intent);
+            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    //
+    public void endCutInService(Context context){
+        if(checkOverlayPermission(context) && isConnection){
+            Intent intent = new Intent(MainActivity.this, CutinService.class);
+            unbindService(serviceConnection);
+            stopService(intent);
+            isConnection = false;
+        }
     }
 
     //メニュー生成
@@ -104,6 +97,10 @@ public class MainActivity extends AppCompatActivity {
             case R.id.request_notification:
                 requestNotificationPermission();
                 return true;
+            case R.id.cut_in_enable:
+                if(isConnection) endCutInService(this);
+                else             startCutInService(this);
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
@@ -111,8 +108,7 @@ public class MainActivity extends AppCompatActivity {
 
     //再表示されたとき
     @Override
-    protected void onResume()
-    {
+    protected void onResume() {
         super.onResume();
         if (!checkOverlayPermission(this)){
             Toast.makeText(this, "オーバーレイの権限がないと実行できません", Toast.LENGTH_SHORT).show();
@@ -128,8 +124,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //オーバーレイリクエスト処理
-    public void requestOverlayPermission()
-    {
+    public void requestOverlayPermission() {
         //なんかワーニング出てるけどcheckOverlayPermissionで23以下は排除済み
         Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
         this.startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE);
@@ -142,8 +137,9 @@ public class MainActivity extends AppCompatActivity {
                 if (service.equals(getPackageName()))
                     return true;
             }
+            return false;
         }
-        return false;
+        return true;
     }
 
     //通知アクセスリクエスト処理
@@ -153,8 +149,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data)
-    {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE){
             if(!checkOverlayPermission(this)){
                 //オーバレイの権限がない場合
