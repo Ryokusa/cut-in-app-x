@@ -69,20 +69,22 @@ public class AppDataAdapter extends ArrayAdapter {
 
         //positionに格納されたアプリデータを取得
         AppData appData = (AppData)getItem(position);
-        boolean haveCutIn = false;
-        if(appData.isUsed()){
-            haveCutIn = true;
-        }
 
         //セット
         viewFolder.imageView.setImageDrawable(appData.getIconDrawable());
         viewFolder.textView.setText(appData.getAppName());
-        if(haveCutIn){
+        if(appData.isUsed()){
             viewFolder.haveCutIn.setText("設定済み");
+            convertView.setEnabled(false);
         }else{
             viewFolder.haveCutIn.setText("");
         }
 
         return convertView;
+    }
+
+    @Override
+    public boolean isEnabled(int position) {
+        return !(((AppData)getItem(position)).isUsed());
     }
 }

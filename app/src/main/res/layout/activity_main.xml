@@ -24,11 +24,18 @@
 
     </android.support.v7.widget.Toolbar>
 
-    <LinearLayout
-        android:id="@+id/frameList"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#F4FDFF"
-        android:orientation="vertical" />
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/frameList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#F4FDFF"
+            android:orientation="vertical">
+
+        </LinearLayout>
+    </ScrollView>
 
 </LinearLayout>
