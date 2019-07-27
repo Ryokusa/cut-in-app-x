@@ -7,7 +7,7 @@ import android.view.animation.Interpolator;
 import java.sql.Time;
 
 //キーフレーム
-public class KeyFrame {
+public class KeyFrame implements Cloneable {
     private int frame;
     private TimeInterpolator interpolator;
     public KeyFrame(int frame, TimeInterpolator interpolator){
@@ -29,6 +29,20 @@ public class KeyFrame {
 
     public void setInterpolator(TimeInterpolator interpolator) {
         this.interpolator = interpolator;
+    }
+
+    @Override
+    public KeyFrame clone() throws CloneNotSupportedException {
+        KeyFrame rKeyFrame;
+        try{
+            rKeyFrame = (KeyFrame) super.clone();
+            rKeyFrame = new KeyFrame(frame, interpolator);
+            return rKeyFrame;
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        return null;
     }
 
     //移動キーフレーム

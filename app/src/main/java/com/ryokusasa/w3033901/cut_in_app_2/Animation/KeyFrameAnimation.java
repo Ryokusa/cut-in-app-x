@@ -1,10 +1,13 @@
 package com.ryokusasa.w3033901.cut_in_app_2.Animation;
 
+import com.ryokusasa.w3033901.cut_in_app_2.FrameView;
+
+import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
-public class KeyFrameAnimation {
+public class KeyFrameAnimation implements Cloneable {
     ArrayList<KeyFrame> keyFrameList;
     ArrayList<KeyFrame> fullKeyFrameList;   //完全体
     int frameNum;   //フレーム数
@@ -37,6 +40,13 @@ public class KeyFrameAnimation {
 
     //キーフレーム追加
     public void addKeyFrame(KeyFrame keyFrame){
+        //もしかぶっているなら上書き
+        for (int i = 0; i < keyFrameList.size(); i++){
+            if(keyFrameList.get(i).getFrame() == keyFrame.getFrame()){
+                keyFrameList.set(i, keyFrame);
+                return;
+            }
+        }
         keyFrameList.add(keyFrame);
     }
 
@@ -49,13 +59,39 @@ public class KeyFrameAnimation {
         }
     }
 
+    //フレーム
+    public KeyFrame playFrame(int frame){
+        return fullKeyFrameList.get(frame);
+    }
+
+    //フレームセット
+    public void setFrame(int frame){
+        culFrame = frame;
+    }
+
     //リセット
     public void resetFrame(){
         culFrame = 0;
     }
 
+    @Override
+    public KeyFrameAnimation clone() throws CloneNotSupportedException {
+        KeyFrameAnimation keyFrameAnimation;
+        try{
+            keyFrameAnimation = (KeyFrameAnimation) super.clone();
+            keyFrameAnimation.keyFrameList = new ArrayList<KeyFrame>(this.keyFrameList);
+            keyFrameAnimation.fullKeyFrameList = new ArrayList<KeyFrame>(this.fullKeyFrameList);
+            return keyFrameAnimation;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+
+
+    }
+
     //移動キーフレームアニメーション
-    public static class MoveKeyFrameAnimation extends KeyFrameAnimation {
+    public static class MoveKeyFrameAnimation extends KeyFrameAnimation implements Cloneable {
 
         public MoveKeyFrameAnimation(int frameNum){
             super(frameNum);
@@ -91,10 +127,15 @@ public class KeyFrameAnimation {
                 fullKeyFrameList.add(pKeyFrame);
             }
         }
+
+        @Override
+        public MoveKeyFrameAnimation clone() throws CloneNotSupportedException {
+            return (MoveKeyFrameAnimation) super.clone();
+        }
     }
 
     //回転キーフレームアニメーション
-    public static class RotateKeyFrameAnimation extends KeyFrameAnimation {
+    public static class RotateKeyFrameAnimation extends KeyFrameAnimation implements Cloneable {
 
         public RotateKeyFrameAnimation(int frameNum){
             super(frameNum);
@@ -129,10 +170,14 @@ public class KeyFrameAnimation {
             }
         }
 
+        @Override
+       public RotateKeyFrameAnimation clone() throws CloneNotSupportedException {
+            return (RotateKeyFrameAnimation) super.clone();
+        }
     }
 
     //拡大キーフレームアニメーション
-    public static class ScaleKeyFrameAnimation extends KeyFrameAnimation {
+    public static class ScaleKeyFrameAnimation extends KeyFrameAnimation implements Cloneable {
 
         public ScaleKeyFrameAnimation(int frameNum){
             super(frameNum);
@@ -167,6 +212,11 @@ public class KeyFrameAnimation {
             for (; i < frameNum; i++){
                 fullKeyFrameList.add(pKeyFrame);
             }
+        }
+
+        @Override
+        public ScaleKeyFrameAnimation clone() throws CloneNotSupportedException {
+            return (ScaleKeyFrameAnimation) super.clone();
         }
     }
 }

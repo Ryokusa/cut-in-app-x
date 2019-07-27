@@ -19,6 +19,7 @@
         </activity>
         <activity android:name=".SelCutInActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name=".CutInEditer.CutInEditerActivity"/>
         <service android:name=".CutInService"></service>
 
         <service android:name=".CustomNotificationListenerService"

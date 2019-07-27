@@ -17,4 +17,9 @@
         <item>カットイン内容削除</item>
         <item>カットインタイトル変更</item>
     </string-array>
+
+    <string-array name="object_type">
+        <item>画像</item>
+        <item>テキスト</item>
+    </string-array>
 </resources>

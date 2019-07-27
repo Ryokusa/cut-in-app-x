@@ -1,6 +1,7 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -16,6 +17,7 @@ import android.widget.GridView;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInAdapter;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.w3033901.cut_in_app_2.CutInEditer.CutInEditerActivity;
 
 /**
  * Created by fripl on 2017/12/25.
@@ -72,14 +74,7 @@ public class SelCutInActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.newCutIn:    //TODO カットイン新規作成
-                /*
-                Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
-                //選択カットイン番号を伝える
-                Bundle bundle = new Bundle();
-                bundle.putInt("selCutInId", -1);    //新規作成
-                intent.putExtras(bundle);
-                startActivity(intent);
-                */
+                startCutInEditerActivity(-1);
                 break;
         }
         return true;
@@ -106,15 +101,9 @@ public class SelCutInActivity extends AppCompatActivity {
 
                             finish();
                             break;
+
                         case CUT_IN_EDIT:    //TODO カットイン編集
-                            /*
-                            Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
-                            //選択カットイン番号を伝える
-                            Bundle bundle = new Bundle();
-                            bundle.putInt("selCutInId", position);
-                            intent.putExtras(bundle);
-                            startActivity(intent);
-                            */
+                            startCutInEditerActivity(position);
                             break;
                         case CUT_IN_DELETE:  //カットイン削除
                             //カットイン削除確認ウィンドウ
@@ -161,4 +150,13 @@ public class SelCutInActivity extends AppCompatActivity {
             builder.create().show();
         }
     };
+
+    private void startCutInEditerActivity(int cutInId){
+        Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
+        //選択カットイン番号を伝える
+        Bundle bundle = new Bundle();
+        bundle.putInt("selCutInId", cutInId);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }
