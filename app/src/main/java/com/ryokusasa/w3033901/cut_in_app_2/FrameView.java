@@ -1,11 +1,7 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
-import android.app.Activity;
-import android.app.DialogFragment;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.media.Image;
-import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 
 //設定されたカットインを表示するview

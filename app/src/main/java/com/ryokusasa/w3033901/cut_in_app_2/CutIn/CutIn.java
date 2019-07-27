@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.w3033901.cut_in_app_2.CutIn;
 
 import android.content.Context;
 import android.graphics.Color;

@@ -1,10 +1,10 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +12,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInAdapter;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 
 /**
  * Created by fripl on 2017/12/25.
@@ -34,6 +38,7 @@ public class SelCutInActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sel_cut_in_activity);
+        setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
 
         //カットインアダプター追加処理
         cutInAdapter = new CutInAdapter(this, 0, MainActivity.getCutInList());
@@ -58,7 +63,7 @@ public class SelCutInActivity extends AppCompatActivity {
     {
         //メニューレイアウト適用
         getMenuInflater().inflate(R.menu.sel_cut_in_menu, menu);
-        return true;
+        return super.onCreateOptionsMenu(menu);
     }
 
     @Override

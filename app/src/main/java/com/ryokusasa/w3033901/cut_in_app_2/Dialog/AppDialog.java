@@ -11,7 +11,7 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutInHolder;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
 
 import java.util.ArrayList;

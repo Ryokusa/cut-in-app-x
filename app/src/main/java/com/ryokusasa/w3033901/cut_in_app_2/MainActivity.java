@@ -22,6 +22,8 @@ import android.widget.Toast;
 
 import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrame;
 import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 
