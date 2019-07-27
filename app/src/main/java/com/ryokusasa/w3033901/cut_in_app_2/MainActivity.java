@@ -11,13 +11,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
+
 import java.util.ArrayList;
 
 import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
+
+/*
+  メインアクティビティ
+  by Ryokusasa
+ */
 
 
 public class MainActivity extends AppCompatActivity {
@@ -111,6 +119,15 @@ public class MainActivity extends AppCompatActivity {
             stopService(intent);
             isConnection = false;
         }
+    }
+
+    //アプリダイアログのコールバック
+    public void appDialogCallBack(AppData appData, Bundle args){
+
+    }
+
+    public ArrayList<CutInHolder> getCutInHolderList() {
+        return cutInHolderList;
     }
 
     //メニュー生成

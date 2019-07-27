@@ -1,11 +1,18 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 
+import java.io.Serializable;
+
 //カットインとイベントをまとめたホルダー
-public class CutInHolder implements Cloneable {
+public class CutInHolder {
     private final String TAG = "CutInHolder";
 
+    //eventName定数
+    public final static String SCREEN_ON = "ScreenOn";
+    public final static String LOW_BATTERY = "LowBattery";
+
     private String eventName;
+    private String packageName = null;
     private int cutInId;
 
 
@@ -40,5 +47,13 @@ public class CutInHolder implements Cloneable {
 
     public int getCutInId() {
         return cutInId;
+    }
+
+    public void setPackageName(String packageName) {
+        this.packageName = packageName;
+    }
+
+    public String getPackageName() {
+        return packageName;
     }
 }

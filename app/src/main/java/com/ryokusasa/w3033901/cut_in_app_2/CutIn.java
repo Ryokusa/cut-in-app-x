@@ -4,19 +4,26 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.constraint.ConstraintLayout;
+import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
+
+import java.io.Serializable;
 
 //カットインクラス
 /*
   アニメーション情報やタイトル情報や動かすビューを持つ
  */
-public class CutIn extends ConstraintLayout implements Cloneable{
+public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     private Context context;
     private Drawable thumbnail;
     private String title;
     //TODO AnimObj追加
 
+    //ワーニング避け
+    public CutIn(Context context, AttributeSet attrs){
+        super(context, attrs);
+    }
 
     public CutIn(Context context, String title, int resource){
         super(context);
