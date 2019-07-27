@@ -39,6 +39,10 @@ public class CutIn extends ConstraintLayout implements Cloneable{
         return title;
     }
 
+    public Drawable getThumbnail() {
+        return thumbnail;
+    }
+
     public void play(){
         //TODO 再生処理
     }

@@ -12,10 +12,10 @@ public class CutInHolder implements Cloneable {
     //コンストラクタ
     public CutInHolder(String eventName, int cutInId) {
         //イベントネーム
-        this.eventName = eventName;
+        setEventName(eventName);
 
         //カットイン
-        this.cutInId = cutInId;
+        setCutInId(cutInId);
 
     }
 

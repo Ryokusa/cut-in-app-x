@@ -74,19 +74,21 @@ public class MainActivity extends AppCompatActivity {
 
         /* とりあえずのカットイン */
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
-        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher));
+        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
         cutInHolderList.add(new CutInHolder("Test", 0));
         cutInHolderList.add(new CutInHolder("Test2", 1));
 
-        /* カットイン読み込み */
-        cutInHolderListLoad();
+        /* カットインホルダー表示 */
+        cutInHolderListDisplay();
     }
 
-    private void cutInHolderListLoad(){
+    //カットインホルダーを表示
+    private void cutInHolderListDisplay(){
         for (CutInHolder cih : cutInHolderList){
             frameList.addView(new FrameView(this)
                     .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
-                    .setEventName(cih.getEventName()),
+                    .setEventName(cih.getEventName())
+                    .setThumbnail(cutInList.get(cih.getCutInId()).getThumbnail()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }

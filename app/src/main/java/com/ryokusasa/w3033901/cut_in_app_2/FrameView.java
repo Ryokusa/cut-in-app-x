@@ -1,9 +1,11 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,6 +39,13 @@ public class FrameView extends LinearLayout {
     public FrameView setCutInName(CharSequence name){
         TextView eventName = (TextView)findViewById(R.id.cutInName);
         eventName.setText(name);
+
+        return this;
+    }
+
+    public FrameView setThumbnail(Drawable drawable){
+        ImageView thumbnail = (ImageView)findViewById(R.id.thumbnail);
+        thumbnail.setImageDrawable(drawable);
 
         return this;
     }
