@@ -1,10 +1,5 @@
 package com.ryokusasa.w3033901.cut_in_app_2.Animation;
 
-import android.animation.TimeInterpolator;
-import android.graphics.Point;
-import android.view.animation.Interpolator;
-
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

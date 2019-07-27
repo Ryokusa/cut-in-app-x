@@ -134,14 +134,15 @@ public class SelCutInActivity extends AppCompatActivity {
                             break;
                         case CUT_IN_TITLE_CHANGE:
                             final EditText editView = new EditText(SelCutInActivity.this);
+                            editView.setText(((CutIn)cutInAdapter.getItem(position)).getTitle());
                             final AlertDialog.Builder editBuilder = new AlertDialog.Builder(SelCutInActivity.this);
                             editBuilder.setView(editView);
                             editBuilder.setTitle("タイトル入力");
                             editBuilder.setNeutralButton("OK", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    if(!editView.getText().equals("")){
-                                        cutInHolder.getCutIn().setTitle(editView.getText().toString());
+                                    if(!editView.getText().toString().equals("")){
+                                        ((CutIn)cutInAdapter.getItem(position)).setTitle(editView.getText().toString());
                                         cutInAdapter.notifyDataSetChanged();
                                     }
                                 }
