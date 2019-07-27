@@ -38,15 +38,12 @@ public class AppDialog extends DialogFragment{
         //アダプター作成
         AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, activity.getAppDataList());
 
-        //返り値
-        final Bundle args = getArguments();
-
         //オンクリックイベント
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //コールバック
-                activity.appDialogCallBack(which, cutInHolder);
+                activity.appDialogCallBack(activity.getAppDataList().get(which), cutInHolder);
             }
         });
 

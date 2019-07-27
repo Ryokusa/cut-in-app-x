@@ -1,6 +1,5 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
-import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -110,7 +109,6 @@ public class MainActivity extends AppCompatActivity {
     //カットインホルダーを表示
     private void cutInHolderListDisplay(){
         Log.i(TAG, "cutInHolderListDisplay");
-        int i=0;
         for (CutInHolder cih : cutInHolderList){
             frameList.addView(new FrameView(this, cih)
                     .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
@@ -119,7 +117,6 @@ public class MainActivity extends AppCompatActivity {
                     .setAppIcon(cih.getAppIcon()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
-            i++;
         }
     }
 
@@ -139,16 +136,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //アプリダイアログのコールバック
-    public void appDialogCallBack(int appDataId, CutInHolder cutInHolder){
+    public void appDialogCallBack(AppData appData, CutInHolder cutInHolder){
         if(cutInHolder != null) {
             //アプリ情報変更後リセット
             cutInHolder.getAppData().setUsed(false);
-            cutInHolder.setAppData(appDataList.get(appDataId));
+            cutInHolder.setAppData(appData);
         }else{
             //ホルダー追加処理
-            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0, appDataList.get(appDataId)));
+            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0, appData));
         }
-        appDataList.get(appDataId).setUsed(true);
+        appData.setUsed(true);
         setCutInHolderListDisplayReset();
     }
 
