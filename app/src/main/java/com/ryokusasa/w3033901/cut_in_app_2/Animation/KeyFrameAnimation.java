@@ -1,7 +1,5 @@
 package com.ryokusasa.w3033901.cut_in_app_2.Animation;
 
-import com.ryokusasa.w3033901.cut_in_app_2.FrameView;
-
 import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;

@@ -46,14 +46,10 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by fripl on 2018/01/22.
+ * Created by Ryokusasa on 2018/01/22.
  *
  * //カットインエディターアクティビティ
- * //TODO 初期値処理はいじれないことを知らせる処理
- * //TODO レイヤー名保存
- * //TODO カットインサムネ指定
- * //TODO 初期値設定画面もワンタッチで移動・シークバーで拡大
- * //TODO ホームバーを含めないように
+ *
  */
 
 public class CutInEditerActivity extends AppCompatActivity {
@@ -193,62 +189,6 @@ public class CutInEditerActivity extends AppCompatActivity {
                 playCutIn();
             }
         });
-
-
-        //シークバー
-        //シークバー値取得
-        ((SeekBar)findViewById(R.id.seekBar1)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                //シークバーの値が変わったとき
-                editerView.seekBarValue1 = progress;
-                switch (editerView.animEdit){
-                    case EditerView.TRANSLATION:
-                        break;
-                    case EditerView.ALPHA:
-                        ((TextView)findViewById(R.id.seekBarText1)).setText("透明度:" + progress);
-                        break;
-                    case EditerView.ROTATE:
-                        ((TextView)findViewById(R.id.seekBarText1)).setText("回転角:" + progress);
-                        break;
-                    case EditerView.SCALE:
-                        ((TextView)findViewById(R.id.seekBarText1)).setText("倍率:" + (float)progress /100);
-                        break;
-                    case EditerView.TEXTSIZE:
-                        ((TextView)findViewById(R.id.seekBarText1)).setText("テキストサイズ:" + progress);
-                        break;
-                }
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-        ((SeekBar)findViewById(R.id.seekBar2)).setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-            @Override
-            public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                editerView.seekBarValue2 = progress;
-                ((TextView)findViewById(R.id.seelBarText2)).setText("時間(ms):" + progress);
-            }
-
-            @Override
-            public void onStartTrackingTouch(SeekBar seekBar) {
-
-            }
-
-            @Override
-            public void onStopTrackingTouch(SeekBar seekBar) {
-
-            }
-        });
-
-        //TODO ウィンドウアニメーション作成
 
 
         //タイマー設定
@@ -455,48 +395,6 @@ public class CutInEditerActivity extends AppCompatActivity {
             }
             return false;
         }
-    }
-
-    //シークバーセット
-    public void seekBarSet(int index, int progress, int max){
-        SeekBar seekBar;
-        if(index == 0){
-            seekBar = (SeekBar)findViewById(R.id.seekBar1);
-        }else{
-            seekBar = (SeekBar)findViewById(R.id.seekBar2);
-        }
-        seekBar.setMax(max);
-        seekBar.setProgress(progress);
-    }
-
-    //シークバー表示
-    public void showSeekBar(int index){
-        SeekBar seekBar;
-        TextView seekBarText;
-        if(index == 0){
-            seekBar = (SeekBar)findViewById(R.id.seekBar1);
-            seekBarText = (TextView)findViewById(R.id.seekBarText1);
-        }else{
-            seekBar = (SeekBar)findViewById(R.id.seekBar2);
-            seekBarText = (TextView) findViewById(R.id.seelBarText2);
-        }
-        seekBar.setVisibility(View.VISIBLE);
-        seekBarText.setVisibility(View.VISIBLE);
-    }
-
-    //シークバー非表示
-    public void closeSeekBar(int index){
-        SeekBar seekBar;
-        TextView seekBarText;
-        if(index == 0){
-            seekBar = (SeekBar)findViewById(R.id.seekBar1);
-            seekBarText = (TextView)findViewById(R.id.seekBarText1);
-        }else{
-            seekBar = (SeekBar)findViewById(R.id.seekBar2);
-            seekBarText = (TextView) findViewById(R.id.seelBarText2);
-        }
-        seekBar.setVisibility(View.INVISIBLE);
-        seekBarText.setVisibility(View.INVISIBLE);
     }
 
 }
