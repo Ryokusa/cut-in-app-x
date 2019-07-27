@@ -14,10 +14,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrame;
+import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 
@@ -104,6 +108,16 @@ public class MainActivity extends AppCompatActivity {
 
         /* カットインホルダー表示 */
         setCutInHolderListDisplayReset();
+
+        /* キーフレームアニメーションテスト */
+        KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation = new KeyFrameAnimation.MoveKeyFrameAnimation(60);
+        moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(10, 100, 100, new AccelerateDecelerateInterpolator()));
+        moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(40, 200, 50, new AccelerateInterpolator()));
+        moveKeyFrameAnimation.makeKeyFrameAnimation();
+        KeyFrame keyFrame;
+        while((keyFrame = moveKeyFrameAnimation.nextFrame()) != null){
+            Log.i(TAG, "" + ((KeyFrame.MoveKeyFrame)keyFrame).getX() + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).getY());
+        }
     }
 
     //カットインホルダーを表示
