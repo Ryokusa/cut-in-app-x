@@ -51,6 +51,10 @@ public class AppData {
         return isUsed;
     }
 
+    public void setUsed(boolean used) {
+        isUsed = used;
+    }
+
     public void setPackageName(String packageName){ this.packageName = packageName; }
     public String getPackageName(){return this.packageName; }
 

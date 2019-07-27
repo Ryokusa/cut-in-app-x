@@ -3,4 +3,7 @@
     <string name="request_overlay">オーバーレイ権限設定</string>
     <string name="request_notification">通知アクセス権限設定</string>
     <string name="cut_in_enable">カットイン表示/非表示</string>
+    <string name="event_name">イベント名！！！！あ</string>
+    <string name="cut_in_name">カットイン名！！</string>
+    <string name="thumbnail_description">カットインサムネイル</string>
 </resources>

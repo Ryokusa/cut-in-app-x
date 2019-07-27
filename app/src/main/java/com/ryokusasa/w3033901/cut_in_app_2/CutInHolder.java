@@ -1,12 +1,16 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 
+import android.graphics.drawable.Drawable;
+
+import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
+
 //カットインとイベントをまとめたホルダー
 public class CutInHolder {
     private final String TAG = "CutInHolder";
 
     private EventType eventType;
-    private String packageName = null;
+    private AppData appData;
     private int cutInId;
 
 
@@ -18,6 +22,11 @@ public class CutInHolder {
         //カットイン
         setCutInId(cutInId);
 
+    }
+
+    public CutInHolder(EventType eventType, int cutInId, AppData appData){
+        this(eventType, cutInId);
+        this.appData = appData;
     }
 
     //再生
@@ -43,11 +52,19 @@ public class CutInHolder {
         return cutInId;
     }
 
-    public void setPackageName(String packageName) {
-        this.packageName = packageName;
+    public CutInHolder setAppData(AppData appData) {
+        this.appData = appData;
+        return this;
     }
 
-    public String getPackageName() {
-        return packageName;
+    public AppData getAppData() {
+        return appData;
+    }
+
+    public Drawable getAppIcon(){
+        if(appData != null){
+            return appData.getIconDrawable();
+        }
+        return null;
     }
 }

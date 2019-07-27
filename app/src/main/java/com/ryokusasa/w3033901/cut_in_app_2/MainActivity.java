@@ -1,5 +1,6 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
+import android.app.DialogFragment;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -19,6 +20,7 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
+import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 
 import java.util.ArrayList;
 
@@ -50,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
     //カットイン関連
     private ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
     private ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+
+    //アプリデータ
+    private ArrayList<AppData> appDataList = new ArrayList<AppData>();
 
 
     @Override
@@ -92,12 +97,11 @@ public class MainActivity extends AppCompatActivity {
         frameList = (LinearLayout)findViewById(R.id.frameList);
 
         /* とりあえずのカットイン */
-        cutInList.add(new CutIn(this, "None CutIn", R.drawable.corner_frame));
+        cutInList.add(new CutIn(this, "None CutIn", R.drawable.ic_launcher_background));
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
         cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, 0));
         cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, 0));
-        cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0));
 
         /* カットインホルダー表示 */
         cutInHolderListDisplay();
@@ -105,20 +109,47 @@ public class MainActivity extends AppCompatActivity {
 
     //カットインホルダーを表示
     private void cutInHolderListDisplay(){
+        Log.i(TAG, "cutInHolderListDisplay");
+        int i=0;
         for (CutInHolder cih : cutInHolderList){
-            frameList.addView(new FrameView(this)
+            frameList.addView(new FrameView(this, cih)
                     .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
-                    .setEventName(cih.getEventType().getString())
-                    .setThumbnail(cutInList.get(cih.getCutInId()).getThumbnail()),
+                    .setEventType(cih.getEventType())
+                    .setThumbnail(cutInList.get(cih.getCutInId()).getThumbnail())
+                    .setAppIcon(cih.getAppIcon()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
+            i++;
         }
+    }
+
+    //再表示
+    private void setCutInHolderListDisplayReset(){
+
+        frameList.removeAllViews();
+        cutInHolderListDisplay();
     }
 
     //カットインホルダー追加ボタン処理
     private void onClickAddCutInHolder(){
-        //TODO イベント設定ダイアログ表示
+        //追加できるのはアプリ通知のみ
+        //アプリ選択ウィンドウ開く
+        AppDialog appDialog = new AppDialog();
+        appDialog.showWithTask(getFragmentManager(), "appDialog", this, null);
+    }
 
+    //アプリダイアログのコールバック
+    public void appDialogCallBack(int appDataId, CutInHolder cutInHolder){
+        if(cutInHolder != null) {
+            //アプリ情報変更後リセット
+            cutInHolder.getAppData().setUsed(false);
+            cutInHolder.setAppData(appDataList.get(appDataId));
+        }else{
+            //ホルダー追加処理
+            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0, appDataList.get(appDataId)));
+        }
+        appDataList.get(appDataId).setUsed(true);
+        setCutInHolderListDisplayReset();
     }
 
     //カットインサービス開始
@@ -140,13 +171,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    //アプリダイアログのコールバック
-    public void appDialogCallBack(AppData appData, Bundle args){
-
-    }
-
     public ArrayList<CutInHolder> getCutInHolderList() {
         return cutInHolderList;
+    }
+
+    public ArrayList<AppData> getAppDataList() {
+        return appDataList;
     }
 
     //メニュー生成
@@ -203,6 +233,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
+        Log.i(TAG, "onDestroy");
         super.onDestroy();
     }
 }
