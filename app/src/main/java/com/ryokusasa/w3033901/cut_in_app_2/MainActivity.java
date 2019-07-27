@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     /* サービス関連 */
     private boolean isConnection = false;   //サービスにつながってるか
-    private CutinService mService;             //サービス
+    private CutInService mService;             //サービス
 
     //コネクション作成
     private ServiceConnection serviceConnection;
@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
                     //Binderからservice取得
-                    mService = ((CutinService.ServiceBinder)service).getService();
+                    mService = ((CutInService.ServiceBinder)service).getService();
                     Log.i("MainActivity", "onConnected");
                     isConnection = true;
             }
@@ -152,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
     //カットインサービス開始
     public void startCutInService(Context context){
         if (checkOverlayPermission(context) && !isConnection){
-            Intent intent = new Intent(MainActivity.this, CutinService.class);
+            Intent intent = new Intent(MainActivity.this, CutInService.class);
             startService(intent);
             bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
         }
@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
     //カットインサービス終了
     public void endCutInService(Context context){
         if(checkOverlayPermission(context) && isConnection){
-            Intent intent = new Intent(MainActivity.this, CutinService.class);
+            Intent intent = new Intent(MainActivity.this, CutInService.class);
             unbindService(serviceConnection);
             stopService(intent);
             isConnection = false;

@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutinService;
+import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
 import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
 import com.ryokusasa.w3033901.cut_in_app_2.R;
 

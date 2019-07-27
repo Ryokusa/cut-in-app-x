@@ -5,11 +5,15 @@ import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Binder;
 import android.os.Build;
+import android.os.Handler;
 import android.os.IBinder;
+import android.service.notification.NotificationListenerService;
+import android.service.notification.StatusBarNotification;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -22,7 +26,7 @@ import android.widget.LinearLayout;
  * Created by Ryokusasa on 2017/12/18.
  */
 
-public class CutinService extends Service{
+public class CutInService extends Service{
 
     private final String TAG = "FilterService";
     private final IBinder iBinder = new ServiceBinder();
@@ -30,17 +34,26 @@ public class CutinService extends Service{
     LinearLayout layout;
     WindowManager windowManager;
 
+    //別スレッドから実行するためのHandler
+    //実際は通知受け取り時は別スレッドなため、再生処理をメインスレッドに渡すため
+    Handler handler;
+
     //自身を返す
     public class ServiceBinder extends Binder{
-        CutinService getService(){
-            return CutinService.this;
+        CutInService getService(){
+            return CutInService.this;
         }
     }
 
     @Override
     public void onCreate()
     {
+        //メインスレッドのHandler取得
+        handler = new Handler();
 
+        //リスナーサービス起動
+        Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
+        startService(i);
     }
 
     @Override
@@ -149,14 +162,22 @@ public class CutinService extends Service{
 
     }
 
+    public void play(){
+
+    }
 
     @Override
     public void onDestroy(){
-        super.onDestroy();
         Log.i(TAG, "onDestroy()");
 
         //View削除
         windowManager.removeView(v);
         windowManager.removeView(layout);
+
+        //通知リスナー削除
+        Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
+        stopService(i);
+
+        super.onDestroy();
     }
 }
