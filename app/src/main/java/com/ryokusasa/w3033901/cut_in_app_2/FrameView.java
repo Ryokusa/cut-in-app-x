@@ -17,16 +17,27 @@ public class FrameView extends LinearLayout {
         super(context, attrs);
 
         //レイアウト展開
-        View layout = LayoutInflater.from(context).inflate(R.layout.frame, this);
+        LayoutInflater.from(context).inflate(R.layout.frame, this);
     }
 
-    public void setEventName(CharSequence name){
+    public FrameView(Context context){
+        super(context);
+
+        //レイアウト展開
+        LayoutInflater.from(context).inflate(R.layout.frame, this);
+    }
+
+    public FrameView setEventName(CharSequence name){
         TextView eventName = (TextView)findViewById(R.id.eventName);
         eventName.setText(name);
+
+        return this;
     }
 
-    public void setCutInName(CharSequence name){
+    public FrameView setCutInName(CharSequence name){
         TextView eventName = (TextView)findViewById(R.id.cutInName);
         eventName.setText(name);
+
+        return this;
     }
 }

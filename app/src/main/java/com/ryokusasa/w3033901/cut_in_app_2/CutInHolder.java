@@ -24,16 +24,18 @@ public class CutInHolder implements Cloneable {
         //TODO 再生処理
     }
 
-    public void setEventName(String eventName) {
+    public CutInHolder setEventName(String eventName) {
         this.eventName = eventName;
+        return this;
     }
 
     public String getEventName() {
         return eventName;
     }
 
-    public void setCutInId(int cutInId) {
+    public CutInHolder setCutInId(int cutInId) {
         this.cutInId = cutInId;
+        return this;
     }
 
     public int getCutInId() {

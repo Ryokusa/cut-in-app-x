@@ -4,20 +4,20 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.net.Uri;
-import android.os.Build;
 import android.os.IBinder;
-import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v4.app.NotificationManagerCompat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+
+import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,10 +34,13 @@ public class MainActivity extends AppCompatActivity {
     private final int OVERLAY_PERMISSION_REQUEST_CODE = 893;    //リクエストコード
     private final int NOTIFICATION_PERMISSION_REQUEST_CODE = 810;
 
+    //レイアウト
+    private LinearLayout frameList;
+
 
     //カットイン関連
-    private ArrayList<CutIn> CutInList = new ArrayList<CutIn>();
-    private ArrayList<CutInHolder> CutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+    private ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    private ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
 
 
     @Override
@@ -63,11 +66,30 @@ public class MainActivity extends AppCompatActivity {
         };
 
         //権限確認
-        if (!checkOverlayPermission(this)) requestOverlayPermission();
+        if (!checkOverlayPermission(this))
+            requestOverlayPermission(this, OVERLAY_PERMISSION_REQUEST_CODE);
+
+        //メインレイアウト取得
+        frameList = (LinearLayout)findViewById(R.id.frameList);
+
+        /* とりあえずのカットイン */
+        cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
+        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher));
+        cutInHolderList.add(new CutInHolder("Test", 0));
+        cutInHolderList.add(new CutInHolder("Test2", 1));
+
+        /* カットイン読み込み */
+        cutInHolderListLoad();
     }
 
-    private void cutInHolderLoad(){
-        //TODO カットインホルダーを読み込んでviewに表示
+    private void cutInHolderListLoad(){
+        for (CutInHolder cih : cutInHolderList){
+            frameList.addView(new FrameView(this)
+                    .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
+                    .setEventName(cih.getEventName()),
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        }
     }
 
     //カットインサービス開始
@@ -102,10 +124,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.request_overlay:
-                requestOverlayPermission();
+                requestOverlayPermission(this, OVERLAY_PERMISSION_REQUEST_CODE);
                 return true;
             case R.id.request_notification:
-                requestNotificationPermission();
+                requestNotificationPermission(this, NOTIFICATION_PERMISSION_REQUEST_CODE);
                 return true;
             case R.id.cut_in_enable:
                 if(isConnection) endCutInService(this);
@@ -126,36 +148,6 @@ public class MainActivity extends AppCompatActivity {
         if (!checkNotificationPermission(this)){
             Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    //オーバーレイ権限チェック
-    public Boolean checkOverlayPermission(Context context){
-        return Build.VERSION.SDK_INT < 23 || Settings.canDrawOverlays(context); //APILevel23未満は常時ON
-    }
-
-    //オーバーレイリクエスト処理
-    public void requestOverlayPermission() {
-        //なんかワーニング出てるけどcheckOverlayPermissionで23以下は排除済み
-        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
-        this.startActivityForResult(intent, OVERLAY_PERMISSION_REQUEST_CODE);
-    }
-
-    //通知アクセス権限チェック
-    private boolean checkNotificationPermission(Context context){
-        if (Build.VERSION.SDK_INT >= 18) {
-            for (String service : NotificationManagerCompat.getEnabledListenerPackages(context)) {
-                if (service.equals(getPackageName()))
-                    return true;
-            }
-            return false;
-        }
-        return true;
-    }
-
-    //通知アクセスリクエスト処理
-    private void requestNotificationPermission(){
-        Intent intent = new Intent("android.settings.ACTION_NOTIFICATION_LISTENER_SETTINGS");
-        startActivityForResult(intent, NOTIFICATION_PERMISSION_REQUEST_CODE);
     }
 
     @Override

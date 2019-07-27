@@ -35,6 +35,10 @@ public class CutIn extends ConstraintLayout implements Cloneable{
         setVisibility(View.INVISIBLE);
     }
 
+    public String getTitle() {
+        return title;
+    }
+
     public void play(){
         //TODO 再生処理
     }
