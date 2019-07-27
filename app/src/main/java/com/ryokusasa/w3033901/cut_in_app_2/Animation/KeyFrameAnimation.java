@@ -99,4 +99,79 @@ public class KeyFrameAnimation {
     }
 
     //回転キーフレームアニメーション
+    public static class RotateKeyFrameAnimation extends KeyFrameAnimation {
+
+        public RotateKeyFrameAnimation(int frameNum){
+            super(frameNum);
+        }
+
+        //計算して該当フレーム
+        @Override
+        public void makeKeyFrameAnimation() {
+            super.makeKeyFrameAnimation();
+
+            int i = 0;
+            int df;  //フレーム差分
+            double dr;  //回転差分
+            float interpolated; //インターポレーター値
+            KeyFrame.RotateKeyFrame pKeyFrame = new KeyFrame.RotateKeyFrame(0, 0, null);    //前のキーフレーム
+            for (KeyFrame keyFrame : keyFrameList){
+                df = keyFrame.getFrame() - pKeyFrame.getFrame();
+                for(; i <= keyFrame.getFrame(); i++){
+                    //イージング
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float)(pKeyFrame.getFrame()+i) / df);
+                    dr = ((KeyFrame.RotateKeyFrame)keyFrame).getRadian() - pKeyFrame.getRadian();
+                    fullKeyFrameList.add(new KeyFrame.RotateKeyFrame(i,
+                            pKeyFrame.getRadian() + (dr * interpolated),
+                            null));
+                }
+                pKeyFrame = (KeyFrame.RotateKeyFrame) keyFrame;
+            }
+
+            //最後埋める
+            for (; i < frameNum; i++){
+                fullKeyFrameList.add(pKeyFrame);
+            }
+        }
+
+    }
+
+    //拡大キーフレームアニメーション
+    public static class ScaleKeyFrameAnimation extends KeyFrameAnimation {
+
+        public ScaleKeyFrameAnimation(int frameNum){
+            super(frameNum);
+        }
+
+        //計算して該当フレーム
+        @Override
+        public void makeKeyFrameAnimation() {
+            super.makeKeyFrameAnimation();
+
+            int i = 0;
+            int df;  //フレーム差分
+            double dx, dy;  //座標差分
+            float interpolated; //インターポレーター値
+            KeyFrame.ScaleKeyFrame pKeyFrame = new KeyFrame.ScaleKeyFrame(0, 0, 0, null);    //前のキーフレーム
+            for (KeyFrame keyFrame : keyFrameList){
+                df = keyFrame.getFrame() - pKeyFrame.getFrame();
+                for(; i <= keyFrame.getFrame(); i++){
+                    //イージング
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float)(pKeyFrame.getFrame()+i) / df);
+                    dx = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleX() - pKeyFrame.getScaleX();
+                    dy = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleY() - pKeyFrame.getScaleY();
+                    fullKeyFrameList.add(new KeyFrame.ScaleKeyFrame(i,
+                            pKeyFrame.getScaleX() + (dx * interpolated),
+                            pKeyFrame.getScaleY() + (dy * interpolated),
+                            null));
+                }
+                pKeyFrame = (KeyFrame.ScaleKeyFrame) keyFrame;
+            }
+
+            //最後埋める
+            for (; i < frameNum; i++){
+                fullKeyFrameList.add(pKeyFrame);
+            }
+        }
+    }
 }
