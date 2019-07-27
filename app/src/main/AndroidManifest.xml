@@ -17,7 +17,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SelCutInActivity"/>
+        <activity android:name=".SelCutInActivity"
+            android:parentActivityName=".MainActivity"/>
         <service android:name=".CutInService"></service>
 
         <service android:name=".CustomNotificationListenerService"

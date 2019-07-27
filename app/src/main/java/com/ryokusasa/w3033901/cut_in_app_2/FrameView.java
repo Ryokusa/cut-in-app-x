@@ -2,6 +2,7 @@ package com.ryokusasa.w3033901.cut_in_app_2;
 
 import android.app.Activity;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
@@ -25,7 +26,7 @@ public class FrameView extends LinearLayout {
     private CutInHolder cutInHolder;
     private int id;
 
-    public FrameView(final Activity activity, final CutInHolder cutInHolder){
+    public FrameView(final MainActivity activity, final CutInHolder cutInHolder){
         super(activity);
 
         //レイアウト展開
@@ -39,11 +40,22 @@ public class FrameView extends LinearLayout {
 
         this.cutInHolder = cutInHolder;
 
+        //クリックリスナー
         appIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 AppDialog appDialog = new AppDialog();
                 appDialog.showWithTask(activity.getFragmentManager(), "appDialog", activity, cutInHolder);
+            }
+        });
+
+        thumbnail.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //インデックスを渡して画面遷移
+                Intent intent = new Intent(activity, SelCutInActivity.class);
+                intent.putExtra("id", MainActivity.getCutInHolderList().indexOf(cutInHolder));
+                activity.startActivity(intent);
             }
         });
     }

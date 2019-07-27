@@ -19,26 +19,30 @@ import android.widget.GridView;
  */
 
 public class SelCutInActivity extends AppCompatActivity {
-    /*
+
     private static final String TAG = "SelCutInActivity";
 
-    private static final int CUTIN_SET = 0;
-    private static final int CUTIN_EDIT = 1;
-    private static final int CUTIN_DELETE = 2;
-    private static final int CUTIN_TITLE_CHANGE = 3;
+    private static final int CUT_IN_SET = 0;
+    private static final int CUT_IN_EDIT = 1;
+    private static final int CUT_IN_DELETE = 2;
+    private static final int CUT_IN_TITLE_CHANGE = 3;
 
     private CutInAdapter cutInAdapter;
+    private CutInHolder cutInHolder;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.sel_cut_in_layout);
+        setContentView(R.layout.sel_cut_in_activity);
 
         //カットインアダプター追加処理
-        cutInAdapter = new CutInAdapter(this, 0, CutInService.cutInList);
+        cutInAdapter = new CutInAdapter(this, 0, MainActivity.getCutInList());
         GridView gridView = (GridView)findViewById(R.id.gridView);
         gridView.setAdapter(cutInAdapter);
         gridView.setOnItemClickListener(onCutInClick);
+
+        //ホルダー取得
+        cutInHolder = MainActivity.getCutInHolderList().get(getIntent().getIntExtra("id", 0));
 
     }
 
@@ -53,7 +57,7 @@ public class SelCutInActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu)
     {
         //メニューレイアウト適用
-        getMenuInflater().inflate(R.menu.sel_cutin_menu, menu);
+        getMenuInflater().inflate(R.menu.sel_cut_in_menu, menu);
         return true;
     }
 
@@ -62,13 +66,15 @@ public class SelCutInActivity extends AppCompatActivity {
     {
         int id = item.getItemId();
         switch (id){
-            case R.id.newCutIn:    //カットイン新規作成
+            case R.id.newCutIn:    //TODO カットイン新規作成
+                /*
                 Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
                 //選択カットイン番号を伝える
                 Bundle bundle = new Bundle();
                 bundle.putInt("selCutInId", -1);    //新規作成
                 intent.putExtras(bundle);
                 startActivity(intent);
+                */
                 break;
         }
         return true;
@@ -79,51 +85,33 @@ public class SelCutInActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
             Log.i(TAG, "onItemClick:" + position);
 
-            //リスナーで使うためのポジション
-            final int _position = position;
-
             /* 設定及び編集画面選択ウィンドウ表示 */
-    /*
             AlertDialog.Builder builder = new AlertDialog.Builder(SelCutInActivity.this);
             builder.setTitle(R.string.control_cutin_menu);
             builder.setItems(R.array.control_cutin_menu_items, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     switch (which){
-                        case CUTIN_SET: //カットイン設定
+                        case CUT_IN_SET: //カットイン設定
                             // カットインをセット
-                            int cutInSetIndex;
-                            String action = "";
+                            cutInHolder.setCutIn((CutIn)cutInAdapter.getItem(position));
 
-                            //選択されたイベント名取得
-                            action = getResources().getStringArray(R.array.event_names)[MainActivity.selEvent];
-                            if(action.equals("app_notification")){  //アプリ通知の場合はアプリ名格納
-                                action = MainActivity.selAppData.getAppName();
-                            }
-
-                            //該当するアクションのカットイン探索
-                            if((cutInSetIndex = CutInService.getCutInSetIndex(action)) != -1){
-                                //見つかった場合カットイン番号設定
-                                CutInService.cutInSetList.get(cutInSetIndex).setCutInId(_position);
-                            }else{
-                                //見つらなかった場合追加
-                                CutInService.cutInSetList.add(new CutInSet(_position, action));
-                            }
-
-                            //カットインセット保存
-                            new CutInDataManager(getApplicationContext()).cutInSetListSave(new ArrayList<CutInSet>(CutInService.cutInSetList));
+                            //TODO カットインセット保存
+                            //new CutInDataManager(getApplicationContext()).cutInSetListSave(new ArrayList<CutInSet>(CutInService.cutInSetList));
 
                             finish();
                             break;
-                        case CUTIN_EDIT:    //カットイン編集
+                        case CUT_IN_EDIT:    //TODO カットイン編集
+                            /*
                             Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
                             //選択カットイン番号を伝える
                             Bundle bundle = new Bundle();
                             bundle.putInt("selCutInId", position);
                             intent.putExtras(bundle);
                             startActivity(intent);
+                            */
                             break;
-                        case CUTIN_DELETE:  //カットイン削除
+                        case CUT_IN_DELETE:  //カットイン削除
                             //カットイン削除確認ウィンドウ
                             AlertDialog.Builder builder = new AlertDialog.Builder(SelCutInActivity.this);
                             builder.setTitle("注意");
@@ -138,13 +126,13 @@ public class SelCutInActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //OK時カットイン削除
-                                    CutInService.removeCutIn(position);
+                                    MainActivity.removeCutIn(MainActivity.getCutInList().remove(position));
                                     cutInAdapter.notifyDataSetChanged();
                                 }
                             });
                             builder.create().show();
                             break;
-                        case CUTIN_TITLE_CHANGE:
+                        case CUT_IN_TITLE_CHANGE:
                             final EditText editView = new EditText(SelCutInActivity.this);
                             final AlertDialog.Builder editBuilder = new AlertDialog.Builder(SelCutInActivity.this);
                             editBuilder.setView(editView);
@@ -153,7 +141,7 @@ public class SelCutInActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(!editView.getText().equals("")){
-                                        CutInService.cutInList.get(position).setTitle(editView.getText().toString());
+                                        cutInHolder.getCutIn().setTitle(editView.getText().toString());
                                         cutInAdapter.notifyDataSetChanged();
                                     }
                                 }
@@ -167,5 +155,4 @@ public class SelCutInActivity extends AppCompatActivity {
             builder.create().show();
         }
     };
-*/
 }

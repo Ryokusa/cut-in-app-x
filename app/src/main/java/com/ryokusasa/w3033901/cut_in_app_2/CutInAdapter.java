@@ -9,15 +9,13 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.nio.InvalidMarkException;
 import java.util.List;
 
 /**
  * Created by fripl on 2018/01/15.
  */
 
-public class CutInAdapter {
-    /*
+public class CutInAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;  //レイアウト設定用
     private List<CutIn> cutInList;
 
@@ -70,9 +68,9 @@ public class CutInAdapter {
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //カットインプレビュー
+                    //TODO カットインプレビュー
                     Log.i("onClick", "" + viewHolder.position);
-                    CutInService.play(viewHolder.position);
+                    //CutInService.play(viewHolder.position);
                 }
             });
 
@@ -92,6 +90,5 @@ public class CutInAdapter {
         return convertView;
 
     }
-    */
 
 }

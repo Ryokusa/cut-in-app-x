@@ -162,7 +162,12 @@ public class CutInService extends Service{
 
     }
 
+
+    //TODO 再生
     public void play(){
+    }
+
+    public void play(int id){
 
     }
 

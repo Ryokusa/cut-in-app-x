@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout frameList;
 
     //カットイン関連
-    private ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
-    private ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+    private static ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    private static ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
 
     //アプリデータ
-    private ArrayList<AppData> appDataList = new ArrayList<AppData>();
+    private static ArrayList<AppData> appDataList = new ArrayList<AppData>();
 
 
     @Override
@@ -99,11 +99,11 @@ public class MainActivity extends AppCompatActivity {
         cutInList.add(new CutIn(this, "None CutIn", R.drawable.ic_launcher_background));
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
-        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, 0));
-        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, 0));
+        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
+        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
 
         /* カットインホルダー表示 */
-        cutInHolderListDisplay();
+        setCutInHolderListDisplayReset();
     }
 
     //カットインホルダーを表示
@@ -111,9 +111,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "cutInHolderListDisplay");
         for (CutInHolder cih : cutInHolderList){
             frameList.addView(new FrameView(this, cih)
-                    .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
+                    .setCutInName(cih.getCutIn().getTitle())
                     .setEventType(cih.getEventType())
-                    .setThumbnail(cutInList.get(cih.getCutInId()).getThumbnail())
+                    .setThumbnail(cih.getCutIn().getThumbnail())
                     .setAppIcon(cih.getAppIcon()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
@@ -143,12 +143,11 @@ public class MainActivity extends AppCompatActivity {
             cutInHolder.setAppData(appData);
         }else{
             //ホルダー追加処理
-            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0, appData));
+            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, cutInList.get(0), appData));
         }
         appData.setUsed(true);
         setCutInHolderListDisplayReset();
     }
-
     //カットインサービス開始
     public void startCutInService(Context context){
         if (checkOverlayPermission(context) && !isConnection){
@@ -168,12 +167,28 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public ArrayList<CutInHolder> getCutInHolderList() {
+    public static ArrayList<CutInHolder> getCutInHolderList() {
         return cutInHolderList;
     }
 
-    public ArrayList<AppData> getAppDataList() {
+    public static ArrayList<AppData> getAppDataList() {
         return appDataList;
+    }
+
+    public static ArrayList<CutIn> getCutInList() {
+        return cutInList;
+    }
+
+    //カットイン削除
+    public static void removeCutIn(CutIn cutIn){
+        cutInList.remove(cutIn);
+
+        //同じカットインをホルダーリストから削除
+        for (CutInHolder cih : cutInHolderList){
+            if(cih.getCutIn().equals(cutIn)){
+                cih.setCutIn(cutInList.get(0));
+            }
+        }
     }
 
     //メニュー生成
@@ -213,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
         if (!checkNotificationPermission(this)){
             Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
         }
+
+        setCutInHolderListDisplayReset();
     }
 
     @Override

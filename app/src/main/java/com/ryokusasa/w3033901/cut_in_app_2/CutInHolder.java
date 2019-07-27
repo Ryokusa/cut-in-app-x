@@ -5,27 +5,29 @@ import android.graphics.drawable.Drawable;
 
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 
+import java.io.Serializable;
+
 //カットインとイベントをまとめたホルダー
-public class CutInHolder {
+public class CutInHolder implements Serializable {
     private final String TAG = "CutInHolder";
 
     private EventType eventType;
     private AppData appData;
-    private int cutInId;
+    private CutIn cutIn;
 
 
     //コンストラクタ
-    public CutInHolder(EventType eventType, int cutInId) {
+    public CutInHolder(EventType eventType, CutIn cutIn) {
         //イベントネーム
         setEventType(eventType);
 
         //カットイン
-        setCutInId(cutInId);
+        setCutIn(cutIn);
 
     }
 
-    public CutInHolder(EventType eventType, int cutInId, AppData appData){
-        this(eventType, cutInId);
+    public CutInHolder(EventType eventType, CutIn cutIn, AppData appData){
+        this(eventType, cutIn);
         this.appData = appData;
     }
 
@@ -43,18 +45,17 @@ public class CutInHolder {
         return eventType;
     }
 
-    public CutInHolder setCutInId(int cutInId) {
-        this.cutInId = cutInId;
+    public CutIn getCutIn() {
+        return cutIn;
+    }
+
+    public CutInHolder setCutIn(CutIn cutIn) {
+        this.cutIn = cutIn;
         return this;
     }
 
-    public int getCutInId() {
-        return cutInId;
-    }
-
-    public CutInHolder setAppData(AppData appData) {
+    public void setAppData(AppData appData) {
         this.appData = appData;
-        return this;
     }
 
     public AppData getAppData() {

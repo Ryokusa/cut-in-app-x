@@ -14,7 +14,7 @@ import java.io.Serializable;
 /*
   アニメーション情報やタイトル情報や動かすビューを持つ
  */
-public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
+public class CutIn extends ConstraintLayout implements Serializable {
     private Context context;
     private Drawable thumbnail;
     private String title;
@@ -44,6 +44,10 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     public String getTitle() {
         return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 
     public Drawable getThumbnail() {
