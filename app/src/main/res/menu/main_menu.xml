@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/request_overlay"
+    android:title="@string/request_overlay" />
 
-    <item
-        android:id="@+id/request_overlay"
-        android:title="@string/request_overlay" />
+<item
+    android:id="@+id/request_notification"
+    android:title="@string/request_notification" />
 
-    <item
-        android:id="@+id/request_notification"
-        android:title="@string/request_notification" />
-
-    <item
-        android:id="@+id/cut_in_enable"
-        android:title="@string/cut_in_enable"/>
+<item
+    android:id="@+id/cut_in_enable"
+    android:title="@string/cut_in_enable"/>
 </menu>

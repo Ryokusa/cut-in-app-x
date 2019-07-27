@@ -7,12 +7,14 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -55,6 +57,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
+        getSupportActionBar().setDisplayShowTitleEnabled(false);    //タイトル消去
+
+        ImageView addCutInHolder = (ImageView)findViewById(R.id.addCutInHolder);
+        addCutInHolder.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickAddCutInHolder();
+            }
+        });
 
         serviceConnection = new ServiceConnection() {
             @Override
@@ -100,6 +112,12 @@ public class MainActivity extends AppCompatActivity {
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }
+    }
+
+    //カットインホルダー追加ボタン処理
+    private void onClickAddCutInHolder(){
+        //TODO イベント設定ダイアログ表示
+
     }
 
     //カットインサービス開始
