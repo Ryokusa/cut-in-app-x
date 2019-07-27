@@ -47,7 +47,6 @@ public class MainActivity extends AppCompatActivity {
     //レイアウト
     private LinearLayout frameList;
 
-
     //カットイン関連
     private ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
     private ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
@@ -93,10 +92,12 @@ public class MainActivity extends AppCompatActivity {
         frameList = (LinearLayout)findViewById(R.id.frameList);
 
         /* とりあえずのカットイン */
+        cutInList.add(new CutIn(this, "None CutIn", R.drawable.corner_frame));
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
-        cutInHolderList.add(new CutInHolder("Test", 0));
-        cutInHolderList.add(new CutInHolder("Test2", 1));
+        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, 0));
+        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, 0));
+        cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, 0));
 
         /* カットインホルダー表示 */
         cutInHolderListDisplay();
@@ -107,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         for (CutInHolder cih : cutInHolderList){
             frameList.addView(new FrameView(this)
                     .setCutInName(cutInList.get(cih.getCutInId()).getTitle())
-                    .setEventName(cih.getEventName())
+                    .setEventName(cih.getEventType().getString())
                     .setThumbnail(cutInList.get(cih.getCutInId()).getThumbnail()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));

@@ -1,25 +1,19 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
 
-import java.io.Serializable;
-
 //カットインとイベントをまとめたホルダー
 public class CutInHolder {
     private final String TAG = "CutInHolder";
 
-    //eventName定数
-    public final static String SCREEN_ON = "ScreenOn";
-    public final static String LOW_BATTERY = "LowBattery";
-
-    private String eventName;
+    private EventType eventType;
     private String packageName = null;
     private int cutInId;
 
 
     //コンストラクタ
-    public CutInHolder(String eventName, int cutInId) {
+    public CutInHolder(EventType eventType, int cutInId) {
         //イベントネーム
-        setEventName(eventName);
+        setEventType(eventType);
 
         //カットイン
         setCutInId(cutInId);
@@ -31,13 +25,13 @@ public class CutInHolder {
         //TODO 再生処理
     }
 
-    public CutInHolder setEventName(String eventName) {
-        this.eventName = eventName;
+    public CutInHolder setEventType(EventType eventType) {
+        this.eventType = eventType;
         return this;
     }
 
-    public String getEventName() {
-        return eventName;
+    public EventType getEventType() {
+        return eventType;
     }
 
     public CutInHolder setCutInId(int cutInId) {
