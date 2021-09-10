@@ -95,8 +95,10 @@ public class MainActivity extends AppCompatActivity {
         moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(40, 200, 50, new AccelerateInterpolator()));
         moveKeyFrameAnimation.makeKeyFrameAnimation();
         KeyFrame keyFrame;
+        int i = 0;
         while((keyFrame = moveKeyFrameAnimation.nextFrame()) != null){
-            Log.i(TAG, "" + ((KeyFrame.MoveKeyFrame)keyFrame).getX() + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).getY());
+            Log.i(TAG, "" + i + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).getX() + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).getY());
+            i++;
         }
     }
 

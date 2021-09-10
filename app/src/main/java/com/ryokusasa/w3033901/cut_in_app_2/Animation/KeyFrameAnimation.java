@@ -24,7 +24,7 @@ public class KeyFrameAnimation implements Cloneable {
             public int compare(KeyFrame t0, KeyFrame t1) {
                 if(t0 == null || t1 == null)
                     return 0;
-                return (t0.getFrame() > t1.getFrame()) ? -1 : 1;
+                return (t0.getFrame() > t1.getFrame()) ? 1 : -1;
             }
         });
 
@@ -107,9 +107,9 @@ public class KeyFrameAnimation implements Cloneable {
             KeyFrame.MoveKeyFrame pKeyFrame = new KeyFrame.MoveKeyFrame(0, 0, 0, null);    //前のキーフレーム
             for (KeyFrame keyFrame : keyFrameList){
                 df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i <= keyFrame.getFrame(); i++){
+                for(; i < keyFrame.getFrame(); i++){
                     //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)(pKeyFrame.getFrame()+i) / df);
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
                     dx = ((KeyFrame.MoveKeyFrame)keyFrame).getX() - pKeyFrame.getX();
                     dy = ((KeyFrame.MoveKeyFrame)keyFrame).getY() - pKeyFrame.getY();
                     fullKeyFrameList.add(new KeyFrame.MoveKeyFrame(i,
@@ -151,9 +151,9 @@ public class KeyFrameAnimation implements Cloneable {
             KeyFrame.RotateKeyFrame pKeyFrame = new KeyFrame.RotateKeyFrame(0, 0, null);    //前のキーフレーム
             for (KeyFrame keyFrame : keyFrameList){
                 df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i <= keyFrame.getFrame(); i++){
+                for(; i < keyFrame.getFrame(); i++){
                     //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)(pKeyFrame.getFrame()+i) / df);
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
                     dr = ((KeyFrame.RotateKeyFrame)keyFrame).getRadian() - pKeyFrame.getRadian();
                     fullKeyFrameList.add(new KeyFrame.RotateKeyFrame(i,
                             pKeyFrame.getRadian() + (dr * interpolated),
@@ -193,9 +193,9 @@ public class KeyFrameAnimation implements Cloneable {
             KeyFrame.ScaleKeyFrame pKeyFrame = new KeyFrame.ScaleKeyFrame(0, 0, 0, null);    //前のキーフレーム
             for (KeyFrame keyFrame : keyFrameList){
                 df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i <= keyFrame.getFrame(); i++){
+                for(; i < keyFrame.getFrame(); i++){
                     //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)(pKeyFrame.getFrame()+i) / df);
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
                     dx = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleX() - pKeyFrame.getScaleX();
                     dy = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleY() - pKeyFrame.getScaleY();
                     fullKeyFrameList.add(new KeyFrame.ScaleKeyFrame(i,
