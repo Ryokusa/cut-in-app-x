@@ -4,6 +4,8 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -39,7 +41,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         this.context = context;
 
         //サムネ設定
-        this.thumbnail = getResources().getDrawable(resource);
+        this.thumbnail = ResourcesCompat.getDrawable(getResources(), resource, null);
 
         //タイトル設定
         this.title = title;
@@ -67,7 +69,13 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     public void play(){
         //TODO 再生処理
         Log.i(TAG, "play");
+        for(AnimObj animObj : animObjList){
+            animObj.playFrame();
+        }
+    }
 
+    public void addAnimObj(AnimObj animObj){
+        animObjList.add(animObj);
     }
 
     public ArrayList<AnimObj> getAnimObjList() {
