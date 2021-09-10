@@ -102,6 +102,55 @@ public class EditerView extends View {
 
 
         //スケールジェスチャーリスナー登録
+        //スケールジェスチャーリスナー
+        //なにも選択されていないときもしくはアニメーション編集時
+        //スクリーンスケール処理
+        //オブジェクトスケール処理(拡大基準座標は中心)
+        //初期値設定画面のみ操作可能
+        //画像オブジェクトの場合
+        //falseの場合Endするらしい
+        ScaleGestureDetector.SimpleOnScaleGestureListener onScaleGestureListener = new ScaleGestureDetector.SimpleOnScaleGestureListener() {
+            @Override
+            public boolean onScale(ScaleGestureDetector detector) {
+
+                if (selObjId == -1) {    //なにも選択されていないときもしくはアニメーション編集時
+                    //スクリーンスケール処理
+                    screenMatrix.postScale(detector.getScaleFactor(), detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY());
+                } else if (selObjId != -1) {
+                    //オブジェクトスケール処理(拡大基準座標は中心)
+                    //初期値設定画面のみ操作可能
+                    if (CutInEditerActivity.sceneFlag == CutInEditerActivity.CUTIN_INIT) {
+                        AnimObj ao;
+                        if ((ao = animObjList.get(selObjId)).getType() == AnimObj.Type.Image) {
+                            //画像オブジェクトの場合
+                            matrixList.get(selObjId).postScale(detector.getScaleFactor(), detector.getScaleFactor(), (float) ao.getInitX() + ao.getInitWidth() / 2, (float) ao.getInitY() + ao.getInitHeight() / 2);
+                            RectF rectF = new RectF();
+                            rectF.set(0, 0, ao.getInitWidth(), ao.getInitHeight());
+                            rectF.offset((float) ao.getInitX(), (float) ao.getInitY());
+                            matrixList.get(selObjId).mapRect(rectF);
+                            ao.initMove(rectF.left, rectF.top);
+                            ao.setInitHeight((int) rectF.height());
+                            ao.setInitWidth((int) (ao.getImageRatio() * ao.getInitHeight()));
+                            matrixList.set(selObjId, new Matrix());
+                        }
+                    }
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onScaleBegin(ScaleGestureDetector detector) {
+
+                //falseの場合Endするらしい
+                return super.onScaleBegin(detector);
+            }
+
+            @Override
+            public void onScaleEnd(ScaleGestureDetector detector) {
+
+                super.onScaleEnd(detector);
+            }
+        };
         scaleGestureDetector = new ScaleGestureDetector(context, onScaleGestureListener);
         //画面サイズ取得
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -141,50 +190,6 @@ public class EditerView extends View {
             i++;
         }
     }
-
-    //スケールジェスチャーリスナー
-    private ScaleGestureDetector.SimpleOnScaleGestureListener onScaleGestureListener = new ScaleGestureDetector.SimpleOnScaleGestureListener() {
-        @Override
-        public boolean onScale(ScaleGestureDetector detector) {
-
-            if(selObjId == -1) {    //なにも選択されていないときもしくはアニメーション編集時
-                //スクリーンスケール処理
-                screenMatrix.postScale(detector.getScaleFactor(), detector.getScaleFactor(), detector.getFocusX(), detector.getFocusY());
-            }else if (selObjId != -1){
-                //オブジェクトスケール処理(拡大基準座標は中心)
-                //初期値設定画面のみ操作可能
-                if(CutInEditerActivity.sceneFlag == CutInEditerActivity.CUTIN_INIT) {
-                    AnimObj ao;
-                    if ((ao = animObjList.get(selObjId)).getType() == AnimObj.Type.Image) {
-                        //画像オブジェクトの場合
-                        matrixList.get(selObjId).postScale(detector.getScaleFactor(), detector.getScaleFactor(), (float)ao.getInitX() + ao.getInitWidth() / 2, (float)ao.getInitY() + ao.getInitHeight() / 2);
-                        RectF rectF = new RectF();
-                        rectF.set(0, 0, ao.getInitWidth(), ao.getInitHeight());
-                        rectF.offset((float)ao.getInitX(), (float)ao.getInitY());
-                        matrixList.get(selObjId).mapRect(rectF);
-                        ao.initMove(rectF.left, rectF.top);
-                        ao.setInitHeight((int) rectF.height());
-                        ao.setInitWidth((int) (ao.getImageRatio() * ao.getInitHeight()));
-                        matrixList.set(selObjId, new Matrix());
-                    }
-                }
-            }
-            return true;
-        }
-
-        @Override
-        public boolean onScaleBegin(ScaleGestureDetector detector) {
-
-            //falseの場合Endするらしい
-            return super.onScaleBegin(detector);
-        }
-
-        @Override
-        public void onScaleEnd(ScaleGestureDetector detector) {
-
-            super.onScaleEnd(detector);
-        }
-    };
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {

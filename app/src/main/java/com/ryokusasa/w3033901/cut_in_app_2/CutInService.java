@@ -34,7 +34,8 @@ public class CutInService extends Service{
     View v;
     LinearLayout layout;
     WindowManager windowManager;
-    private ArrayList<CutIn> cutInList;
+
+    UtilCommon utilCommon;
 
     //別スレッドから実行するためのHandler
     //実際は通知受け取り時は別スレッドなため、再生処理をメインスレッドに渡すため
@@ -52,6 +53,8 @@ public class CutInService extends Service{
     {
         //メインスレッドのHandler取得
         handler = new Handler();
+
+        utilCommon = (UtilCommon) getApplication();
 
         //リスナーサービス起動
         Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
@@ -158,9 +161,6 @@ public class CutInService extends Service{
                     .setContentText("動作中")
                     .setSmallIcon(R.mipmap.ic_launcher).getNotification();
         }
-
-        //カットインリスト取得
-        cutInList = MainActivity.getCutInList();
 
         startForeground(startId, notification);
         return START_NOT_STICKY;

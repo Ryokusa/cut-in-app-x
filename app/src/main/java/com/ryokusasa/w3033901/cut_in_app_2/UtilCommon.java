@@ -20,7 +20,7 @@ public class UtilCommon extends Application {
     private static UtilCommon sInstance;
 
     //カットインリスト
-    public static ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    public ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
 
     //コネクション作成
     private ServiceConnection serviceConnection;

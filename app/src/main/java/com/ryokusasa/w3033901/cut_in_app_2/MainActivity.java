@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
         frameList = (LinearLayout)findViewById(R.id.frameList);
 
         /* とりあえずのカットイン */
-        cutInList = UtilCommon.cutInList;
+        cutInList = utilCommon.cutInList;
         cutInList.add(new CutIn(this, "None CutIn", R.drawable.ic_launcher_background));
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
