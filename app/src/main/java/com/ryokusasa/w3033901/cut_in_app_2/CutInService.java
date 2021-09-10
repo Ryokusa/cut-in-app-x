@@ -159,7 +159,7 @@ public class CutInService extends Service{
                     .setContentIntent(pendingIntent)
                     .setContentTitle("カットインアプリ")
                     .setContentText("動作中")
-                    .setSmallIcon(R.mipmap.ic_launcher).getNotification();
+                    .setSmallIcon(R.mipmap.ic_launcher).build();
         }
 
         startForeground(startId, notification);

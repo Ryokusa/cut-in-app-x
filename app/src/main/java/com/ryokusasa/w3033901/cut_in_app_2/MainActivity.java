@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         //追加できるのはアプリ通知のみ
         //アプリ選択ウィンドウ開く
         AppDialog appDialog = new AppDialog();
-        appDialog.showWithTask(getFragmentManager(), "appDialog", this, null);
+        appDialog.showWithTask(getSupportFragmentManager(), "appDialog", this, null);
     }
 
     //アプリダイアログのコールバック

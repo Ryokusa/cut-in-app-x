@@ -1,10 +1,12 @@
 package com.ryokusasa.w3033901.cut_in_app_2.Dialog;
 
-import android.app.Activity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.app.FragmentManager;
+
+import androidx.annotation.NonNull;
+import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
@@ -28,6 +30,8 @@ public class AppDialog extends DialogFragment{
 
     CutInHolder cutInHolder;
 
+    //TODO: カットインリストをutilから参照できるように
+    @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
     {
@@ -51,7 +55,7 @@ public class AppDialog extends DialogFragment{
     }
 
     //アクティビティとアプリデータリストを作成確認しながら表示
-    public void showWithTask(FragmentManager manager, String tag, Activity activity, CutInHolder cutInHolder) {
+    public void showWithTask(FragmentManager manager, String tag, AppCompatActivity activity, CutInHolder cutInHolder) {
         ArrayList<AppData> appDataList = ((MainActivity)activity).getAppDataList();
         this.cutInHolder = cutInHolder;
 
@@ -69,12 +73,12 @@ public class AppDialog extends DialogFragment{
 //progressと連動
 class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
-    private Activity activity;
+    private AppCompatActivity activity;
     private DialogFragment progressDialog = new ProgressDialog();
     private AppDialog appDialog;
     private ArrayList<AppData> appDataList;
 
-    public LoadAppInfoTask(Activity activity, AppDialog appDialog, ArrayList<AppData> appDataList){
+    public LoadAppInfoTask(AppCompatActivity activity, AppDialog appDialog, ArrayList<AppData> appDataList){
         //activity確保
         this.activity = activity;
         this.appDialog = appDialog;
@@ -85,7 +89,7 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
     protected void onPreExecute(){
         //読み込む前にプログレスダイアログ表示
         progressDialog = new ProgressDialog();
-        progressDialog.show(activity.getFragmentManager(), "progress");
+        progressDialog.show(activity.getSupportFragmentManager(), "progress");
     }
 
     @Override
@@ -111,6 +115,6 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
         progressDialog.dismiss();
 
         //アプリ選択ダイアログ表示
-        appDialog.show(activity.getFragmentManager(), "appDialog");
+        appDialog.show(activity.getSupportFragmentManager(), "appDialog");
     }
 }
