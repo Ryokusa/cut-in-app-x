@@ -21,6 +21,8 @@ import java.util.ArrayList;
 /*
   アニメーション情報やタイトル情報や動かすビューを持つ
  */
+
+/* TODO:終了時の消去処理 */
 public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     @SuppressWarnings("FieldCanBeLocal")
     private final String TAG = "CutIn";
