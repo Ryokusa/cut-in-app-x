@@ -1,13 +1,9 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
-import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
-import android.os.IBinder;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -40,12 +36,7 @@ import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";   //Log
 
-    /* サービス関連 */
-    private boolean isConnection = false;   //サービスにつながってるか
-    private CutInService mService;             //サービス
 
-    //コネクション作成
-    private ServiceConnection serviceConnection;
 
     /* パーミッション関連 */
     private final int OVERLAY_PERMISSION_REQUEST_CODE = 893;    //リクエストコード
@@ -55,13 +46,17 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout frameList;
 
     //カットイン関連
-    private static ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    private static ArrayList<CutIn> cutInList;
     private static ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
 
     //アプリデータ
     private static ArrayList<AppData> appDataList = new ArrayList<AppData>();
 
+    //グローバルクラス
+    private UtilCommon utilCommon;
+
     //TODO: グローバル変数をまとめる(Application)
+    /* ここにあるstaticは全部Utilに */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,6 +64,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
         getSupportActionBar().setDisplayShowTitleEnabled(false);    //タイトル消去
+
+        utilCommon = (UtilCommon)getApplication();
 
         ImageView addCutInHolder = (ImageView)findViewById(R.id.addCutInHolder);
         addCutInHolder.setOnClickListener(new View.OnClickListener() {
@@ -78,22 +75,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        serviceConnection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder service) {
-                    //Binderからservice取得
-                    mService = ((CutInService.ServiceBinder)service).getService();
-                    Log.i("MainActivity", "onConnected");
-                    isConnection = true;
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                mService = null;
-                Log.i("MainActivity", "Disnnected");
-                isConnection = false;
-            }
-        };
+        utilCommon.connectService();
 
         //権限確認
         if (!checkOverlayPermission(this))
@@ -103,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
         frameList = (LinearLayout)findViewById(R.id.frameList);
 
         /* とりあえずのカットイン */
+        cutInList = UtilCommon.cutInList;
         cutInList.add(new CutIn(this, "None CutIn", R.drawable.ic_launcher_background));
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
@@ -166,24 +149,6 @@ public class MainActivity extends AppCompatActivity {
         appData.setUsed(true);
         setCutInHolderListDisplayReset();
     }
-    //カットインサービス開始
-    public void startCutInService(Context context){
-        if (checkOverlayPermission(context) && !isConnection){
-            Intent intent = new Intent(MainActivity.this, CutInService.class);
-            startService(intent);
-            bindService(intent, serviceConnection, Context.BIND_AUTO_CREATE);
-        }
-    }
-
-    //カットインサービス終了
-    public void endCutInService(Context context){
-        if(checkOverlayPermission(context) && isConnection){
-            Intent intent = new Intent(MainActivity.this, CutInService.class);
-            unbindService(serviceConnection);
-            stopService(intent);
-            isConnection = false;
-        }
-    }
 
     public static ArrayList<CutInHolder> getCutInHolderList() {
         return cutInHolderList;
@@ -228,8 +193,8 @@ public class MainActivity extends AppCompatActivity {
                 requestNotificationPermission(this, NOTIFICATION_PERMISSION_REQUEST_CODE);
                 return true;
             case R.id.cut_in_enable:
-                if(isConnection) endCutInService(this);
-                else             startCutInService(this);
+                if(utilCommon.isConnection) utilCommon.endCutInService(this);
+                else             utilCommon.startCutInService(this);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -261,6 +226,7 @@ public class MainActivity extends AppCompatActivity {
             if(!checkNotificationPermission(this)){
                 Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
             }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     @Override

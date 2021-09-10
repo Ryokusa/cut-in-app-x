@@ -2,7 +2,7 @@ package com.ryokusasa.w3033901.cut_in_app_2;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.support.annotation.Nullable;
+import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;

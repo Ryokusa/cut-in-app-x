@@ -3,8 +3,9 @@ package com.ryokusasa.w3033901.cut_in_app_2.CutIn;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.support.constraint.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -19,6 +20,8 @@ import java.util.ArrayList;
   アニメーション情報やタイトル情報や動かすビューを持つ
  */
 public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
+    private final String TAG = "CutIn";
+
     private Context context;
     private Drawable thumbnail;
     private String title;
@@ -62,6 +65,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     public void play(){
         //TODO 再生処理
+        Log.i(TAG, "play");
 
     }
 

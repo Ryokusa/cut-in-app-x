@@ -19,6 +19,10 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
+
+import java.util.ArrayList;
+
 /**
  * Created by Ryokusasa on 2017/12/18.
  */
@@ -30,6 +34,7 @@ public class CutInService extends Service{
     View v;
     LinearLayout layout;
     WindowManager windowManager;
+    private ArrayList<CutIn> cutInList;
 
     //別スレッドから実行するためのHandler
     //実際は通知受け取り時は別スレッドなため、再生処理をメインスレッドに渡すため
@@ -154,19 +159,12 @@ public class CutInService extends Service{
                     .setSmallIcon(R.mipmap.ic_launcher).getNotification();
         }
 
+        //カットインリスト取得
+        cutInList = MainActivity.getCutInList();
+
         startForeground(startId, notification);
         return START_NOT_STICKY;
 
-    }
-
-
-    //TODO 再生
-    public void play(){
-        Log.i(TAG, "play");
-    }
-
-    public void play(int id){
-        Log.i(TAG, "play" + id);
     }
 
     @Override

@@ -13,10 +13,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.constraint.ConstraintLayout;
-import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
+import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -201,7 +201,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     private void showLayerWindow(){
         //アニメーション開始
         RelativeLayout layerWindow = (RelativeLayout) findViewById(R.id.layerMenu);
-        Animator animator = AnimatorInflater.loadAnimator(this, R.anim.setting_enter_animation);
+        Animator animator = AnimatorInflater.loadAnimator(this, R.animator.setting_enter_animation);
         animator.setTarget(layerWindow);
         animator.start();
 
@@ -214,7 +214,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     private void closeLayerWindow(){
         //アニメーション開始
         RelativeLayout layerWindow = (RelativeLayout)findViewById(R.id.layerMenu);;
-        Animator animator = AnimatorInflater.loadAnimator(this, R.anim.setting_exit_animation);
+        Animator animator = AnimatorInflater.loadAnimator(this, R.animator.setting_exit_animation);
         animator.setTarget(layerWindow);
         animator.start();
     }

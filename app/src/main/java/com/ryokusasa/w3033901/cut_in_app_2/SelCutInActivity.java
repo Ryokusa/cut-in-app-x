@@ -4,8 +4,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,17 +36,22 @@ public class SelCutInActivity extends AppCompatActivity {
     private CutInAdapter cutInAdapter;
     private CutInHolder cutInHolder;
 
+    private UtilCommon utilCommon;
+
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sel_cut_in_activity);
         setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
 
+        utilCommon = (UtilCommon)getApplication();
+
         //カットインアダプター追加処理
         cutInAdapter = new CutInAdapter(this, 0, MainActivity.getCutInList());
         GridView gridView = (GridView)findViewById(R.id.gridView);
         gridView.setAdapter(cutInAdapter);
         gridView.setOnItemClickListener(onCutInClick);
+        cutInAdapter.setOnImageClickListener((position) -> utilCommon.play(position));
 
         //ホルダー取得
         cutInHolder = MainActivity.getCutInHolderList().get(getIntent().getIntExtra("id", 0));

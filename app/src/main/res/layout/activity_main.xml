@@ -7,7 +7,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <android.support.v7.widget.Toolbar
+    <androidx.appcompat.widget.Toolbar
         android:id="@+id/cut_in_toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
@@ -22,7 +22,7 @@
             android:scaleType="fitStart"
             app:srcCompat="@android:drawable/ic_menu_add" />
 
-    </android.support.v7.widget.Toolbar>
+    </androidx.appcompat.widget.Toolbar>
 
     <ScrollView
         android:layout_width="match_parent"

@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
 import com.ryokusasa.w3033901.cut_in_app_2.R;
+import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
 
 import java.util.List;
 
@@ -22,6 +23,10 @@ public class CutInAdapter extends BaseAdapter {
     private LayoutInflater layoutInflater;  //レイアウト設定用
     private List<CutIn> cutInList;
 
+    private UtilCommon utilCommon;
+
+    private OnImageClickListener imageClickListener;
+
     //タグ付け用
     private static class ViewHolder{
         int position;
@@ -31,7 +36,7 @@ public class CutInAdapter extends BaseAdapter {
         ViewHolder(View v, int position){
             this.position = position;
             textView = (TextView)v.findViewById(R.id.CutInTitle);
-            imageView = (ImageView)v.findViewById(R.id.thumnail);
+            imageView = (ImageView)v.findViewById(R.id.thumbnail);
         }
     }
 
@@ -73,7 +78,7 @@ public class CutInAdapter extends BaseAdapter {
                 public void onClick(View v) {
                     //TODO カットインプレビュー
                     Log.i("onClick", "" + viewHolder.position);
-                    //CutInService.play(viewHolder.position);
+                    imageClickListener.onImageClick(position);
                 }
             });
 
@@ -93,5 +98,15 @@ public class CutInAdapter extends BaseAdapter {
         return convertView;
 
     }
+
+    public void setOnImageClickListener(OnImageClickListener listener){
+        this.imageClickListener = listener;
+    }
+
+    public interface OnImageClickListener{
+        void onImageClick(int position);
+    }
+
+
 
 }
