@@ -162,10 +162,11 @@ public class CutInService extends Service{
 
     //TODO 再生
     public void play(){
+        Log.i(TAG, "play");
     }
 
     public void play(int id){
-
+        Log.i(TAG, "play" + id);
     }
 
     @Override
@@ -182,4 +183,6 @@ public class CutInService extends Service{
 
         super.onDestroy();
     }
+
+
 }

@@ -62,6 +62,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     public void play(){
         //TODO 再生処理
+
     }
 
     public ArrayList<AnimObj> getAnimObjList() {

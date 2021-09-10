@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
 import com.ryokusasa.w3033901.cut_in_app_2.R;
 
 import java.util.List;

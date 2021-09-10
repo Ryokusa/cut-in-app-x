@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
     //アプリデータ
     private static ArrayList<AppData> appDataList = new ArrayList<AppData>();
 
+    //TODO: グローバル変数をまとめる(Application)
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
         /* カットインホルダー表示 */
         setCutInHolderListDisplayReset();
 
+        //TODO: キーフレームアニメーションの動作確認
         /* キーフレームアニメーションテスト */
         KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation = new KeyFrameAnimation.MoveKeyFrameAnimation(60);
         moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(10, 100, 100, new AccelerateDecelerateInterpolator()));
