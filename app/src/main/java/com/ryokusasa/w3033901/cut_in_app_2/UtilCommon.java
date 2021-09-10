@@ -15,7 +15,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ViewFlipper;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
@@ -24,6 +26,8 @@ import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 import java.util.ArrayList;
 
 import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.checkOverlayPermission;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 public class UtilCommon extends Application {
     private static final String TAG = "UtilCommon";
@@ -34,7 +38,7 @@ public class UtilCommon extends Application {
     public ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
     //カットイン関連
     public ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
-    private View cutInView;
+    private ConstraintLayout cutInView;
     private LinearLayout layout;
     private WindowManager windowManager;
 
@@ -51,6 +55,8 @@ public class UtilCommon extends Application {
     public void onCreate(){
         super.onCreate();
         sInstance = this;
+
+        cutInView = new ConstraintLayout(this);
     }
 
     //TODO 再生
@@ -60,6 +66,7 @@ public class UtilCommon extends Application {
 
     public void play(int id){
         Log.i(TAG, "play" + id);
+        setCutIn(cutInList.get(id));
         cutInList.get(id).play();
     }
 
@@ -141,14 +148,14 @@ public class UtilCommon extends Application {
         windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
 
         //Viewを作成
-        cutInView = layoutInflater.inflate(R.layout.filter, null);
+        layoutInflater.inflate(R.layout.filter, cutInView);
         layout = new LinearLayout(getApplicationContext());
         layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT ));
         layout.setBackgroundColor(Color.argb(0, 0, 0,0));
 
 
         //Viewにフィルターセット
-        cutInView.setBackgroundColor(Color.argb(100,0,0,0));
+        cutInView.setBackgroundColor(Color.argb(0,0,0,0));
 
         //重ね合わせる
         windowManager.addView(cutInView, layoutParams);
@@ -188,6 +195,15 @@ public class UtilCommon extends Application {
         //View削除
         windowManager.removeView(cutInView);
         windowManager.removeView(layout);
+    }
+
+    //カットイン適用
+    public void setCutIn(CutIn cutIn){
+        cutInView.removeAllViews();
+        cutIn.setLayoutParams(new ConstraintLayout.LayoutParams(
+                ConstraintLayout.LayoutParams.MATCH_PARENT,
+                ConstraintLayout.LayoutParams.MATCH_PARENT));
+        cutInView.addView(cutIn);
     }
 
     //コンテキストをどこからでも取得できるように

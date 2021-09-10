@@ -49,7 +49,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         //初期化
         setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setBackgroundColor(Color.argb(0,0,0,0));
-        setVisibility(View.INVISIBLE);
+        setVisibility(View.VISIBLE);
 
         animObjList = new ArrayList<AnimObj>();
     }
@@ -68,14 +68,18 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     public void play(){
         //TODO 再生処理
+        /* 一度しか呼ばれないので連続して呼べるように */
         Log.i(TAG, "play");
-        for(AnimObj animObj : animObjList){
+        for(AnimObj animObj : animObjList) {
             animObj.playFrame();
         }
     }
 
+    //animObjを追加
+    //TODO:animObjをViewとして使うか、画像を描画するかきめる
     public void addAnimObj(AnimObj animObj){
         animObjList.add(animObj);
+        this.addView(animObj.getObjView());
     }
 
     public ArrayList<AnimObj> getAnimObjList() {

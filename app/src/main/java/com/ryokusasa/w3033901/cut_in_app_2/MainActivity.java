@@ -4,6 +4,8 @@ import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.res.ResourcesCompat;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +20,7 @@ import android.widget.Toast;
 
 import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrame;
 import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
+import com.ryokusasa.w3033901.cut_in_app_2.AppDataManager.AnimObj;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
@@ -79,7 +82,10 @@ public class MainActivity extends AppCompatActivity {
 
         /* とりあえずのカットイン */
         cutInList = utilCommon.cutInList;
-        cutInList.add(new CutIn(this, "None CutIn", R.drawable.ic_launcher_background));
+        CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
+        AnimObj ao = new AnimObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.nico, null), 50, 50 );
+        cutIn1.addAnimObj(ao);
+        cutInList.add(cutIn1);
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
         cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
         cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
