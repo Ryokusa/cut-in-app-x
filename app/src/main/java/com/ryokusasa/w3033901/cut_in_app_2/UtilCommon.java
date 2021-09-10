@@ -5,8 +5,17 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.graphics.Color;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.widget.LinearLayout;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
@@ -25,6 +34,9 @@ public class UtilCommon extends Application {
     public ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
     //カットイン関連
     public ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+    private View cutInView;
+    private LinearLayout layout;
+    private WindowManager windowManager;
 
     //アプリデータ
     public ArrayList<AppData> appDataList = new ArrayList<AppData>();
@@ -100,6 +112,82 @@ public class UtilCommon extends Application {
                 cih.setCutIn(cutInList.get(0));
             }
         }
+    }
+
+    //カットイン＆タッチウィンドウ設定
+    public void windowSetting(){
+        //レイアウト読み込む用
+        final LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
+
+        //重ね合わせするViewの設定
+        final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT,
+                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                PixelFormat.TRANSLUCENT
+        );
+
+        //タッチ用
+        final WindowManager.LayoutParams layoutParams2 = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
+                PixelFormat.TRANSLUCENT
+        );
+
+        //WindowManager取得
+        windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
+
+        //Viewを作成
+        cutInView = layoutInflater.inflate(R.layout.filter, null);
+        layout = new LinearLayout(getApplicationContext());
+        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT ));
+        layout.setBackgroundColor(Color.argb(0, 0, 0,0));
+
+
+        //Viewにフィルターセット
+        cutInView.setBackgroundColor(Color.argb(100,0,0,0));
+
+        //重ね合わせる
+        windowManager.addView(cutInView, layoutParams);
+        windowManager.addView(layout,layoutParams2);
+
+        layout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Log.i(TAG, "onTouch:" + event.getAction());
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_UP:
+                        v.performClick();
+                        break;
+                    case MotionEvent.ACTION_OUTSIDE:
+                        //画面タッチ処理
+                        break;
+                    default:
+                        break;
+                }
+                return false;
+            }
+        });
+        layout.setClickable(false);
+        layout.setFocusable(false);
+
+
+        layout.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Log.i(TAG, "LongClick");
+                return false;
+            }
+        });
+    }
+
+    public void removeWindow(){
+        //View削除
+        windowManager.removeView(cutInView);
+        windowManager.removeView(layout);
     }
 
     //コンテキストをどこからでも取得できるように

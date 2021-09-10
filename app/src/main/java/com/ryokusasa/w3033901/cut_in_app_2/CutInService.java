@@ -31,7 +31,7 @@ public class CutInService extends Service{
 
     private final String TAG = "FilterService";
     private final IBinder iBinder = new ServiceBinder();
-    View v;
+    View v;                 //カットインを表示するView
     LinearLayout layout;
     WindowManager windowManager;
 
@@ -76,72 +76,8 @@ public class CutInService extends Service{
     @Override
     public int onStartCommand(Intent intent, int flags, int startId){
 
-        //レイアウト読み込む用
-        final LayoutInflater layoutInflater = LayoutInflater.from(getApplicationContext());
-
-        //重ね合わせするViewの設定
-        final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT,
-                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
-                PixelFormat.TRANSLUCENT
-        );
-
-        //タッチ用
-        final WindowManager.LayoutParams layoutParams2 = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT
-        );
-
-        //WindowManager取得
-        windowManager = (WindowManager)getSystemService(Context.WINDOW_SERVICE);
-
-        //Viewを作成
-        v = layoutInflater.inflate(R.layout.filter, null);
-        layout = new LinearLayout(getApplicationContext());
-        layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT ));
-        layout.setBackgroundColor(Color.argb(30, 0, 0,0));
-
-
-        //Viewにフィルターセット
-        v.setBackgroundColor(Color.argb(0,0,0,0));
-
-        //重ね合わせる
-        windowManager.addView(v, layoutParams);
-        windowManager.addView(layout,layoutParams2);
-
-        layout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i(TAG, "onTouch:" + event.getAction());
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        v.performClick();
-                        break;
-                    case MotionEvent.ACTION_OUTSIDE:
-                        //画面タッチ処理
-                        break;
-                    default:
-                        break;
-                }
-                return false;
-            }
-        });
-        layout.setClickable(false);
-        layout.setFocusable(false);
-
-
-        layout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.i(TAG, "LongClick");
-                return false;
-            }
-        });
+        //カットイン等ウィンドウの設定
+        utilCommon.windowSetting();
 
         //通知作成
         Intent testIntent = new Intent(this, MainActivity.class);
@@ -171,9 +107,8 @@ public class CutInService extends Service{
     public void onDestroy(){
         Log.i(TAG, "onDestroy()");
 
-        //View削除
-        windowManager.removeView(v);
-        windowManager.removeView(layout);
+        //オーバーレイウィンドウ削除
+        utilCommon.removeWindow();
 
         //通知リスナー削除
         Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
