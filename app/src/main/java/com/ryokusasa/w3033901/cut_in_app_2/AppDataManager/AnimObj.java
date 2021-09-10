@@ -51,7 +51,10 @@ public class AnimObj implements Cloneable {
     private ImageView imageView;
     private TextView textView;
     private float imageRatio;
+
+    //フレーム関連
     private int frameNum;
+    private int currentFrame;
 
     //TODO 保存用
 
@@ -61,6 +64,7 @@ public class AnimObj implements Cloneable {
 
 
     //画像オブジェクト作成
+    //w,hは伸縮
     public AnimObj(Context context, Drawable drawable, int x, int y, int width, int height){
         this.context = context;
 
@@ -84,7 +88,8 @@ public class AnimObj implements Cloneable {
         //画像比率保存
         imageRatio = (float)initWidth / initHeight;
 
-        frameNum = 1000;
+        frameNum = 1000;    //アニメーションの長さ
+        currentFrame = 0;   //現在のフレーム
 
         //初期化
         moveKeyFrameAnimation = new KeyFrameAnimation.MoveKeyFrameAnimation(frameNum);
@@ -222,10 +227,12 @@ public class AnimObj implements Cloneable {
     //次のフレームへ
     public void nextFrame(){
         //TODO Viewを次のフレームに移動
+        /* いらないかも */
     }
 
     //指定フレームへ
     public void setFrame(int frame){
+        currentFrame = frame;
         moveKeyFrameAnimation.setFrame(frame);
         rotateKeyFrameAnimation.setFrame(frame);
         scaleKeyFrameAnimation.setFrame(frame);
@@ -233,18 +240,20 @@ public class AnimObj implements Cloneable {
 
     //そのフレームを再生
     public void playFrame(){
-        if(type == Type.Image){
-            imageView.setTranslationX((float)((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.nextFrame()).getX());
-            imageView.setTranslationY((float)((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.nextFrame()).getY());
-            imageView.setRotation((float) ((KeyFrame.RotateKeyFrame)rotateKeyFrameAnimation.nextFrame()).getRadian());
-            imageView.setScaleX((float) ((KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame()).getScaleX());
-            imageView.setScaleY((float) ((KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame()).getScaleY());
-        }else if (type == Type.Text){
-            textView.setTranslationX((float)((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.nextFrame()).getX());
-            textView.setTranslationY((float)((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.nextFrame()).getY());
-            textView.setRotation((float) ((KeyFrame.RotateKeyFrame)rotateKeyFrameAnimation.nextFrame()).getRadian());
-            textView.setScaleX((float) ((KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame()).getScaleX());
-            textView.setScaleY((float) ((KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame()).getScaleY());
+        if(currentFrame < frameNum) {   //フレーム数から外れたら再生しない
+            if (type == Type.Image) {
+                imageView.setTranslationX((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getX());
+                imageView.setTranslationY((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getY());
+                imageView.setRotation((float) ((KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame()).getRadian());
+                imageView.setScaleX((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleX());
+                imageView.setScaleY((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleY());
+            } else if (type == Type.Text) {
+                textView.setTranslationX((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getX());
+                textView.setTranslationY((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getY());
+                textView.setRotation((float) ((KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame()).getRadian());
+                textView.setScaleX((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleX());
+                textView.setScaleY((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleY());
+            }
         }
     }
 
