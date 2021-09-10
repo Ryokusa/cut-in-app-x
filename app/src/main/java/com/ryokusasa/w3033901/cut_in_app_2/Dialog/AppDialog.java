@@ -102,7 +102,7 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
             for (ApplicationInfo appInfo : appInfoList) {
 
-
+                /* 仮想機上ではなぜか一部がプリインストール扱いになる */
                 if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
                     appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
                     //it's a system app, not interested
