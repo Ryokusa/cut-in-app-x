@@ -37,6 +37,7 @@ import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
 import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
 import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
 import com.ryokusasa.w3033901.cut_in_app_2.R;
+import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
 
 import org.w3c.dom.Text;
 
@@ -58,6 +59,8 @@ public class CutInEditerActivity extends AppCompatActivity {
     private static final int REQUEST_IMAGE_CHOOSER = 1242;
 
     EditerView editerView;  //エディタービュー
+
+    private UtilCommon utilCommon;
 
     //場面フラグ
     public static int sceneFlag = 0;
@@ -85,6 +88,8 @@ public class CutInEditerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.cut_in_editer_layout);
 
+        utilCommon = (UtilCommon)getApplication();
+
         //ハンドラー取得
         handler = new Handler();
 
@@ -92,7 +97,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if((selCutInId = bundle.getInt("selCutInId")) != -1) {
             //カットインをコピー
-            cutIn = MainActivity.getCutInList().get(selCutInId).clone();
+            cutIn = utilCommon.cutInList.get(selCutInId).clone();
         }else{
             //新規作成
             cutIn = new CutIn(getBaseContext(), "non title", R.drawable.ic_launcher_background);
@@ -268,7 +273,7 @@ public class CutInEditerActivity extends AppCompatActivity {
                 e.printStackTrace();
                 return;
             }
-            editerView.addAnimObject(new AnimObj(this, new BitmapDrawable(bitmap), -1, -1));
+            editerView.addAnimObject(new AnimObj(this, new BitmapDrawable(this.getResources(), bitmap), -1, -1));
             editerView.setSelObjId(cutIn.getAnimObjList().size()); //オブジェクト選択
             adapter.notifyDataSetChanged(); //リスト更新
 
@@ -291,7 +296,7 @@ public class CutInEditerActivity extends AppCompatActivity {
             layerImage.setTag(bitmap);
 
             //イメージ適用
-            layerImage.setImageDrawable(new BitmapDrawable(bitmap));
+            layerImage.setImageDrawable(new BitmapDrawable(this.getResources(), bitmap));
             layerImage.invalidate();
         }
 
@@ -373,10 +378,10 @@ public class CutInEditerActivity extends AppCompatActivity {
                         makeCutIn();
                         if (selCutInId != -1) {
                             //既成のカットインを編集している場合代入
-                            MainActivity.getCutInList().set(selCutInId, cutIn.clone());  //カットイン追加
+                            utilCommon.cutInList.set(selCutInId, cutIn.clone());  //カットイン追加
                         }else{
                             //新規カットインの場合追加
-                            MainActivity.getCutInList().add(cutIn.clone());
+                            utilCommon.cutInList.add(cutIn.clone());
                         }
                         //TODO new CutInDataManager(CutInEditerActivity.this).cutInListSave(new ArrayList<CutIn>(CutInService.cutInList));
                         finish();

@@ -47,14 +47,14 @@ public class SelCutInActivity extends AppCompatActivity {
         utilCommon = (UtilCommon)getApplication();
 
         //カットインアダプター追加処理
-        cutInAdapter = new CutInAdapter(this, 0, MainActivity.getCutInList());
+        cutInAdapter = new CutInAdapter(this, 0, utilCommon.cutInList);
         GridView gridView = (GridView)findViewById(R.id.gridView);
         gridView.setAdapter(cutInAdapter);
         gridView.setOnItemClickListener(onCutInClick);
         cutInAdapter.setOnImageClickListener((position) -> utilCommon.play(position));
 
         //ホルダー取得
-        cutInHolder = MainActivity.getCutInHolderList().get(getIntent().getIntExtra("id", 0));
+        cutInHolder = utilCommon.cutInHolderList.get(getIntent().getIntExtra("id", 0));
 
     }
 
@@ -125,7 +125,7 @@ public class SelCutInActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     //OK時カットイン削除
-                                    MainActivity.removeCutIn(MainActivity.getCutInList().remove(position));
+                                    utilCommon.removeCutIn(utilCommon.cutInList.remove(position));
                                     cutInAdapter.notifyDataSetChanged();
                                 }
                             });

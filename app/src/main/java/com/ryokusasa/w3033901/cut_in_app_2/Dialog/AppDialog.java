@@ -16,6 +16,7 @@ import android.util.Log;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
+import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,7 @@ import java.util.List;
 public class AppDialog extends DialogFragment{
 
     CutInHolder cutInHolder;
+    UtilCommon utilCommon;
 
     //TODO: カットインリストをutilから参照できるように
     @NonNull
@@ -39,16 +41,17 @@ public class AppDialog extends DialogFragment{
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("アプリ選択\n");
         final MainActivity activity = (MainActivity) getActivity();
+        utilCommon = (UtilCommon) activity.getApplication();
 
         //アダプター作成
-        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, activity.getAppDataList());
+        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, utilCommon.appDataList);
 
         //オンクリックイベント
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //コールバック
-                activity.appDialogCallBack(activity.getAppDataList().get(which), cutInHolder);
+                activity.appDialogCallBack(utilCommon.appDataList.get(which), cutInHolder);
             }
         });
 
@@ -57,7 +60,7 @@ public class AppDialog extends DialogFragment{
 
     //アクティビティとアプリデータリストを作成確認しながら表示
     public void showWithTask(FragmentManager manager, String tag, AppCompatActivity activity, CutInHolder cutInHolder) {
-        ArrayList<AppData> appDataList = ((MainActivity)activity).getAppDataList();
+        ArrayList<AppData> appDataList = utilCommon.appDataList;
         this.cutInHolder = cutInHolder;
 
         if(!appDataList.isEmpty()) {
@@ -102,6 +105,7 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
             for (ApplicationInfo appInfo : appInfoList) {
 
+                //プリインストールアプリは除外（と思ったけどいらないかも）
                 /* 仮想機上ではなぜか一部がプリインストール扱いになる */
                 if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
                     appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
@@ -112,10 +116,6 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
                 } else {
                     appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
                 }
-//                //プリインストールアプリは除外（と思ったけどいらないかも）
-//                if ((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) >= 0 ) {
-//                    appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
-//                }
             }
         }
         return 0;

@@ -36,8 +36,6 @@ import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";   //Log
 
-
-
     /* パーミッション関連 */
     private final int OVERLAY_PERMISSION_REQUEST_CODE = 893;    //リクエストコード
     private final int NOTIFICATION_PERMISSION_REQUEST_CODE = 810;
@@ -46,17 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout frameList;
 
     //カットイン関連
-    private static ArrayList<CutIn> cutInList;
-    private static ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
-
-    //アプリデータ
-    private static ArrayList<AppData> appDataList = new ArrayList<AppData>();
+    private ArrayList<CutIn> cutInList;
+    private ArrayList<CutInHolder> cutInHolderList;
 
     //グローバルクラス
     private UtilCommon utilCommon;
-
-    //TODO: グローバル変数をまとめる(Application)
-    /* ここにあるstaticは全部Utilに */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayShowTitleEnabled(false);    //タイトル消去
 
         utilCommon = (UtilCommon)getApplication();
+        cutInHolderList = utilCommon.cutInHolderList;
 
         ImageView addCutInHolder = (ImageView)findViewById(R.id.addCutInHolder);
         addCutInHolder.setOnClickListener(new View.OnClickListener() {
@@ -137,41 +130,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //アプリダイアログのコールバック
-    public void appDialogCallBack(AppData appData, CutInHolder cutInHolder){
-        if(cutInHolder != null) {
+    public void appDialogCallBack(AppData appData, CutInHolder cutInHolder) {
+        if (cutInHolder != null) {
             //アプリ情報変更後リセット
             cutInHolder.getAppData().setUsed(false);
             cutInHolder.setAppData(appData);
-        }else{
+        } else {
             //ホルダー追加処理
             cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, cutInList.get(0), appData));
         }
         appData.setUsed(true);
         setCutInHolderListDisplayReset();
-    }
-
-    public static ArrayList<CutInHolder> getCutInHolderList() {
-        return cutInHolderList;
-    }
-
-    public static ArrayList<AppData> getAppDataList() {
-        return appDataList;
-    }
-
-    public static ArrayList<CutIn> getCutInList() {
-        return cutInList;
-    }
-
-    //カットイン削除
-    public static void removeCutIn(CutIn cutIn){
-        cutInList.remove(cutIn);
-
-        //同じカットインをホルダーリストから削除
-        for (CutInHolder cih : cutInHolderList){
-            if(cih.getCutIn().equals(cutIn)){
-                cih.setCutIn(cutInList.get(0));
-            }
-        }
     }
 
     //メニュー生成

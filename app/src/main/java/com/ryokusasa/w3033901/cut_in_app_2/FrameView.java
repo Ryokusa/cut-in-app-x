@@ -50,8 +50,10 @@ public class FrameView extends LinearLayout {
             @Override
             public void onClick(View view) {
                 //インデックスを渡して画面遷移
+                UtilCommon utilCommon = (UtilCommon)activity.getApplication();
                 Intent intent = new Intent(activity, SelCutInActivity.class);
-                intent.putExtra("id", MainActivity.getCutInHolderList().indexOf(cutInHolder));
+                intent.putExtra("id", utilCommon.cutInHolderList.indexOf(cutInHolder));
+                intent.putExtra("id", utilCommon.cutInHolderList.indexOf(cutInHolder));
                 activity.startActivity(intent);
             }
         });

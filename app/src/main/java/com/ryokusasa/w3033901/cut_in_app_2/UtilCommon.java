@@ -9,6 +9,8 @@ import android.os.IBinder;
 import android.util.Log;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 
 import java.util.ArrayList;
 
@@ -21,6 +23,11 @@ public class UtilCommon extends Application {
 
     //カットインリスト
     public ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    //カットイン関連
+    public ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+
+    //アプリデータ
+    public ArrayList<AppData> appDataList = new ArrayList<AppData>();
 
     //コネクション作成
     private ServiceConnection serviceConnection;
@@ -80,6 +87,18 @@ public class UtilCommon extends Application {
             unbindService(serviceConnection);
             stopService(intent);
             isConnection = false;
+        }
+    }
+
+    //カットイン削除
+    public void removeCutIn(CutIn cutIn){
+        cutInList.remove(cutIn);
+
+        //同じカットインをホルダーリストから削除
+        for (CutInHolder cih : cutInHolderList){
+            if(cih.getCutIn().equals(cutIn)){
+                cih.setCutIn(cutInList.get(0));
+            }
         }
     }
 
