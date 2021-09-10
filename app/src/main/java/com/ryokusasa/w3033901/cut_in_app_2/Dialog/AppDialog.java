@@ -12,6 +12,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
 import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
@@ -97,13 +98,24 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
         //アプリ情報取得
         if(appDataList.isEmpty()) {    //読み込み済みの場合は無視
             PackageManager pm = activity.getPackageManager();
-            List<ApplicationInfo> appInfoList = pm.getInstalledApplications(0);
+            List<ApplicationInfo> appInfoList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
 
             for (ApplicationInfo appInfo : appInfoList) {
-                //プリインストールアプリは除外
-                if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) == 0) {
+
+
+                if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
+                    appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
+                    //it's a system app, not interested
+                } else if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
+                    //Discard this one
+                    //in this case, it should be a user-installed app
+                } else {
                     appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
                 }
+//                //プリインストールアプリは除外（と思ったけどいらないかも）
+//                if ((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) >= 0 ) {
+//                    appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
+//                }
             }
         }
         return 0;
