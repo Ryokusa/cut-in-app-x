@@ -5,16 +5,18 @@ import android.graphics.Point;
 import android.view.animation.Interpolator;
 
 import java.sql.Time;
-
-//TODO: get関数の型変換が強いのでgetValue(TYPE)の形で継承する
+import java.util.HashMap;
 
 //キーフレーム
 public class KeyFrame implements Cloneable {
     private int frame;
     private TimeInterpolator interpolator;
+    public HashMap<String, Double> values; //値のマップ
+
     public KeyFrame(int frame, TimeInterpolator interpolator){
         this.frame = frame;
         this.interpolator = interpolator;
+        this.values = new HashMap<>();
     }
 
     public int getFrame() {
@@ -49,70 +51,30 @@ public class KeyFrame implements Cloneable {
 
     //移動キーフレーム
     public static class MoveKeyFrame extends KeyFrame {
-        private double x, y;
+//        private double x, y;
         public MoveKeyFrame(int frame, double x, double y, TimeInterpolator interpolator){
             super(frame, interpolator);
-            this.x = x;
-            this.y = y;
-        }
-
-        public double getX() {
-            return x;
-        }
-
-        public void setX(double x) {
-            this.x = x;
-        }
-
-        public double getY() {
-            return y;
-        }
-
-        public void setY(double y) {
-            this.y = y;
+            this.values.put("x", x);
+            this.values.put("y", y);
         }
     }
 
     //回転キーフレーム
     public static class RotateKeyFrame extends KeyFrame {
-        private double radian;
+//        private double radian;
         public RotateKeyFrame(int frame, double radian, TimeInterpolator interpolator){
             super(frame, interpolator);
-            this.radian = radian;
-        }
-
-        public double getRadian() {
-            return radian;
-        }
-
-        public void setRadian(double radian) {
-            this.radian = radian;
+            this.values.put("radian", radian);
         }
     }
 
     //大きさキーフレーム
     public static class ScaleKeyFrame extends KeyFrame {
-        private double scaleX, scaleY;
+//        private double scaleX, scaleY;
         public ScaleKeyFrame(int frame, double scaleX, double scaleY, TimeInterpolator interpolator){
             super(frame, interpolator);
-            this.scaleX = scaleX;
-            this.scaleY = scaleY;
-        }
-
-        public double getScaleX() {
-            return scaleX;
-        }
-
-        public void setScaleX(double scaleX) {
-            this.scaleX = scaleX;
-        }
-
-        public double getScaleY() {
-            return scaleY;
-        }
-
-        public void setScaleY(double scaleY) {
-            this.scaleY = scaleY;
+            this.values.put("scaleX", scaleX);
+            this.values.put("scaleY", scaleY);
         }
     }
 }

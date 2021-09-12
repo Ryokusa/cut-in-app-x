@@ -113,11 +113,11 @@ public class KeyFrameAnimation implements Cloneable {
                 for(; i < keyFrame.getFrame(); i++){
                     //イージング
                     interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dx = ((KeyFrame.MoveKeyFrame)keyFrame).getX() - pKeyFrame.getX();
-                    dy = ((KeyFrame.MoveKeyFrame)keyFrame).getY() - pKeyFrame.getY();
+                    dx = keyFrame.values.get("x") - pKeyFrame.values.get("x");
+                    dy = keyFrame.values.get("y") - pKeyFrame.values.get("y");
                     fullKeyFrameList.add(new KeyFrame.MoveKeyFrame(i,
-                            pKeyFrame.getX() + (dx * interpolated),
-                            pKeyFrame.getY() + (dy * interpolated),
+                            pKeyFrame.values.get("x") + (dx * interpolated),
+                            pKeyFrame.values.get("y") + (dy * interpolated),
                             null));
                 }
                 pKeyFrame = (KeyFrame.MoveKeyFrame) keyFrame;
@@ -157,9 +157,9 @@ public class KeyFrameAnimation implements Cloneable {
                 for(; i < keyFrame.getFrame(); i++){
                     //イージング
                     interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dr = ((KeyFrame.RotateKeyFrame)keyFrame).getRadian() - pKeyFrame.getRadian();
+                    dr = keyFrame.values.get("radian") - pKeyFrame.values.get("radian");
                     fullKeyFrameList.add(new KeyFrame.RotateKeyFrame(i,
-                            pKeyFrame.getRadian() + (dr * interpolated),
+                            pKeyFrame.values.get("radian") + (dr * interpolated),
                             null));
                 }
                 pKeyFrame = (KeyFrame.RotateKeyFrame) keyFrame;
@@ -199,11 +199,11 @@ public class KeyFrameAnimation implements Cloneable {
                 for(; i < keyFrame.getFrame(); i++){
                     //イージング
                     interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dx = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleX() - pKeyFrame.getScaleX();
-                    dy = ((KeyFrame.ScaleKeyFrame)keyFrame).getScaleY() - pKeyFrame.getScaleY();
+                    dx = keyFrame.values.get("scaleX") - pKeyFrame.values.get("scaleX");
+                    dy = keyFrame.values.get("scaleY") - pKeyFrame.values.get("scaleY");
                     fullKeyFrameList.add(new KeyFrame.ScaleKeyFrame(i,
-                            pKeyFrame.getScaleX() + (dx * interpolated),
-                            pKeyFrame.getScaleY() + (dy * interpolated),
+                            pKeyFrame.values.get("scaleX") + (dx * interpolated),
+                            pKeyFrame.values.get("scaleY") + (dy * interpolated),
                             null));
                 }
                 pKeyFrame = (KeyFrame.ScaleKeyFrame) keyFrame;

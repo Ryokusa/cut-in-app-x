@@ -248,18 +248,18 @@ public class AnimObj implements Cloneable {
         KeyFrame.ScaleKeyFrame scaleKeyFrame = (KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame();
         if(currentFrame < frameNum) {   //フレーム数から外れたら再生しない
             if (type == Type.Image) {
-                Log.i("AnimObj", "frame:" + currentFrame + " x:" + moveKeyFrame.getX());
-                imageView.setTranslationX((float) moveKeyFrame.getX());
-                imageView.setTranslationY((float) moveKeyFrame.getY());
-                imageView.setRotation((float) rotateKeyFrame.getRadian());
-                imageView.setScaleX((float) scaleKeyFrame.getScaleX());
-                imageView.setScaleY((float) scaleKeyFrame.getScaleY());
+                Log.i("AnimObj", "frame:" + currentFrame + " x:" + moveKeyFrame.values.get("x"));
+                imageView.setTranslationX(moveKeyFrame.values.get("x").floatValue());
+                imageView.setTranslationY((float) moveKeyFrame.values.get("y").floatValue());
+                imageView.setRotation((float) rotateKeyFrame.values.get("radian").floatValue());
+                imageView.setScaleX((float) scaleKeyFrame.values.get("scaleX").floatValue());
+                imageView.setScaleY((float) scaleKeyFrame.values.get("scaleY").floatValue());
             } else if (type == Type.Text) {
-                textView.setTranslationX((float) moveKeyFrame.getX());
-                textView.setTranslationY((float) moveKeyFrame.getY());
-                textView.setRotation((float) rotateKeyFrame.getRadian());
-                textView.setScaleX((float) scaleKeyFrame.getScaleX());
-                textView.setScaleY((float) scaleKeyFrame.getScaleY());
+                textView.setTranslationX((float) moveKeyFrame.values.get("x").floatValue());
+                textView.setTranslationY((float) moveKeyFrame.values.get("y").floatValue());
+                textView.setRotation((float) rotateKeyFrame.values.get("radian").floatValue());
+                textView.setScaleX((float) scaleKeyFrame.values.get("scaleX").floatValue());
+                textView.setScaleY((float) scaleKeyFrame.values.get("scaleY").floatValue());
             }
             currentFrame++;
             return false;
@@ -270,11 +270,11 @@ public class AnimObj implements Cloneable {
     }
 
     public double getInitX(){
-        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).getX();
+        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).values.get("x");
     }
 
     public double getInitY(){
-        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).getY();
+        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).values.get("y");
     }
 
     public void setInitHeight(int initHeight) {
