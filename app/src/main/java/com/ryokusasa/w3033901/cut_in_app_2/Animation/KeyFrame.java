@@ -51,7 +51,6 @@ public class KeyFrame implements Cloneable {
 
     //移動キーフレーム
     public static class MoveKeyFrame extends KeyFrame {
-//        private double x, y;
         public MoveKeyFrame(int frame, double x, double y, TimeInterpolator interpolator){
             super(frame, interpolator);
             this.values.put("x", x);
@@ -61,7 +60,6 @@ public class KeyFrame implements Cloneable {
 
     //回転キーフレーム
     public static class RotateKeyFrame extends KeyFrame {
-//        private double radian;
         public RotateKeyFrame(int frame, double radian, TimeInterpolator interpolator){
             super(frame, interpolator);
             this.values.put("radian", radian);
@@ -70,7 +68,6 @@ public class KeyFrame implements Cloneable {
 
     //大きさキーフレーム
     public static class ScaleKeyFrame extends KeyFrame {
-//        private double scaleX, scaleY;
         public ScaleKeyFrame(int frame, double scaleX, double scaleY, TimeInterpolator interpolator){
             super(frame, interpolator);
             this.values.put("scaleX", scaleX);
