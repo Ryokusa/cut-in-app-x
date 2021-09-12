@@ -121,21 +121,25 @@ public class AnimObj implements Cloneable {
         //初期化
         initMove(x, y);
         initRotate(0);
-        initScale(1, 1);
         makeAnimation();
     }
 
     /* アニメーション作成関連 */
     public void initMove(double x, double y){
         moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(0, x, y, new LinearInterpolator()));
+        this.getObjView().setTranslationX((float)x);
+        this.getObjView().setTranslationY((float)y);
     }
 
     public void initRotate(double radian){
         rotateKeyFrameAnimation.addKeyFrame(new KeyFrame.RotateKeyFrame(0, radian, new LinearInterpolator()));
+        this.getObjView().setRotation((float)radian);
     }
 
     public void initScale(double scaleX, double scaleY){
         scaleKeyFrameAnimation.addKeyFrame(new KeyFrame.ScaleKeyFrame(0, scaleX, scaleY, new LinearInterpolator()));
+        this.getImageView().setScaleX((float)scaleX);
+        this.getImageView().setScaleY((float)scaleY);
     }
 
     public Type getType() {
