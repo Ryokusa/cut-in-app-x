@@ -11,6 +11,8 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Interpolator;
@@ -239,21 +241,31 @@ public class AnimObj implements Cloneable {
     }
 
     //そのフレームを再生
-    public void playFrame(){
+    //終了したかどうかを返す
+    public boolean playFrame(){
+        KeyFrame.MoveKeyFrame moveKeyFrame = (KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame();
+        KeyFrame.RotateKeyFrame rotateKeyFrame = (KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame();
+        KeyFrame.ScaleKeyFrame scaleKeyFrame = (KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame();
         if(currentFrame < frameNum) {   //フレーム数から外れたら再生しない
             if (type == Type.Image) {
-                imageView.setTranslationX((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getX());
-                imageView.setTranslationY((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getY());
-                imageView.setRotation((float) ((KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame()).getRadian());
-                imageView.setScaleX((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleX());
-                imageView.setScaleY((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleY());
+                Log.i("AnimObj", "frame:" + currentFrame + " x:" + moveKeyFrame.getX());
+                imageView.setTranslationX((float) moveKeyFrame.getX());
+                imageView.setTranslationY((float) moveKeyFrame.getY());
+                imageView.setRotation((float) rotateKeyFrame.getRadian());
+                imageView.setScaleX((float) scaleKeyFrame.getScaleX());
+                imageView.setScaleY((float) scaleKeyFrame.getScaleY());
             } else if (type == Type.Text) {
-                textView.setTranslationX((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getX());
-                textView.setTranslationY((float) ((KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame()).getY());
-                textView.setRotation((float) ((KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame()).getRadian());
-                textView.setScaleX((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleX());
-                textView.setScaleY((float) ((KeyFrame.ScaleKeyFrame) scaleKeyFrameAnimation.nextFrame()).getScaleY());
+                textView.setTranslationX((float) moveKeyFrame.getX());
+                textView.setTranslationY((float) moveKeyFrame.getY());
+                textView.setRotation((float) rotateKeyFrame.getRadian());
+                textView.setScaleX((float) scaleKeyFrame.getScaleX());
+                textView.setScaleY((float) scaleKeyFrame.getScaleY());
             }
+            currentFrame++;
+            return false;
+        }else {
+            //終了処理
+            return true;
         }
     }
 

@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 
+//TODO: 欲をいうとKeyFrameにすべてのフレーム情報が入り(フォルダー機能)、getですべてのフレームをゲット
+
+//キーフレーム集合体
 public class KeyFrameAnimation implements Cloneable {
     ArrayList<KeyFrame> keyFrameList;
     ArrayList<KeyFrame> fullKeyFrameList;   //完全体

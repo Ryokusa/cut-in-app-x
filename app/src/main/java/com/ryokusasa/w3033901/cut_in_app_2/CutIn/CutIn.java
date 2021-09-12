@@ -1,11 +1,14 @@
 package com.ryokusasa.w3033901.cut_in_app_2.CutIn;
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -32,6 +35,20 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     private String title;
     private ArrayList<AnimObj> animObjList;
 
+    private boolean playing = false;
+    private Handler handler;
+    private Runnable runnable = new Runnable() {
+        @Override
+        public void run() {
+            _play();
+            handler.postDelayed(this, 60);
+        }
+    };
+
+    //テスト
+    private int px= 100, py = 100, pdx = 1, pdy = 1;
+    Paint paint = new Paint();
+
     //ワーニング避け
     public CutIn(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -53,7 +70,12 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         setBackgroundColor(Color.argb(0,0,0,0));
         setVisibility(View.VISIBLE);
 
+        //アニメオブジェリスト
         animObjList = new ArrayList<AnimObj>();
+
+
+        //play繰り返し用
+        handler = new Handler();
     }
 
     public String getTitle() {
@@ -69,12 +91,43 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     }
 
     public void play(){
-        //TODO 再生処理
-        /* 一度しか呼ばれないので連続して呼べるように */
+        initAnim();
+        stop();
+        handler.post(runnable); //再生
+
         Log.i(TAG, "play");
+    }
+
+    //繰り返し
+    private void _play(){
+        Log.i(TAG,"_play");
+        boolean f = true;  //終了フラグ
         for(AnimObj animObj : animObjList) {
-            animObj.playFrame();
+            if(!animObj.playFrame()) f = false; //再生中が一つでもあるなら継続
         }
+        if(f) stop();
+    }
+
+    //停止
+    public void stop(){
+        handler.removeCallbacks(runnable);
+    }
+
+    //アニメーション初期化
+    public void initAnim(){
+        for(AnimObj animObj : animObjList) {
+            animObj.setFrame(0);
+        }
+    }
+
+    //TODO:テスト描画を完了
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        paint.setStyle(Paint.Style.STROKE);
+
+        //canvas.drawCircle(x,y,3, paint);
+
     }
 
     //animObjを追加

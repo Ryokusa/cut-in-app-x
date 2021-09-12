@@ -6,6 +6,8 @@ import android.view.animation.Interpolator;
 
 import java.sql.Time;
 
+//TODO: get関数の型変換が強いのでgetValue(TYPE)の形で継承する
+
 //キーフレーム
 public class KeyFrame implements Cloneable {
     private int frame;
