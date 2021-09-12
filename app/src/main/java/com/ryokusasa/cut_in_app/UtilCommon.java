@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import android.app.Application;
 import android.content.ComponentName;
@@ -17,13 +17,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app_2.Dialog.AppData;
+import com.ryokusasa.cut_in_app.CutIn.CutIn;
+import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.Dialog.AppData;
+import com.ryokusasa.cut_in_app.R;
 
 import java.util.ArrayList;
 
-import static com.ryokusasa.cut_in_app_2.PermissionUtils.checkOverlayPermission;
+import static com.ryokusasa.cut_in_app.PermissionUtils.checkOverlayPermission;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 

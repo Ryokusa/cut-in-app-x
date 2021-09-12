@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.CutInEditer;
+package com.ryokusasa.cut_in_app.CutInEditer;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,8 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +23,7 @@ import java.util.List;
  */
 
 public class LayerAdapter extends ArrayAdapter<AnimObj> {
-    private LayoutInflater layoutInflater;  //レイアウト設定用
+    private final LayoutInflater layoutInflater;  //レイアウト設定用
     private List<AnimObj> animObjList = new ArrayList<>();
     private List<String> layerName = new ArrayList<>();
     private int selId;  //選択オブジェクトId
@@ -33,8 +33,8 @@ public class LayerAdapter extends ArrayAdapter<AnimObj> {
         ImageView layerImage;
         TextView layerName;
         public ViewHolder(View v, int position){
-            layerImage = (ImageView)v.findViewById(R.id.layerImage);
-            layerName = (TextView)v.findViewById(R.id.layerName);
+            layerImage = v.findViewById(R.id.layerImage);
+            layerName = v.findViewById(R.id.layerName);
         }
     }
 

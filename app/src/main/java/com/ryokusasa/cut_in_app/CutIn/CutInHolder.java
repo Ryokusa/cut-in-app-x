@@ -1,10 +1,10 @@
-package com.ryokusasa.cut_in_app_2.CutIn;
+package com.ryokusasa.cut_in_app.CutIn;
 
 
 import android.graphics.drawable.Drawable;
 
-import com.ryokusasa.cut_in_app_2.Dialog.AppData;
-import com.ryokusasa.cut_in_app_2.EventType;
+import com.ryokusasa.cut_in_app.Dialog.AppData;
+import com.ryokusasa.cut_in_app.EventType;
 
 import java.io.Serializable;
 

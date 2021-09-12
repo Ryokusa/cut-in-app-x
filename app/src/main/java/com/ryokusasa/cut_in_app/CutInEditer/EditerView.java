@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.CutInEditer;
+package com.ryokusasa.cut_in_app.CutInEditer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -16,8 +16,8 @@ import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.WindowManager;
 
-import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,11 +30,11 @@ import java.util.List;
 public class EditerView extends View {
     private static final String TAG = "EditerView";
 
-    private List<AnimObj> animObjList = new ArrayList<>();  //オブジェクト
-    private List<Bitmap> bitmapList = new ArrayList<>();
-    private List<Matrix> matrixList = new ArrayList<>();
-    private List<String> layerName = new ArrayList<>(); //レイヤー名
-    private Paint mPaint = new Paint();
+    private final List<AnimObj> animObjList = new ArrayList<>();  //オブジェクト
+    private final List<Bitmap> bitmapList = new ArrayList<>();
+    private final List<Matrix> matrixList = new ArrayList<>();
+    private final List<String> layerName = new ArrayList<>(); //レイヤー名
+    private final Paint mPaint = new Paint();
 
     //アニメ編集関連
     private AnimObj editAnimObj;    //編集時の一時的AnimObj
@@ -44,10 +44,11 @@ public class EditerView extends View {
     private Bitmap preAnimObjBitmap;
     private AnimObj previewAnimObj; //プレビュー時のAnimObj
     private Bitmap previewAnimObjBitmap;
-    private long previewMaxFrame = 0, previewFrame = -1;
-    private long preAnimId = -1;  //以前使ったアニメーションID
+    private final long previewMaxFrame = 0;
+    private final long previewFrame = -1;
+    private final long preAnimId = -1;  //以前使ったアニメーションID
 
-    private ScaleGestureDetector scaleGestureDetector;
+    private final ScaleGestureDetector scaleGestureDetector;
 
     //復数タッチフラグ
     boolean multiTouch = false;
@@ -71,7 +72,7 @@ public class EditerView extends View {
     public static boolean animPreview = true;
 
     //スクリーン情報
-    private Matrix screenMatrix = new Matrix();
+    private final Matrix screenMatrix = new Matrix();
     public int screenWidth, screenHeight;
 
     //移動用

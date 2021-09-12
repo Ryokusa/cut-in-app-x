@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.Animation;
+package com.ryokusasa.cut_in_app.Animation;
 
 
 //複数種類のキーフレームをまとめたもの

@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app_2.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.R;
 
 //設定されたカットインを表示するview
 
@@ -26,10 +27,10 @@ public class FrameView extends LinearLayout {
 
         //レイアウト展開
         LayoutInflater.from(activity).inflate(R.layout.frame, this);
-        eventName = (TextView)findViewById(R.id.eventName);
-        cutInName = (TextView)findViewById(R.id.cutInName);
-        thumbnail = (ImageView)findViewById(R.id.thumbnail);
-        appIcon = (ImageView)findViewById(R.id.appIcon);
+        eventName = findViewById(R.id.eventName);
+        cutInName = findViewById(R.id.cutInName);
+        thumbnail = findViewById(R.id.thumbnail);
+        appIcon = findViewById(R.id.appIcon);
         appIcon.setVisibility(INVISIBLE);
         appIcon.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
 

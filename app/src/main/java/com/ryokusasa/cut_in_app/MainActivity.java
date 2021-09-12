@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,18 +17,19 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ryokusasa.cut_in_app_2.Animation.KeyFrame;
-import com.ryokusasa.cut_in_app_2.Animation.KeyFrameAnimation;
-import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app_2.Dialog.AppData;
-import com.ryokusasa.cut_in_app_2.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.Animation.KeyFrame;
+import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.CutIn.CutIn;
+import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.Dialog.AppData;
+import com.ryokusasa.cut_in_app.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.R;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.ryokusasa.cut_in_app_2.PermissionUtils.*;
+import static com.ryokusasa.cut_in_app.PermissionUtils.*;
 
 /*
   メインアクティビティ
@@ -119,7 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     //再表示
     private void setCutInHolderListDisplayReset(){
-
         frameList.removeAllViews();
         cutInHolderListDisplay();
     }

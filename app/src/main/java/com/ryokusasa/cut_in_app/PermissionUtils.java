@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import android.content.Context;
 import android.content.Intent;
@@ -17,7 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class PermissionUtils {
     private final ActivityResultLauncher<Intent> OPLauncher;  //オーバーレイ
     private final ActivityResultLauncher<Intent> NPLauncher;  //通知アクセス
-    private AppCompatActivity mActivity;
+    private final AppCompatActivity mActivity;
 
     public PermissionUtils(AppCompatActivity activity){
         mActivity = activity;

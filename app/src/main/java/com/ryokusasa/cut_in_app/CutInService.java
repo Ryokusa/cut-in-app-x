@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import android.app.Notification;
 import android.app.PendingIntent;
@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
+
+import com.ryokusasa.cut_in_app.R;
 
 /**
  * Created by Ryokusasa on 2017/12/18.

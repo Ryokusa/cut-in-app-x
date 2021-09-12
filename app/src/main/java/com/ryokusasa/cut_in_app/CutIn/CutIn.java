@@ -1,9 +1,8 @@
-package com.ryokusasa.cut_in_app_2.CutIn;
+package com.ryokusasa.cut_in_app.CutIn;
 
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
@@ -14,7 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     private boolean playing = false;
     private Handler handler;
-    private Runnable runnable = new Runnable() {
+    private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
             if(playing) {

@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.AppDataManager;
+package com.ryokusasa.cut_in_app.AppDataManager;
 
 import android.animation.TimeInterpolator;
 import android.content.Context;
@@ -13,8 +13,8 @@ import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.cut_in_app_2.Animation.KeyFrame;
-import com.ryokusasa.cut_in_app_2.Animation.KeyFrameAnimation;
+import com.ryokusasa.cut_in_app.Animation.KeyFrame;
+import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
 
 /**
  * アニメーションオブジェクト
@@ -267,11 +267,11 @@ public class AnimObj implements Cloneable {
     }
 
     public double getInitX(){
-        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).values.get("x");
+        return moveKeyFrameAnimation.playFrame(0).values.get("x");
     }
 
     public double getInitY(){
-        return ((KeyFrame.MoveKeyFrame)moveKeyFrameAnimation.playFrame(0)).values.get("y");
+        return moveKeyFrameAnimation.playFrame(0).values.get("y");
     }
 
     public void setInitHeight(int initHeight) {

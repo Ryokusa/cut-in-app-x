@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.Dialog;
+package com.ryokusasa.cut_in_app.Dialog;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app.R;
 
 import java.util.List;
 
@@ -29,9 +29,9 @@ public class AppDataAdapter extends ArrayAdapter<AppData> {
         ViewFolder(View v)
         {
             //オブジェクト取得
-            textView = (TextView)v.findViewById(R.id.textView);
-            imageView = (ImageView)v.findViewById(R.id.cutInThumbnail);
-            haveCutIn = (TextView)v.findViewById(R.id.haveCutIn);
+            textView = v.findViewById(R.id.textView);
+            imageView = v.findViewById(R.id.cutInThumbnail);
+            haveCutIn = v.findViewById(R.id.haveCutIn);
         }
     }
 
@@ -66,7 +66,7 @@ public class AppDataAdapter extends ArrayAdapter<AppData> {
         }
 
         //positionに格納されたアプリデータを取得
-        AppData appData = (AppData)getItem(position);
+        AppData appData = getItem(position);
 
         //セット
         viewFolder.imageView.setImageDrawable(appData.getIconDrawable());
@@ -83,6 +83,6 @@ public class AppDataAdapter extends ArrayAdapter<AppData> {
 
     @Override
     public boolean isEnabled(int position) {
-        return !(((AppData)getItem(position)).isUsed());
+        return !(getItem(position).isUsed());
     }
 }

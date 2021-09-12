@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.CutIn;
+package com.ryokusasa.cut_in_app.CutIn;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,8 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.cut_in_app_2.R;
-import com.ryokusasa.cut_in_app_2.UtilCommon;
+import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.util.List;
 
@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class CutInAdapter extends BaseAdapter {
-    private LayoutInflater layoutInflater;  //レイアウト設定用
-    private List<CutIn> cutInList;
+    private final LayoutInflater layoutInflater;  //レイアウト設定用
+    private final List<CutIn> cutInList;
 
     private UtilCommon utilCommon;
 
@@ -34,8 +34,8 @@ public class CutInAdapter extends BaseAdapter {
 
         ViewHolder(View v, int position){
             this.position = position;
-            textView = (TextView)v.findViewById(R.id.CutInTitle);
-            imageView = (ImageView)v.findViewById(R.id.thumbnail);
+            textView = v.findViewById(R.id.CutInTitle);
+            imageView = v.findViewById(R.id.thumbnail);
         }
     }
 

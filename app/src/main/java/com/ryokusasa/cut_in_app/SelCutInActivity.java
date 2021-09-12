@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2;
+package com.ryokusasa.cut_in_app;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,10 +14,11 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
-import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.cut_in_app_2.CutIn.CutInAdapter;
-import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app_2.CutInEditer.CutInEditerActivity;
+import com.ryokusasa.cut_in_app.CutIn.CutIn;
+import com.ryokusasa.cut_in_app.CutIn.CutInAdapter;
+import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.CutInEditer.CutInEditerActivity;
+import com.ryokusasa.cut_in_app.R;
 
 /**
  * Created by fripl on 2017/12/25.
@@ -42,13 +43,13 @@ public class SelCutInActivity extends AppCompatActivity {
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.sel_cut_in_activity);
-        setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
+        setSupportActionBar(findViewById(R.id.cut_in_toolbar));
 
         utilCommon = (UtilCommon)getApplication();
 
         //カットインアダプター追加処理
         cutInAdapter = new CutInAdapter(this, 0, utilCommon.cutInList);
-        GridView gridView = (GridView)findViewById(R.id.gridView);
+        GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(cutInAdapter);
         gridView.setOnItemClickListener(onCutInClick);
         cutInAdapter.setOnImageClickListener((position) -> utilCommon.play(position));
@@ -85,7 +86,7 @@ public class SelCutInActivity extends AppCompatActivity {
         return true;
     }
 
-    private AdapterView.OnItemClickListener onCutInClick = new AdapterView.OnItemClickListener() {
+    private final AdapterView.OnItemClickListener onCutInClick = new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
             Log.i(TAG, "onItemClick:" + position);

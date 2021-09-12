@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.Dialog;
+package com.ryokusasa.cut_in_app.Dialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
@@ -13,9 +13,9 @@ import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
 
-import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app_2.MainActivity;
-import com.ryokusasa.cut_in_app_2.UtilCommon;
+import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.MainActivity;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,10 +76,10 @@ public class AppDialog extends DialogFragment{
 //Android11から非推奨だけど現状使えるのでこのまま
 class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
-    private AppCompatActivity activity;
+    private final AppCompatActivity activity;
     private DialogFragment progressDialog = new ProgressDialog();
-    private AppDialog appDialog;
-    private ArrayList<AppData> appDataList;
+    private final AppDialog appDialog;
+    private final ArrayList<AppData> appDataList;
 
     public LoadAppInfoTask(AppCompatActivity activity, AppDialog appDialog, ArrayList<AppData> appDataList){
         //activity確保

@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app_2.CutInEditer;
+package com.ryokusasa.cut_in_app.CutInEditer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -25,10 +25,10 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 
-import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.cut_in_app_2.R;
-import com.ryokusasa.cut_in_app_2.UtilCommon;
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.CutIn.CutIn;
+import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -62,7 +62,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     private LayerAdapter adapter;
 
     //オブジェクトウィンドウ関連
-    private int makeId = -1;    //前回参照したオブジェクト番号
+    private final int makeId = -1;    //前回参照したオブジェクト番号
 
     private CutIn cutIn;    //編集用カットイン
     private int selCutInId; //編集しているカットイン番号(-1は新規?)
@@ -94,7 +94,7 @@ public class CutInEditerActivity extends AppCompatActivity {
 
         //エディタービュー作成
         editerView = new EditerView(this, cutIn.getAnimObjList());
-        final ConstraintLayout layout = (ConstraintLayout)findViewById(R.id.editerLayout);
+        final ConstraintLayout layout = findViewById(R.id.editerLayout);
         layout.addView(editerView, 0);  //エディタービューを最下層に追加
         editerView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,12 +105,12 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //レイヤーウィンドウ初期位置へ
-        RelativeLayout layerWindow = (RelativeLayout)findViewById(R.id.layerMenu);
+        RelativeLayout layerWindow = findViewById(R.id.layerMenu);
         layerWindow.setTranslationY(50);
         layerWindow.setTranslationX(editerView.screenWidth);
 
         //レイヤーウィンドウボタン
-        ImageView layerEditButton = (ImageView)findViewById(R.id.layerEditButton);
+        ImageView layerEditButton = findViewById(R.id.layerEditButton);
         layerEditButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -120,7 +120,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //レイヤーウィンドウ閉じボタン
-        final Button closeButton = (Button)findViewById(R.id.closeButton);
+        final Button closeButton = findViewById(R.id.closeButton);
         closeButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -129,7 +129,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //レイヤーリストにImageObject追加
-        ListView layerListView = (ListView)findViewById(R.id.layerListView);
+        ListView layerListView = findViewById(R.id.layerListView);
         adapter = new LayerAdapter(this, 0, editerView.getAnimObjList(), editerView.getLayerName(), editerView.getSelObjId());
         layerListView.setAdapter(adapter);
         layerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -150,7 +150,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //レイヤー追加ボタン
-        ImageView addButton = (ImageView)findViewById(R.id.addButton);
+        ImageView addButton = findViewById(R.id.addButton);
         addButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -160,7 +160,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //レイヤー削除ボタン
-        ImageView deleteButton = (ImageView)findViewById(R.id.deleteButton);
+        ImageView deleteButton = findViewById(R.id.deleteButton);
         deleteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -175,7 +175,7 @@ public class CutInEditerActivity extends AppCompatActivity {
         });
 
         //再生ボタン
-        ImageView playButton = (ImageView)findViewById(R.id.playButton);
+        ImageView playButton = findViewById(R.id.playButton);
         playButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -194,7 +194,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     //レイヤーウィンドウ表示
     private void showLayerWindow(){
         //アニメーション開始
-        RelativeLayout layerWindow = (RelativeLayout) findViewById(R.id.layerMenu);
+        RelativeLayout layerWindow = findViewById(R.id.layerMenu);
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.setting_enter_animation);
         animator.setTarget(layerWindow);
         animator.start();
@@ -207,7 +207,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     //レイヤーウィンドウ非表示
     private void closeLayerWindow(){
         //アニメーション開始
-        RelativeLayout layerWindow = (RelativeLayout)findViewById(R.id.layerMenu);
+        RelativeLayout layerWindow = findViewById(R.id.layerMenu);
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.setting_exit_animation);
         animator.setTarget(layerWindow);
         animator.start();
@@ -268,7 +268,7 @@ public class CutInEditerActivity extends AppCompatActivity {
             //設定ウィンドウ閉じ
             changeScene(0);
         }else if(requestCode == REQUEST_IMAGE_CHOOSER && resultCode == RESULT_OK){
-            ImageView layerImage = (ImageView)findViewById(R.id.layerImage);
+            ImageView layerImage = findViewById(R.id.layerImage);
 
             //ビットマップ生成
             Uri resultUri = data.getData();
@@ -316,9 +316,9 @@ public class CutInEditerActivity extends AppCompatActivity {
 
                     //選択オブジェクトがある場合はオブジェクト編集ボタン表示
                     if(editerView.getSelObjId() == -1){
-                        ((ImageView)findViewById(R.id.objEditButton)).setAlpha(0.5f);
+                        findViewById(R.id.objEditButton).setAlpha(0.5f);
                     }else{
-                        ((ImageView)findViewById(R.id.objEditButton)).setAlpha(1.0f);
+                        findViewById(R.id.objEditButton).setAlpha(1.0f);
                     }
                 }
             });
