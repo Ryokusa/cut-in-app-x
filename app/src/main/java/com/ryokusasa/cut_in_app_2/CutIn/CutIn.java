@@ -46,10 +46,6 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         }
     };
 
-    //テスト
-    private int px= 100, py = 100, pdx = 1, pdy = 1;
-    Paint paint = new Paint();
-
     //ワーニング避け
     public CutIn(Context context, AttributeSet attrs){
         super(context, attrs);
@@ -69,7 +65,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         //初期化
         setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         setBackgroundColor(Color.argb(0,0,0,0));
-        setVisibility(View.VISIBLE);
+        setVisibility(View.INVISIBLE);
 
         //アニメオブジェリスト
         animObjList = new ArrayList<AnimObj>();
@@ -94,6 +90,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     public void play(){
         initAnim();
         stop();
+        this.setVisibility(View.VISIBLE);
         playing = true;
         handler.post(runnable); //再生
 
@@ -118,6 +115,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     public void stop(){
         playing = false;
         handler.removeCallbacks(runnable);
+        this.setVisibility(View.INVISIBLE);
     }
 
     //アニメーション初期化
