@@ -75,6 +75,7 @@ public class AppDialog extends DialogFragment{
 
 //appInfoを読み込むタスク
 //progressと連動
+//Android11から非推奨
 class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
     private AppCompatActivity activity;

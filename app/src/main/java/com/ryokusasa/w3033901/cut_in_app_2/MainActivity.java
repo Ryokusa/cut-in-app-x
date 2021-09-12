@@ -27,6 +27,7 @@ import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
 import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
 
@@ -38,10 +39,6 @@ import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";   //Log
-
-    /* パーミッション関連 */
-    private final int OVERLAY_PERMISSION_REQUEST_CODE = 893;    //リクエストコード
-    private final int NOTIFICATION_PERMISSION_REQUEST_CODE = 810;
 
     //レイアウト
     private LinearLayout frameList;
@@ -60,20 +57,15 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        setSupportActionBar((Toolbar)findViewById(R.id.cut_in_toolbar));
-        getSupportActionBar().setDisplayShowTitleEnabled(false);    //タイトル消去
+        setSupportActionBar(findViewById(R.id.cut_in_toolbar));
+        Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);    //タイトル消去
 
         utilCommon = (UtilCommon)getApplication();
         cutInHolderList = utilCommon.cutInHolderList;
         permissionUtils = new PermissionUtils(this);
 
-        ImageView addCutInHolder = (ImageView)findViewById(R.id.addCutInHolder);
-        addCutInHolder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickAddCutInHolder();
-            }
-        });
+        ImageView addCutInHolder = findViewById(R.id.addCutInHolder);
+        addCutInHolder.setOnClickListener(view -> onClickAddCutInHolder());
 
         utilCommon.connectService();
 
@@ -82,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
             permissionUtils.requestOverlayPermission();
 
         //メインレイアウト取得
-        frameList = (LinearLayout)findViewById(R.id.frameList);
+        frameList = findViewById(R.id.frameList);
 
         /* とりあえずのカットイン */
         cutInList = utilCommon.cutInList;
@@ -166,20 +158,21 @@ public class MainActivity extends AppCompatActivity {
     //メニュー選択時処理
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.request_overlay:
-                permissionUtils.requestOverlayPermission();
-                return true;
-            case R.id.request_notification:
-                permissionUtils.requestNotificationPermission();
-                return true;
-            case R.id.cut_in_enable:
-                if(utilCommon.isConnection) utilCommon.endCutInService(this);
-                else             utilCommon.startCutInService(this);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        /* 余談だがswitchにすると構造上再コンパイルが必要になり、重くなるので非推奨とされる */
+        /* url:http://tools.android.com/tips/non-constant-fields */
+        int itemId = item.getItemId();
+        if (itemId == R.id.request_overlay) {
+            permissionUtils.requestOverlayPermission();
+            return true;
+        } else if (itemId == R.id.request_notification) {
+            permissionUtils.requestNotificationPermission();
+            return true;
+        } else if (itemId == R.id.cut_in_enable) {
+            if (utilCommon.isConnection) utilCommon.endCutInService(this);
+            else utilCommon.startCutInService(this);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     //再表示されたとき
@@ -195,21 +188,6 @@ public class MainActivity extends AppCompatActivity {
 
         setCutInHolderListDisplayReset();
     }
-
-    //パーミッション関連の設定結果
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE){
-//            if(!checkOverlayPermission(this)){
-//                //オーバレイの権限がない場合
-//                Toast.makeText(this, "オーバーレイの権限がないと実行できません", Toast.LENGTH_SHORT).show();
-//            }
-//        }else if(requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE)
-//            if(!checkNotificationPermission(this)){
-//                Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
-//            }
-//        super.onActivityResult(requestCode, resultCode, data);
-//    }
 
     @Override
     protected void onDestroy() {

@@ -30,7 +30,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/object_edit" />
 
-    <Relativelaytout
+    <RelativeLayout
         android:id="@+id/layerMenu"
         android:layout_width="290dp"
         android:layout_height="387dp"
@@ -73,7 +73,7 @@
             android:layout_toEndOf="@+id/addButton"
             app:srcCompat="@android:drawable/ic_delete" />
 
-    </Relativelaytout>
+    </RelativeLayout>
 
     <SeekBar
         android:id="@+id/seekBar1"

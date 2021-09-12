@@ -218,7 +218,7 @@ public class CutInEditerActivity extends AppCompatActivity {
     //レイヤーウィンドウ非表示
     private void closeLayerWindow(){
         //アニメーション開始
-        RelativeLayout layerWindow = (RelativeLayout)findViewById(R.id.layerMenu);;
+        RelativeLayout layerWindow = (RelativeLayout)findViewById(R.id.layerMenu);
         Animator animator = AnimatorInflater.loadAnimator(this, R.animator.setting_exit_animation);
         animator.setTarget(layerWindow);
         animator.start();
@@ -236,12 +236,11 @@ public class CutInEditerActivity extends AppCompatActivity {
                         Intent intentGallery;
                         if (Build.VERSION.SDK_INT < 19) {
                             intentGallery = new Intent(Intent.ACTION_GET_CONTENT);
-                            intentGallery.setType("image/*");
                         } else {
                             intentGallery = new Intent(Intent.ACTION_OPEN_DOCUMENT);
                             intentGallery.addCategory(Intent.CATEGORY_OPENABLE);
-                            intentGallery.setType("image/*");
                         }
+                        intentGallery.setType("image/*");
 
                         startActivityForResult(intentGallery, REQUEST_ADD_CHOOSER);
                         break;
@@ -357,7 +356,7 @@ public class CutInEditerActivity extends AppCompatActivity {
             }
         }
         sceneFlag = flag;
-    };
+    }
 
     //キーダウン
     @Override

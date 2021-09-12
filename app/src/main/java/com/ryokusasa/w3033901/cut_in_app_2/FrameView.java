@@ -16,12 +16,10 @@ import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
 //設定されたカットインを表示するview
 
 public class FrameView extends LinearLayout {
-    private TextView eventName;
-    private TextView cutInName;
-    private ImageView thumbnail;
-    private ImageView appIcon;
-    private CutInHolder cutInHolder;
-    private int id;
+    private final TextView eventName;
+    private final TextView cutInName;
+    private final ImageView thumbnail;
+    private final ImageView appIcon;
 
     public FrameView(final MainActivity activity, final CutInHolder cutInHolder){
         super(activity);
@@ -34,8 +32,6 @@ public class FrameView extends LinearLayout {
         appIcon = (ImageView)findViewById(R.id.appIcon);
         appIcon.setVisibility(INVISIBLE);
         appIcon.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
-
-        this.cutInHolder = cutInHolder;
 
         //クリックリスナー
         appIcon.setOnClickListener(new OnClickListener() {

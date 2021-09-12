@@ -17,8 +17,8 @@ import java.util.List;
  * Created by Ryokusasa on 2017/12/17.
  */
 
-public class AppDataAdapter extends ArrayAdapter {
-    private LayoutInflater layoutInflater;
+public class AppDataAdapter extends ArrayAdapter<AppData> {
+    private final LayoutInflater layoutInflater;
 
     //タグつけ用
     private static class ViewFolder {   //独立したクラスとしてstatic

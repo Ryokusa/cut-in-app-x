@@ -22,7 +22,7 @@ import java.util.List;
  * Created by fripl on 2018/01/28.
  */
 
-public class LayerAdapter extends ArrayAdapter {
+public class LayerAdapter extends ArrayAdapter<AnimObj> {
     private LayoutInflater layoutInflater;  //レイアウト設定用
     private List<AnimObj> animObjList = new ArrayList<>();
     private List<String> layerName = new ArrayList<>();

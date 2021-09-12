@@ -23,7 +23,7 @@ import androidx.lifecycle.LifecycleOwner;
 public class PermissionUtils {
     private final ActivityResultLauncher<Intent> OPLauncher;  //オーバーレイ
     private final ActivityResultLauncher<Intent> NPLauncher;  //通知アクセス
-    private final AppCompatActivity mActivity;
+    private AppCompatActivity mActivity;
 
     public PermissionUtils(AppCompatActivity activity){
         mActivity = activity;

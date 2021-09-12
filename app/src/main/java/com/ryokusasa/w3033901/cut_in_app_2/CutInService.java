@@ -83,20 +83,12 @@ public class CutInService extends Service{
         Intent testIntent = new Intent(this, MainActivity.class);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, testIntent, 0);
         Notification notification;
-        //api16以降はbuild()
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN){
-            notification = new Notification.Builder(this)
-                    .setContentIntent(pendingIntent)
-                    .setContentTitle("カットインアプリ")
-                    .setContentText("動作中")
-                    .setSmallIcon(R.mipmap.ic_launcher).build();
-        }else{
-            notification = new Notification.Builder(this)
-                    .setContentIntent(pendingIntent)
-                    .setContentTitle("カットインアプリ")
-                    .setContentText("動作中")
-                    .setSmallIcon(R.mipmap.ic_launcher).build();
-        }
+
+        notification = new Notification.Builder(this)
+                .setContentIntent(pendingIntent)
+                .setContentTitle("カットインアプリ")
+                .setContentText("動作中")
+                .setSmallIcon(R.mipmap.ic_launcher).build();
 
         startForeground(startId, notification);
         return START_NOT_STICKY;

@@ -38,14 +38,14 @@ public class AnimObj implements Cloneable {
     private KeyFrameAnimation.RotateKeyFrameAnimation rotateKeyFrameAnimation;
     private KeyFrameAnimation.ScaleKeyFrameAnimation scaleKeyFrameAnimation;
 
-    Context context;
+    private final Context context;
 
     //オブジェクトタイプ
     public enum Type{
         Image,
         Text
     }
-    private Type type;
+    private final Type type;
 
     //オブジェクト
     private ImageView imageView;
