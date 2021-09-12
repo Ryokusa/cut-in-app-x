@@ -18,6 +18,11 @@ public class KeyFrame implements Cloneable {
         this.interpolator = interpolator;
         this.values = new HashMap<>();
     }
+    public KeyFrame(int frame, HashMap<String, Double> values, TimeInterpolator interpolator){
+        this.frame = frame;
+        this.interpolator = interpolator;
+        this.values = values;
+    }
 
     public int getFrame() {
         return frame;

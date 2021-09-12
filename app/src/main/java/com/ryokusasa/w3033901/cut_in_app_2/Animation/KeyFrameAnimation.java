@@ -4,6 +4,7 @@ import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 
 //TODO: 欲をいうとKeyFrameにすべてのフレーム情報が入り(フォルダー機能)、getですべてのフレームをゲット
 
@@ -13,6 +14,7 @@ public class KeyFrameAnimation implements Cloneable {
     ArrayList<KeyFrame> fullKeyFrameList;   //完全体
     int frameNum;   //フレーム数
     int culFrame = 0;   //現在フレーム
+    String[] keys;
 
     public KeyFrameAnimation(int frameNum) {
         keyFrameList = new ArrayList<KeyFrame>();
@@ -32,6 +34,45 @@ public class KeyFrameAnimation implements Cloneable {
         });
 
         fullKeyFrameList.clear();
+
+        //各フレーム計算
+        int i = 0, j;
+        int df;  //フレーム差分
+        ArrayList<Double> d = new ArrayList<>();  //座標差分
+        float interpolated; //インターポレーター値
+        HashMap<String, Double> v;  //プロパティ
+        KeyFrame pKeyFrame = getKeyFrameList().get(0);    //前のキーフレーム
+
+        for (KeyFrame keyFrame : keyFrameList){
+            //差分
+            df = keyFrame.getFrame() - pKeyFrame.getFrame();
+            d.clear();
+            for (String key : keys) {
+                d.add(keyFrame.values.get(key) - pKeyFrame.values.get(key));
+            }
+            for(; i < keyFrame.getFrame(); i++){
+                if(df == 0){
+                    //最初のキーフレーム(dfが0)までは同じ値で埋めるため
+                    interpolated = 1;
+                }else {
+                    //イージング
+                    interpolated = keyFrame.getInterpolator().getInterpolation((float) ((i - pKeyFrame.getFrame())) / df);
+                }
+
+                //values作成
+                v = new HashMap<>();
+                for (j=0; j < keys.length; j++){
+                    v.put(keys[j], pKeyFrame.values.get(keys[j]) + (d.get(j) * interpolated));
+                }
+                fullKeyFrameList.add(new KeyFrame(i, v, null));
+            }
+            pKeyFrame = keyFrame;
+        }
+
+        //最後埋める
+        for (; i < frameNum; i++){
+            fullKeyFrameList.add(pKeyFrame);
+        }
     }
 
     //キーフレーム取得
@@ -96,43 +137,15 @@ public class KeyFrameAnimation implements Cloneable {
 
         public MoveKeyFrameAnimation(int frameNum){
             super(frameNum);
-        }
-
-        //計算して該当フレーム
-        @Override
-        public void makeKeyFrameAnimation() {
-            super.makeKeyFrameAnimation();
-
-            int i = 0;
-            int df;  //フレーム差分
-            double dx, dy;  //座標差分
-            float interpolated; //インターポレーター値
-            KeyFrame.MoveKeyFrame pKeyFrame = new KeyFrame.MoveKeyFrame(0, 0, 0, null);    //前のキーフレーム
-            for (KeyFrame keyFrame : keyFrameList){
-                df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i < keyFrame.getFrame(); i++){
-                    //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dx = keyFrame.values.get("x") - pKeyFrame.values.get("x");
-                    dy = keyFrame.values.get("y") - pKeyFrame.values.get("y");
-                    fullKeyFrameList.add(new KeyFrame.MoveKeyFrame(i,
-                            pKeyFrame.values.get("x") + (dx * interpolated),
-                            pKeyFrame.values.get("y") + (dy * interpolated),
-                            null));
-                }
-                pKeyFrame = (KeyFrame.MoveKeyFrame) keyFrame;
-            }
-
-            //最後埋める
-            for (; i < frameNum; i++){
-                fullKeyFrameList.add(pKeyFrame);
-            }
+            keys = new String[]{"x", "y"};
         }
 
         @Override
         public MoveKeyFrameAnimation clone() throws CloneNotSupportedException {
             return (MoveKeyFrameAnimation) super.clone();
         }
+
+
     }
 
     //回転キーフレームアニメーション
@@ -140,35 +153,7 @@ public class KeyFrameAnimation implements Cloneable {
 
         public RotateKeyFrameAnimation(int frameNum){
             super(frameNum);
-        }
-
-        //計算して該当フレーム
-        @Override
-        public void makeKeyFrameAnimation() {
-            super.makeKeyFrameAnimation();
-
-            int i = 0;
-            int df;  //フレーム差分
-            double dr;  //回転差分
-            float interpolated; //インターポレーター値
-            KeyFrame.RotateKeyFrame pKeyFrame = new KeyFrame.RotateKeyFrame(0, 0, null);    //前のキーフレーム
-            for (KeyFrame keyFrame : keyFrameList){
-                df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i < keyFrame.getFrame(); i++){
-                    //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dr = keyFrame.values.get("radian") - pKeyFrame.values.get("radian");
-                    fullKeyFrameList.add(new KeyFrame.RotateKeyFrame(i,
-                            pKeyFrame.values.get("radian") + (dr * interpolated),
-                            null));
-                }
-                pKeyFrame = (KeyFrame.RotateKeyFrame) keyFrame;
-            }
-
-            //最後埋める
-            for (; i < frameNum; i++){
-                fullKeyFrameList.add(pKeyFrame);
-            }
+            keys = new String[]{"radian"};
         }
 
         @Override
@@ -182,37 +167,7 @@ public class KeyFrameAnimation implements Cloneable {
 
         public ScaleKeyFrameAnimation(int frameNum){
             super(frameNum);
-        }
-
-        //計算して該当フレーム
-        @Override
-        public void makeKeyFrameAnimation() {
-            super.makeKeyFrameAnimation();
-
-            int i = 0;
-            int df;  //フレーム差分
-            double dx, dy;  //座標差分
-            float interpolated; //インターポレーター値
-            KeyFrame.ScaleKeyFrame pKeyFrame = new KeyFrame.ScaleKeyFrame(0, 0, 0, null);    //前のキーフレーム
-            for (KeyFrame keyFrame : keyFrameList){
-                df = keyFrame.getFrame() - pKeyFrame.getFrame();
-                for(; i < keyFrame.getFrame(); i++){
-                    //イージング
-                    interpolated = keyFrame.getInterpolator().getInterpolation((float)((i-pKeyFrame.getFrame())) / df);
-                    dx = keyFrame.values.get("scaleX") - pKeyFrame.values.get("scaleX");
-                    dy = keyFrame.values.get("scaleY") - pKeyFrame.values.get("scaleY");
-                    fullKeyFrameList.add(new KeyFrame.ScaleKeyFrame(i,
-                            pKeyFrame.values.get("scaleX") + (dx * interpolated),
-                            pKeyFrame.values.get("scaleY") + (dy * interpolated),
-                            null));
-                }
-                pKeyFrame = (KeyFrame.ScaleKeyFrame) keyFrame;
-            }
-
-            //最後埋める
-            for (; i < frameNum; i++){
-                fullKeyFrameList.add(pKeyFrame);
-            }
+            keys = new String[]{"scaleX", "scaleY"};
         }
 
         @Override

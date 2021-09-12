@@ -25,6 +25,7 @@ import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
 
 import java.security.Key;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -243,9 +244,9 @@ public class AnimObj implements Cloneable {
     //そのフレームを再生
     //終了したかどうかを返す
     public boolean playFrame(){
-        KeyFrame.MoveKeyFrame moveKeyFrame = (KeyFrame.MoveKeyFrame) moveKeyFrameAnimation.nextFrame();
-        KeyFrame.RotateKeyFrame rotateKeyFrame = (KeyFrame.RotateKeyFrame) rotateKeyFrameAnimation.nextFrame();
-        KeyFrame.ScaleKeyFrame scaleKeyFrame = (KeyFrame.ScaleKeyFrame)scaleKeyFrameAnimation.nextFrame();
+        KeyFrame moveKeyFrame = moveKeyFrameAnimation.nextFrame();
+        KeyFrame rotateKeyFrame = rotateKeyFrameAnimation.nextFrame();
+        KeyFrame scaleKeyFrame = scaleKeyFrameAnimation.nextFrame();
         if(currentFrame < frameNum) {   //フレーム数から外れたら再生しない
             if (type == Type.Image) {
                 Log.i("AnimObj", "frame:" + currentFrame + " x:" + moveKeyFrame.values.get("x"));

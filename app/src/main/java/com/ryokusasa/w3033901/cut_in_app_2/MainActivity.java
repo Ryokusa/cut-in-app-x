@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         KeyFrame keyFrame;
         int i = 0;
         while((keyFrame = moveKeyFrameAnimation.nextFrame()) != null){
-            Log.i(TAG, "" + i + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).values.get("x") + ", " + ((KeyFrame.MoveKeyFrame)keyFrame).values.get("y"));
+            Log.i(TAG, "" + i + ", " + keyFrame.values.get("x") + ", " + keyFrame.values.get("y"));
             i++;
         }
     }
