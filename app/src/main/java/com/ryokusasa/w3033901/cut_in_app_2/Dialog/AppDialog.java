@@ -33,7 +33,6 @@ public class AppDialog extends DialogFragment{
     CutInHolder cutInHolder;
     UtilCommon utilCommon;
 
-    //TODO: カットインリストをutilから参照できるように
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState)
@@ -75,7 +74,7 @@ public class AppDialog extends DialogFragment{
 
 //appInfoを読み込むタスク
 //progressと連動
-//Android11から非推奨
+//Android11から非推奨だけど現状使えるのでこのまま
 class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
 
     private AppCompatActivity activity;

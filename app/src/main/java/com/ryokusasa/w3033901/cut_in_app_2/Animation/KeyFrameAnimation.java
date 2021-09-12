@@ -7,6 +7,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 
 //TODO: 欲をいうとKeyFrameにすべてのフレーム情報が入り(フォルダー機能)、getですべてのフレームをゲット
+/* 考えてみたがいらない可能性あり。それよりanimationをまとめて初期化等必要かも */
 
 //キーフレーム集合体
 public class KeyFrameAnimation implements Cloneable {

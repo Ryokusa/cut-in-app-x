@@ -83,6 +83,7 @@ public class MainActivity extends AppCompatActivity {
         CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
         AnimObj ao = new AnimObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.nico, null), 50, 50 );
         ao.addMove(100, 100, 100, new LinearInterpolator());
+        ao.addMove(50, 400, 500, new LinearInterpolator());
         cutIn1.addAnimObj(ao);
         cutInList.add(cutIn1);
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
@@ -93,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
         /* カットインホルダー表示 */
         setCutInHolderListDisplayReset();
 
-        //TODO: キーフレームアニメーションの動作確認
         /* キーフレームアニメーションテスト */
         KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation = new KeyFrameAnimation.MoveKeyFrameAnimation(60);
         moveKeyFrameAnimation.addKeyFrame(new KeyFrame.MoveKeyFrame(10, 100, 100, new AccelerateDecelerateInterpolator()));

@@ -42,7 +42,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         public void run() {
             if(playing) {
                 _play();
-                handler.postDelayed(this, 60);
+                handler.postDelayed(this, 13);
             }
         }
     };
