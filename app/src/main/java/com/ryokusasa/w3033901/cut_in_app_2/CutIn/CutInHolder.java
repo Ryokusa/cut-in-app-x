@@ -32,11 +32,6 @@ public class CutInHolder implements Serializable {
         this.appData = appData;
     }
 
-    //再生
-    public void play() {
-        //TODO 再生処理
-    }
-
     public CutInHolder setEventType(EventType eventType) {
         this.eventType = eventType;
         return this;

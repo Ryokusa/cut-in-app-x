@@ -202,6 +202,7 @@ public class UtilCommon extends Application {
     }
 
     //カットイン適用
+    //TODO: 重いのでビュー切り替えなしに
     public void setCutIn(CutIn cutIn){
         cutInView.removeAllViews();
         cutIn.setLayoutParams(new ConstraintLayout.LayoutParams(

@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -81,9 +82,8 @@ public class MainActivity extends AppCompatActivity {
         /* とりあえずのカットイン */
         cutInList = utilCommon.cutInList;
         CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
-        AnimObj ao = new AnimObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.nico, null), 50, 50 );
-        ao.addMove(100, 100, 100, new LinearInterpolator());
-        ao.addMove(50, 400, 500, new LinearInterpolator());
+        AnimObj ao = new AnimObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
+        ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
         cutInList.add(cutIn1);
         cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));

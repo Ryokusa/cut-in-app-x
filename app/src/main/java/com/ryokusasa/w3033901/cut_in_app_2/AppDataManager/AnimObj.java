@@ -34,6 +34,10 @@ import java.util.List;
  * アニメーション情報も持つ
  */
 
+/* TODO ビューを切り替えると重いのでviewがなくても動けるようなバージョン
+    UtilCommonにて描画関数→CutInに描画関数→AnimObjにも描画関数
+     Viewの削除*/
+
 public class AnimObj implements Cloneable {
 
     //キーフレームアニメーション

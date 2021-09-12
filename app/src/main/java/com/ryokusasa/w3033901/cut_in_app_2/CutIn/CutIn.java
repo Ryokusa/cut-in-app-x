@@ -111,6 +111,10 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         if(f) stop();
     }
 
+    //TODO:描画機能
+    public void drawCanvas(Canvas canvas) {
+    }
+
     //停止
     public void stop(){
         playing = false;
@@ -122,16 +126,6 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         for(AnimObj animObj : animObjList) {
             animObj.setFrame(0);
         }
-    }
-
-    //TODO:テスト描画を完了
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
-        paint.setStyle(Paint.Style.STROKE);
-
-        //canvas.drawCircle(x,y,3, paint);
-
     }
 
     //animObjを追加

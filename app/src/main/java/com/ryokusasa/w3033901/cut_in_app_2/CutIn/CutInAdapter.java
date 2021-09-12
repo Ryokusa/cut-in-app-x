@@ -76,7 +76,6 @@ public class CutInAdapter extends BaseAdapter {
             viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    //TODO カットインプレビュー
                     Log.i("onClick", "" + viewHolder.position);
                     imageClickListener.onImageClick(position);
                 }
