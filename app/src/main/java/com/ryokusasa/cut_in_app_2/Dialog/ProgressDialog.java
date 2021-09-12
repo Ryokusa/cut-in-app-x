@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.Dialog;
+package com.ryokusasa.cut_in_app_2.Dialog;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

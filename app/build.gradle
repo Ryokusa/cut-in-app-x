@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 30
     defaultConfig {
-        applicationId "com.ryokusasa.w3033901.cut_in_app_2"
+        applicationId "com.ryokusasa.cut_in_app_2"
         minSdkVersion 18
         targetSdkVersion 30
         versionCode 1

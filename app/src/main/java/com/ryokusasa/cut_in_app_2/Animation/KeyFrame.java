@@ -1,10 +1,7 @@
-package com.ryokusasa.w3033901.cut_in_app_2.Animation;
+package com.ryokusasa.cut_in_app_2.Animation;
 
 import android.animation.TimeInterpolator;
-import android.graphics.Point;
-import android.view.animation.Interpolator;
 
-import java.sql.Time;
 import java.util.HashMap;
 
 //キーフレーム

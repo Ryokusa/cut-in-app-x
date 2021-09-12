@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
 public enum EventType{
         SCREEN_ON("画面ON"),

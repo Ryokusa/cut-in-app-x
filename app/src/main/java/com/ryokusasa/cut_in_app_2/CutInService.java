@@ -1,27 +1,16 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
 import android.app.Notification;
 import android.app.PendingIntent;
 import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PixelFormat;
 import android.os.Binder;
-import android.os.Build;
 import android.os.Handler;
 import android.os.IBinder;
 import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
-
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
-
-import java.util.ArrayList;
 
 /**
  * Created by Ryokusasa on 2017/12/18.

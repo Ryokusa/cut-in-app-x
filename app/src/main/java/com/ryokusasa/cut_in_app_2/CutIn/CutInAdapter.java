@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.CutIn;
+package com.ryokusasa.cut_in_app_2.CutIn;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,9 +9,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
-import com.ryokusasa.w3033901.cut_in_app_2.R;
-import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
+import com.ryokusasa.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app_2.UtilCommon;
 
 import java.util.List;
 

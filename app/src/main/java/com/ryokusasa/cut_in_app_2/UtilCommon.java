@@ -1,6 +1,5 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
-import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -16,17 +15,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.ViewFlipper;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
+import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app_2.Dialog.AppData;
 
 import java.util.ArrayList;
 
-import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.checkOverlayPermission;
+import static com.ryokusasa.cut_in_app_2.PermissionUtils.checkOverlayPermission;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 

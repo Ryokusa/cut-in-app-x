@@ -1,6 +1,5 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
-import android.app.Instrumentation;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,15 +7,10 @@ import android.os.Build;
 import android.provider.Settings;
 import android.widget.Toast;
 
-import androidx.activity.result.ActivityResult;
-import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.ActivityResultRegistry;
 import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.annotation.NonNull;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LifecycleOwner;
 
 //パーミッションを使うクラス
 //もし通知許可リクエストをしたいなら、Activity Result APIの仕様上グローバル変数として定義して使う

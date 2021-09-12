@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.Dialog;
+package com.ryokusasa.cut_in_app_2.Dialog;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.app.AlertDialog;
@@ -12,11 +12,10 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
-import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
+import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app_2.MainActivity;
+import com.ryokusasa.cut_in_app_2.UtilCommon;
 
 import java.util.ArrayList;
 import java.util.List;

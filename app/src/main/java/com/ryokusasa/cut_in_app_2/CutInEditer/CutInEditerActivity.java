@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.CutInEditer;
+package com.ryokusasa.cut_in_app_2.CutInEditer;
 
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
@@ -7,7 +7,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
-import android.media.Image;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,29 +16,19 @@ import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import android.util.Log;
+
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SeekBar;
-import android.widget.TabHost;
-import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.w3033901.cut_in_app_2.CutInService;
-import com.ryokusasa.w3033901.cut_in_app_2.MainActivity;
-import com.ryokusasa.w3033901.cut_in_app_2.R;
-import com.ryokusasa.w3033901.cut_in_app_2.UtilCommon;
-
-import org.w3c.dom.Text;
+import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app_2.UtilCommon;
 
 import java.io.IOException;
 import java.util.ArrayList;

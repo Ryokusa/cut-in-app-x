@@ -1,6 +1,5 @@
-package com.ryokusasa.w3033901.cut_in_app_2.Animation;
+package com.ryokusasa.cut_in_app_2.Animation;
 
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;

@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.CutIn;
+package com.ryokusasa.cut_in_app_2.CutIn;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,10 +14,9 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ryokusasa.w3033901.cut_in_app_2.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 //カットインクラス

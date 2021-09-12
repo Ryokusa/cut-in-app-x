@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2.Dialog;
+package com.ryokusasa.cut_in_app_2.Dialog;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -9,7 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.R;
+import com.ryokusasa.cut_in_app_2.R;
 
 import java.util.List;
 

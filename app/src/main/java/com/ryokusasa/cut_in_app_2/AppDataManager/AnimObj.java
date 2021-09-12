@@ -1,32 +1,20 @@
-package com.ryokusasa.w3033901.cut_in_app_2.AppDataManager;
+package com.ryokusasa.cut_in_app_2.AppDataManager;
 
-import android.animation.Animator;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.animation.TimeInterpolator;
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Matrix;
 import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.animation.Interpolator;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrame;
-import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
-
-import java.security.Key;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import com.ryokusasa.cut_in_app_2.Animation.KeyFrame;
+import com.ryokusasa.cut_in_app_2.Animation.KeyFrameAnimation;
 
 /**
  * アニメーションオブジェクト

@@ -1,4 +1,4 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -14,10 +14,10 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInAdapter;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.w3033901.cut_in_app_2.CutInEditer.CutInEditerActivity;
+import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.cut_in_app_2.CutIn.CutInAdapter;
+import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app_2.CutInEditer.CutInEditerActivity;
 
 /**
  * Created by fripl on 2017/12/25.

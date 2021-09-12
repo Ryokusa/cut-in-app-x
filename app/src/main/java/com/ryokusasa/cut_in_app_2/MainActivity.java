@@ -1,38 +1,34 @@
-package com.ryokusasa.w3033901.cut_in_app_2;
+package com.ryokusasa.cut_in_app_2;
 
-import android.animation.TimeInterpolator;
-import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
-import androidx.appcompat.widget.Toolbar;
+
 import androidx.core.content.res.ResourcesCompat;
 
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.BounceInterpolator;
-import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrame;
-import com.ryokusasa.w3033901.cut_in_app_2.Animation.KeyFrameAnimation;
-import com.ryokusasa.w3033901.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutIn;
-import com.ryokusasa.w3033901.cut_in_app_2.CutIn.CutInHolder;
-import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppData;
-import com.ryokusasa.w3033901.cut_in_app_2.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app_2.Animation.KeyFrame;
+import com.ryokusasa.cut_in_app_2.Animation.KeyFrameAnimation;
+import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app_2.CutIn.CutIn;
+import com.ryokusasa.cut_in_app_2.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app_2.Dialog.AppData;
+import com.ryokusasa.cut_in_app_2.Dialog.AppDialog;
 
 import java.util.ArrayList;
 import java.util.Objects;
 
-import static com.ryokusasa.w3033901.cut_in_app_2.PermissionUtils.*;
+import static com.ryokusasa.cut_in_app_2.PermissionUtils.*;
 
 /*
   メインアクティビティ

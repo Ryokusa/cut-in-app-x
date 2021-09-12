@@ -1,9 +1,8 @@
-package com.ryokusasa.w3033901.cut_in_app_2.CutInEditer;
+package com.ryokusasa.cut_in_app_2.CutInEditer;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.Interpolator;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Rect;
@@ -12,21 +11,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.DisplayMetrics;
 import android.util.Log;
-import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.AccelerateInterpolator;
-import android.widget.ImageView;
-import android.widget.SeekBar;
-import android.widget.TextView;
 
-import com.ryokusasa.w3033901.cut_in_app_2.AppDataManager.AnimObj;
-import com.ryokusasa.w3033901.cut_in_app_2.R;
-
-import org.w3c.dom.Text;
+import com.ryokusasa.cut_in_app_2.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app_2.R;
 
 import java.util.ArrayList;
 import java.util.List;
