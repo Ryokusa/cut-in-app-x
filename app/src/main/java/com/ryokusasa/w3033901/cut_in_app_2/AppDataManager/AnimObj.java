@@ -250,16 +250,16 @@ public class AnimObj implements Cloneable {
             if (type == Type.Image) {
                 Log.i("AnimObj", "frame:" + currentFrame + " x:" + moveKeyFrame.values.get("x"));
                 imageView.setTranslationX(moveKeyFrame.values.get("x").floatValue());
-                imageView.setTranslationY((float) moveKeyFrame.values.get("y").floatValue());
-                imageView.setRotation((float) rotateKeyFrame.values.get("radian").floatValue());
-                imageView.setScaleX((float) scaleKeyFrame.values.get("scaleX").floatValue());
-                imageView.setScaleY((float) scaleKeyFrame.values.get("scaleY").floatValue());
+                imageView.setTranslationY(moveKeyFrame.values.get("y").floatValue());
+                imageView.setRotation(rotateKeyFrame.values.get("radian").floatValue());
+                imageView.setScaleX(scaleKeyFrame.values.get("scaleX").floatValue());
+                imageView.setScaleY(scaleKeyFrame.values.get("scaleY").floatValue());
             } else if (type == Type.Text) {
-                textView.setTranslationX((float) moveKeyFrame.values.get("x").floatValue());
-                textView.setTranslationY((float) moveKeyFrame.values.get("y").floatValue());
-                textView.setRotation((float) rotateKeyFrame.values.get("radian").floatValue());
-                textView.setScaleX((float) scaleKeyFrame.values.get("scaleX").floatValue());
-                textView.setScaleY((float) scaleKeyFrame.values.get("scaleY").floatValue());
+                textView.setTranslationX(moveKeyFrame.values.get("x").floatValue());
+                textView.setTranslationY(moveKeyFrame.values.get("y").floatValue());
+                textView.setRotation(rotateKeyFrame.values.get("radian").floatValue());
+                textView.setScaleX(scaleKeyFrame.values.get("scaleX").floatValue());
+                textView.setScaleY(scaleKeyFrame.values.get("scaleY").floatValue());
             }
             currentFrame++;
             return false;

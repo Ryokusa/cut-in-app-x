@@ -40,8 +40,10 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
-            _play();
-            handler.postDelayed(this, 60);
+            if(playing) {
+                _play();
+                handler.postDelayed(this, 60);
+            }
         }
     };
 
@@ -93,6 +95,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     public void play(){
         initAnim();
         stop();
+        playing = true;
         handler.post(runnable); //再生
 
         Log.i(TAG, "play");
@@ -110,6 +113,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     //停止
     public void stop(){
+        playing = false;
         handler.removeCallbacks(runnable);
     }
 
