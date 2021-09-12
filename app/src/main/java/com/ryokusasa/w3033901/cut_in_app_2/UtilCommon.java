@@ -1,5 +1,6 @@
 package com.ryokusasa.w3033901.cut_in_app_2;
 
+import android.app.Activity;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
@@ -49,6 +50,9 @@ public class UtilCommon extends Application {
     private ServiceConnection serviceConnection;
     private CutInService mService;
     public boolean isConnection = false;
+
+    //パーミッション
+    private PermissionUtils permissionUtils;
 
 
     @Override

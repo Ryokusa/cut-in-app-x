@@ -53,6 +53,9 @@ public class MainActivity extends AppCompatActivity {
     //グローバルクラス
     private UtilCommon utilCommon;
 
+    //パーミッション申請用
+    private PermissionUtils permissionUtils;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +65,7 @@ public class MainActivity extends AppCompatActivity {
 
         utilCommon = (UtilCommon)getApplication();
         cutInHolderList = utilCommon.cutInHolderList;
+        permissionUtils = new PermissionUtils(this);
 
         ImageView addCutInHolder = (ImageView)findViewById(R.id.addCutInHolder);
         addCutInHolder.setOnClickListener(new View.OnClickListener() {
@@ -75,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
         //権限確認
         if (!checkOverlayPermission(this))
-            requestOverlayPermission(this, OVERLAY_PERMISSION_REQUEST_CODE);
+            permissionUtils.requestOverlayPermission();
 
         //メインレイアウト取得
         frameList = (LinearLayout)findViewById(R.id.frameList);
@@ -164,10 +168,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch(item.getItemId()){
             case R.id.request_overlay:
-                requestOverlayPermission(this, OVERLAY_PERMISSION_REQUEST_CODE);
+                permissionUtils.requestOverlayPermission();
                 return true;
             case R.id.request_notification:
-                requestNotificationPermission(this, NOTIFICATION_PERMISSION_REQUEST_CODE);
+                permissionUtils.requestNotificationPermission();
                 return true;
             case R.id.cut_in_enable:
                 if(utilCommon.isConnection) utilCommon.endCutInService(this);
@@ -192,19 +196,20 @@ public class MainActivity extends AppCompatActivity {
         setCutInHolderListDisplayReset();
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE){
-            if(!checkOverlayPermission(this)){
-                //オーバレイの権限がない場合
-                Toast.makeText(this, "オーバーレイの権限がないと実行できません", Toast.LENGTH_SHORT).show();
-            }
-        }else if(requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE)
-            if(!checkNotificationPermission(this)){
-                Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
-            }
-        super.onActivityResult(requestCode, resultCode, data);
-    }
+    //パーミッション関連の設定結果
+//    @Override
+//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        if (requestCode == OVERLAY_PERMISSION_REQUEST_CODE){
+//            if(!checkOverlayPermission(this)){
+//                //オーバレイの権限がない場合
+//                Toast.makeText(this, "オーバーレイの権限がないと実行できません", Toast.LENGTH_SHORT).show();
+//            }
+//        }else if(requestCode == NOTIFICATION_PERMISSION_REQUEST_CODE)
+//            if(!checkNotificationPermission(this)){
+//                Toast.makeText(this, "通知アクセス権限がないと実行できません", Toast.LENGTH_SHORT).show();
+//            }
+//        super.onActivityResult(requestCode, resultCode, data);
+//    }
 
     @Override
     protected void onDestroy() {
