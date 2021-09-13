@@ -18,7 +18,7 @@ import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInAdapter;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.CutInEditer.CutInEditerActivity;
-import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app .R;
 
 /**
  * Created by fripl on 2017/12/25.
