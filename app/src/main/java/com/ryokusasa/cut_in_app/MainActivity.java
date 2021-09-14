@@ -79,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
         //メインレイアウト取得
         frameList = findViewById(R.id.frameList);
 
-
-
         /* カットインホルダー表示 */
         setCutInHolderListDisplayReset();
 
