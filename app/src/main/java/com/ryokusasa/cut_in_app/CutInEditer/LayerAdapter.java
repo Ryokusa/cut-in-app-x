@@ -49,37 +49,37 @@ public class LayerAdapter extends ArrayAdapter<AnimObj> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-        ViewHolder viewHolder;
-
-        if(convertView == null){
-            //新しく作成
-            convertView = layoutInflater.inflate(R.layout.layer_adapter_layout, null);
-            viewHolder = new ViewHolder(convertView, position);
-            convertView.setTag(viewHolder); //タグつけ
-
-        }else{
-            //再利用
-            viewHolder = (ViewHolder) convertView.getTag(); //ゲット
-        }
-
-        viewHolder.layerName.setText(layerName.get(position));
-        if(animObjList.get(position).getType() == AnimObj.Type.Image) {
-            //画像オブジェクトの場合画像表示
-            viewHolder.layerImage.setImageDrawable(animObjList.get(position).getImageView().getDrawable());
-        }else if (animObjList.get(position).getType() == AnimObj.Type.Text){
-            //テキストオブジェクトの場合なにも表示できない
-            //TODO テキストオブジェクトのサムネイル追加
-            viewHolder.layerImage.setImageDrawable(null);
-            viewHolder.layerName.setText(layerName.get(position) + "「" + animObjList.get(position).getTextView().getText() + "」");
-        }
-
-
-        //選択されたレイヤーのみ明るい
-        if(position != selId){
-            convertView.setBackgroundColor(Color.argb(50,0,0,0));
-        }else{
-            convertView.setBackgroundColor(Color.argb(0,0,0,0));
-        }
+//        ViewHolder viewHolder;
+//
+//        if(convertView == null){
+//            //新しく作成
+//            convertView = layoutInflater.inflate(R.layout.layer_adapter_layout, null);
+//            viewHolder = new ViewHolder(convertView, position);
+//            convertView.setTag(viewHolder); //タグつけ
+//
+//        }else{
+//            //再利用
+//            viewHolder = (ViewHolder) convertView.getTag(); //ゲット
+//        }
+//
+//        viewHolder.layerName.setText(layerName.get(position));
+//        if(animObjList.get(position).getType() == AnimObj.Type.Image) {
+//            //画像オブジェクトの場合画像表示
+//            viewHolder.layerImage.setImageDrawable(animObjList.get(position).getImageView().getDrawable());
+//        }else if (animObjList.get(position).getType() == AnimObj.Type.Text){
+//            //テキストオブジェクトの場合なにも表示できない
+//            //TODO テキストオブジェクトのサムネイル追加
+//            viewHolder.layerImage.setImageDrawable(null);
+//            viewHolder.layerName.setText(layerName.get(position) + "「" + animObjList.get(position).getTextView().getText() + "」");
+//        }
+//
+//
+//        //選択されたレイヤーのみ明るい
+//        if(position != selId){
+//            convertView.setBackgroundColor(Color.argb(50,0,0,0));
+//        }else{
+//            convertView.setBackgroundColor(Color.argb(0,0,0,0));
+//        }
 
         return convertView;
     }

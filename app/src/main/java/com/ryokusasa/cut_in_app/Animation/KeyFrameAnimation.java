@@ -102,7 +102,7 @@ public class KeyFrameAnimation implements Cloneable {
     }
 
     //フレーム
-    public KeyFrame playFrame(int frame){
+    public KeyFrame getFrame(int frame){
         return fullKeyFrameList.get(frame);
     }
 

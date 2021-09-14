@@ -1,6 +1,8 @@
 package com.ryokusasa.cut_in_app;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.core.content.res.ResourcesCompat;
@@ -20,6 +22,7 @@ import android.widget.Toast;
 import com.ryokusasa.cut_in_app.Animation.KeyFrame;
 import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
 import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.AppDataManager.ImageObj;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
@@ -79,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         /* とりあえずのカットイン */
         cutInList = utilCommon.cutInList;
         CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
-        AnimObj ao = new AnimObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null);
+        AnimObj ao = new ImageObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
         cutInList.add(cutIn1);

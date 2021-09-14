@@ -40,6 +40,8 @@ public class UtilCommon extends Application {
     private ConstraintLayout cutInView;
     private LinearLayout layout;
     private WindowManager windowManager;
+    private CutInCanvas cutInCanvas;
+    private int selCutInId = -1;
 
     //アプリデータ
     public ArrayList<AppData> appDataList = new ArrayList<AppData>();
@@ -59,6 +61,8 @@ public class UtilCommon extends Application {
         sInstance = this;
 
         cutInView = new ConstraintLayout(this);
+        cutInCanvas = new CutInCanvas(this);
+        cutInView.addView(cutInCanvas, new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
     }
 
     //TODO 再生
@@ -68,8 +72,7 @@ public class UtilCommon extends Application {
 
     public void play(int id){
         Log.i(TAG, "play" + id);
-        setCutIn(cutInList.get(id));
-        cutInList.get(id).play();
+        cutInList.get(id).play(cutInCanvas);
     }
 
     //サービス接続
@@ -193,20 +196,10 @@ public class UtilCommon extends Application {
         });
     }
 
-    public void removeWindow(){
+    public void removeWindow() {
         //View削除
         windowManager.removeView(cutInView);
         windowManager.removeView(layout);
-    }
-
-    //カットイン適用
-    //TODO: 重いのでビュー切り替えなしに
-    public void setCutIn(CutIn cutIn){
-        cutInView.removeAllViews();
-        cutIn.setLayoutParams(new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT,
-                ConstraintLayout.LayoutParams.MATCH_PARENT));
-        cutInView.addView(cutIn);
     }
 
     //コンテキストをどこからでも取得できるように

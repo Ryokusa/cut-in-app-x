@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.CutInCanvas;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -34,16 +35,6 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     private ArrayList<AnimObj> animObjList;
 
     private boolean playing = false;
-    private Handler handler;
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            if(playing) {
-                _play();
-                handler.postDelayed(this, 13);
-            }
-        }
-    };
 
     //ワーニング避け
     public CutIn(Context context, AttributeSet attrs){
@@ -68,10 +59,6 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
         //アニメオブジェリスト
         animObjList = new ArrayList<AnimObj>();
-
-
-        //play繰り返し用
-        handler = new Handler();
     }
 
     public String getTitle() {
@@ -86,34 +73,34 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
         return thumbnail;
     }
 
-    public void play(){
+    public void play(CutInCanvas cutInCanvas){
         initAnim();
         stop();
         this.setVisibility(View.VISIBLE);
         playing = true;
-        handler.post(runnable); //再生
+        cutInCanvas.setDrawListener(new CutInCanvas.DrawListener() {
+            @Override
+            public void onDraw(Canvas canvas) {
+                if(playing) _play(canvas);
+            }
+        });
 
         Log.i(TAG, "play");
     }
 
     //繰り返し
-    private void _play(){
+    private void _play(Canvas canvas){
         Log.i(TAG,"_play");
         boolean f = true;  //終了フラグ
         for(AnimObj animObj : animObjList) {
-            if(!animObj.playFrame()) f = false; //再生中が一つでもあるなら継続
+            if(!animObj.playFrame(canvas)) f = false; //再生中が一つでもあるなら継続
         }
         if(f) stop();
-    }
-
-    //TODO:描画機能
-    public void drawCanvas(Canvas canvas) {
     }
 
     //停止
     public void stop(){
         playing = false;
-        handler.removeCallbacks(runnable);
         this.setVisibility(View.INVISIBLE);
     }
 
@@ -128,7 +115,7 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     //TODO:animObjをViewとして使うか、画像を描画するかきめる
     public void addAnimObj(AnimObj animObj){
         animObjList.add(animObj);
-        this.addView(animObj.getObjView());
+//        this.addView(animObj.getObjView());
     }
 
     public ArrayList<AnimObj> getAnimObjList() {
