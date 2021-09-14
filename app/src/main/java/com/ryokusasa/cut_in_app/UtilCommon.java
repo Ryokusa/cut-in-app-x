@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.IBinder;
 import android.util.Log;
@@ -15,8 +16,11 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.BounceInterpolator;
 import android.widget.LinearLayout;
 
+import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.AppDataManager.ImageObj;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
@@ -27,6 +31,7 @@ import java.util.ArrayList;
 import static com.ryokusasa.cut_in_app.PermissionUtils.checkOverlayPermission;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.res.ResourcesCompat;
 
 public class UtilCommon extends Application {
     private static final String TAG = "UtilCommon";
@@ -63,6 +68,18 @@ public class UtilCommon extends Application {
         cutInView = new ConstraintLayout(this);
         cutInCanvas = new CutInCanvas(this);
         cutInView.addView(cutInCanvas, new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
+        /* とりあえずのカットイン */
+        CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
+        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null);
+        AnimObj ao = new ImageObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
+        ao.addMove(200, 400, 1700, new BounceInterpolator());
+        cutIn1.addAnimObj(ao);
+        cutInList.add(cutIn1);
+        cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
+        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
+        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
+        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
     }
 
     //TODO 再生

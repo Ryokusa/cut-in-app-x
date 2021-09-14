@@ -79,18 +79,7 @@ public class MainActivity extends AppCompatActivity {
         //メインレイアウト取得
         frameList = findViewById(R.id.frameList);
 
-        /* とりあえずのカットイン */
-        cutInList = utilCommon.cutInList;
-        CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null);
-        AnimObj ao = new ImageObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
-        ao.addMove(200, 400, 1700, new BounceInterpolator());
-        cutIn1.addAnimObj(ao);
-        cutInList.add(cutIn1);
-        cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
-        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
-        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
-        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
+
 
         /* カットインホルダー表示 */
         setCutInHolderListDisplayReset();
