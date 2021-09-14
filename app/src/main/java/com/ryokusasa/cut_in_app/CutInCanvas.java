@@ -32,7 +32,7 @@ public class CutInCanvas extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         drawListener.onDraw(canvas);
-        Log.i(TAG, "onDraw");
+        //Log.i(TAG, "onDraw");
     }
 
     public void setDrawListener(DrawListener drawListener){
