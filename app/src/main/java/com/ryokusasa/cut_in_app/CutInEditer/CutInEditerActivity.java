@@ -41,7 +41,7 @@ import java.util.TimerTask;
  * Created by Ryokusasa on 2018/01/22.
  *
  * //カットインエディターアクティビティ
- *
+ * //TODO: 動作不安定＆前作の残骸なのでおそらく全部焼き直し
  */
 
 public class CutInEditerActivity extends AppCompatActivity {
