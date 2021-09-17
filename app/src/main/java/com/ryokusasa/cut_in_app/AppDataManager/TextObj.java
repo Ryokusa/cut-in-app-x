@@ -9,8 +9,8 @@ import android.graphics.drawable.Drawable;
 //画像オブジェクト
 public class TextObj extends AnimObj{
     public String text;
-    private int textSize;  //変形後
-    private Paint mPaint;
+    private final int textSize;  //変形後
+    private final Paint mPaint;
 
     public TextObj(double x, double y, String text, int textSize){
         super(x, y);

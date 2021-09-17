@@ -7,8 +7,9 @@ import android.media.Image;
 
 //画像オブジェクト
 public class ImageObj extends AnimObj{
-    private Drawable drawable;
-    private int width, height;  //変形後
+    private final Drawable drawable;
+    private final int width;
+    private final int height;  //変形後
 
     public ImageObj(Drawable drawable, double x, double y, int width, int height){
         super(x, y);

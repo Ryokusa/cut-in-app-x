@@ -46,7 +46,7 @@ public class UtilCommon extends Application {
     private LinearLayout layout;
     private WindowManager windowManager;
     private CutInCanvas cutInCanvas;
-    private int selCutInId = -1;
+    private final int selCutInId = -1;
 
     //アプリデータ
     public ArrayList<AppData> appDataList = new ArrayList<>();

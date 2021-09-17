@@ -12,7 +12,7 @@ import android.view.View;
 public class CutInCanvas extends View {
     private static final String TAG = "CutInCanvas";
 
-    private Handler handler;
+    private final Handler handler;
     private final Runnable runnable = new Runnable() {
         @Override
         public void run() {
