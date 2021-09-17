@@ -67,7 +67,7 @@ public class UtilCommon extends Application {
     //カットインリスト
     public ArrayList<CutIn> cutInList = new ArrayList<>();
     //カットイン関連
-    public ArrayList<CutInHolder> cutInHolderList = new ArrayList<>();//TODO　後々外部ファイル
+    public ArrayList<CutInHolder> cutInHolderList = new ArrayList<>();
     private ConstraintLayout cutInView;
     private LinearLayout layout;
     private WindowManager windowManager;
