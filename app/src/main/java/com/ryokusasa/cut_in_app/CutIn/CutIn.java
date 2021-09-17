@@ -32,12 +32,11 @@ public class CutIn{
     private static final String TAG = "CutIn";
 
     //カットインのバージョン(カットイン読み込む際、整合性を保つため)
-    public static final int CUT_IN_VERSION = 2;
+    public static final int CUT_IN_VERSION = 1;
 
     public ImageData imageData;
     public String title;
     private ArrayList<AnimObj> animObjList;
-    private
 
     private boolean playing = false;
 
