@@ -126,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             cutInHolder.setAppData(appData);
         } else {
             //ホルダー追加処理
-            utilCommon.cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, utilCommon.cutInList.get(0), appData));
+            utilCommon.cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, utilCommon.initialCutIn, appData));
         }
         appData.setUsed(true);
         setCutInHolderListDisplayReset();

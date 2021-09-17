@@ -72,7 +72,9 @@ public class UtilCommon extends Application {
     private LinearLayout layout;
     private WindowManager windowManager;
     private CutInCanvas cutInCanvas;
-    //private final int selCutInId = -1;
+    public CutIn initialCutIn = new CutIn("Initial CutIn", new ImageData(R.drawable.ic_launcher_background));
+
+    //保存関連
     private Gson gson;
     private SharedPreferences sp;
 
@@ -166,7 +168,7 @@ public class UtilCommon extends Application {
         //同じカットインをホルダーリストから削除
         for (CutInHolder cih : cutInHolderList){
             if(cih.getCutIn().equals(cutIn)){
-                cih.setCutIn(cutInList.get(0));
+                cih.setCutIn(initialCutIn);
             }
         }
     }
@@ -281,10 +283,6 @@ public class UtilCommon extends Application {
         if (!loadCutInList() | !loadCutInHolder()){
             Log.i(TAG, "読み込めませんでした");
         }
-    }
-
-    public void saveCutInList(){
-        saveCutInList(false);
     }
 
     public void saveCutInList(boolean f){
