@@ -1,11 +1,8 @@
-package com.ryokusasa.cut_in_app;
+package com.ryokusasa.cut_in_app.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import androidx.core.content.res.ResourcesCompat;
 
 import android.util.Log;
 import android.view.Menu;
@@ -14,20 +11,21 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.ryokusasa.cut_in_app.Animation.KeyFrame;
 import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app.AppDataManager.ImageObj;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
 import com.ryokusasa.cut_in_app.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.EventType;
+import com.ryokusasa.cut_in_app.FrameView;
+import com.ryokusasa.cut_in_app.PermissionUtils;
 import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,8 +45,9 @@ public class MainActivity extends AppCompatActivity {
     private LinearLayout frameList;
 
     //カットイン関連
-    private ArrayList<CutIn> cutInList;
     private ArrayList<CutInHolder> cutInHolderList;
+    private ArrayList<CutIn> cutInList;
+
 
     //グローバルクラス
     private UtilCommon utilCommon;
@@ -64,12 +63,15 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);    //タイトル消去
 
         utilCommon = (UtilCommon)getApplication();
+        cutInList = utilCommon.cutInList;
         cutInHolderList = utilCommon.cutInHolderList;
         permissionUtils = new PermissionUtils(this);
 
+        //カットインホルダー追加ボタン
         ImageView addCutInHolder = findViewById(R.id.addCutInHolder);
         addCutInHolder.setOnClickListener(view -> onClickAddCutInHolder());
 
+        //サービス接続
         utilCommon.connectService();
 
         //権限確認
@@ -100,7 +102,7 @@ public class MainActivity extends AppCompatActivity {
         Log.i(TAG, "cutInHolderListDisplay");
         for (CutInHolder cih : cutInHolderList){
             frameList.addView(new FrameView(this, cih)
-                    .setCutInName(cih.getCutIn().getTitle())
+                    .setCutInName(cih.getCutIn().title)
                     .setEventType(cih.getEventType())
                     .setThumbnail(cih.getCutIn().getThumbnail())
                     .setAppIcon(cih.getAppIcon()),
@@ -182,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
+        //utilCommon.saveCutInList();
         super.onDestroy();
     }
 }

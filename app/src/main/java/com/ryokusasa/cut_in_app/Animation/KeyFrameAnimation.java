@@ -9,7 +9,7 @@ import java.util.HashMap;
 /* 考えてみたがいらない可能性あり。それよりanimationをまとめて初期化等必要かも */
 
 //キーフレーム集合体
-public class KeyFrameAnimation implements Cloneable {
+public class KeyFrameAnimation {
     ArrayList<KeyFrame> keyFrameList;
     ArrayList<KeyFrame> fullKeyFrameList;   //完全体
     int frameNum;   //フレーム数
@@ -114,22 +114,6 @@ public class KeyFrameAnimation implements Cloneable {
     //リセット
     public void resetFrame(){
         culFrame = 0;
-    }
-
-    @Override
-    public KeyFrameAnimation clone() throws CloneNotSupportedException {
-        KeyFrameAnimation keyFrameAnimation;
-        try{
-            keyFrameAnimation = (KeyFrameAnimation) super.clone();
-            keyFrameAnimation.keyFrameList = new ArrayList<KeyFrame>(this.keyFrameList);
-            keyFrameAnimation.fullKeyFrameList = new ArrayList<KeyFrame>(this.fullKeyFrameList);
-            return keyFrameAnimation;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-
-
     }
 
     //移動キーフレームアニメーション

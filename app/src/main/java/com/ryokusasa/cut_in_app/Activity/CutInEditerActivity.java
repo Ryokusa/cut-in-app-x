@@ -1,41 +1,11 @@
-package com.ryokusasa.cut_in_app.CutInEditer;
+package com.ryokusasa.cut_in_app.Activity;
 
-import android.animation.Animator;
-import android.animation.AnimatorInflater;
-import android.animation.ObjectAnimator;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.provider.MediaStore;
+
 import androidx.annotation.Nullable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.view.KeyEvent;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app.AppDataManager.ImageObj;
-import com.ryokusasa.cut_in_app.AppDataManager.TextObj;
-import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.R;
-import com.ryokusasa.cut_in_app.UtilCommon;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 /**
  * Created by Ryokusasa on 2018/01/22.

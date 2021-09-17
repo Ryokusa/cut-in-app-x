@@ -1,11 +1,11 @@
-package com.ryokusasa.cut_in_app;
+package com.ryokusasa.cut_in_app.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +17,8 @@ import android.widget.GridView;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInAdapter;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app.CutInEditer.CutInEditerActivity;
 import com.ryokusasa.cut_in_app .R;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 /**
  * Created by fripl on 2017/12/25.
@@ -134,7 +134,7 @@ public class SelCutInActivity extends AppCompatActivity {
                             break;
                         case CUT_IN_TITLE_CHANGE:
                             final EditText editView = new EditText(SelCutInActivity.this);
-                            editView.setText(((CutIn)cutInAdapter.getItem(position)).getTitle());
+                            editView.setText(((CutIn)cutInAdapter.getItem(position)).title);
                             final AlertDialog.Builder editBuilder = new AlertDialog.Builder(SelCutInActivity.this);
                             editBuilder.setView(editView);
                             editBuilder.setTitle("タイトル入力");
@@ -142,7 +142,7 @@ public class SelCutInActivity extends AppCompatActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(!editView.getText().toString().equals("")){
-                                        ((CutIn)cutInAdapter.getItem(position)).setTitle(editView.getText().toString());
+                                        ((CutIn)cutInAdapter.getItem(position)).title = editView.getText().toString();
                                         cutInAdapter.notifyDataSetChanged();
                                     }
                                 }

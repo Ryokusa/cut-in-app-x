@@ -1,25 +1,10 @@
-package com.ryokusasa.cut_in_app.CutInEditer;
+package com.ryokusasa.cut_in_app.Activity.CutInEditer;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.util.DisplayMetrics;
-import android.util.Log;
-import android.view.MotionEvent;
-import android.view.ScaleGestureDetector;
 import android.view.View;
-import android.view.WindowManager;
 
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**

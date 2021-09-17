@@ -1,30 +1,50 @@
 package com.ryokusasa.cut_in_app;
 
+import android.animation.TimeInterpolator;
 import android.app.Application;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
+import android.graphics.drawable.shapes.Shape;
 import android.os.Build;
 import android.os.IBinder;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.AnticipateOvershootInterpolator;
+import android.view.animation.BaseInterpolator;
 import android.view.animation.BounceInterpolator;
+import android.view.animation.CycleInterpolator;
+import android.view.animation.DecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
+import android.view.animation.PathInterpolator;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
-import com.ryokusasa.cut_in_app.AppDataManager.ImageObj;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
+import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
+import com.ryokusasa.cut_in_app.AnimObj.AnimObjDeserializer;
+import com.ryokusasa.cut_in_app.AnimObj.ImageObj;
+import com.ryokusasa.cut_in_app.AnimObj.TextObj;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
-import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
+import com.ryokusasa.cut_in_app.ImageUtils.ImageUtils;
 
 import java.util.ArrayList;
 
@@ -36,6 +56,10 @@ import androidx.core.content.res.ResourcesCompat;
 public class UtilCommon extends Application {
     private static final String TAG = "UtilCommon";
 
+    //保存キー
+    private static final String SAVE_KEY = "cutInList";
+    private static final String VER_KEY = "cutInVersion";
+
     private static UtilCommon sInstance;
 
     //カットインリスト
@@ -46,7 +70,9 @@ public class UtilCommon extends Application {
     private LinearLayout layout;
     private WindowManager windowManager;
     private CutInCanvas cutInCanvas;
-    private final int selCutInId = -1;
+    //private final int selCutInId = -1;
+    private Gson gson;
+    private SharedPreferences sp;
 
     //アプリデータ
     public ArrayList<AppData> appDataList = new ArrayList<>();
@@ -56,35 +82,37 @@ public class UtilCommon extends Application {
     private CutInService mService;
     public boolean isConnection = false;
 
-    //パーミッション
-    private PermissionUtils permissionUtils;
-
+    //画像管理
+    public static ImageUtils imageUtils;
 
     @Override
     public void onCreate(){
         super.onCreate();
         sInstance = this;
+        imageUtils = new ImageUtils();
+        makeGson();
 
         cutInView = new ConstraintLayout(this);
         cutInCanvas = new CutInCanvas(this);
         cutInView.addView(cutInCanvas, new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
-        /* とりあえずのカットイン */
-        CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
-        Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null);
-        AnimObj ao = new ImageObj(ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
-        ao.addMove(200, 400, 1700, new BounceInterpolator());
-        cutIn1.addAnimObj(ao);
-        cutInList.add(cutIn1);
-        cutInList.add(new CutIn(this, "First CutIn", R.mipmap.ic_launcher));
-        cutInList.add(new CutIn(this, "Second CutIn", R.mipmap.ic_launcher_round));
+//        /* とりあえずのカットイン */
+//        CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
+//        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
+//        ao.addMove(200, 400, 1700, new BounceInterpolator());
+//        cutIn1.addAnimObj(ao);
+//        cutInList.add(cutIn1);
+//        cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
+//        cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));
+
+
+        //保存用
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+        loadCutInList();
+
         cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
         cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
-    }
 
-    //TODO 再生
-    public void play(){
-        Log.i(TAG, "play");
     }
 
     public void play(int id){
@@ -213,8 +241,63 @@ public class UtilCommon extends Application {
         windowManager.removeView(layout);
     }
 
+    //TODO: 保存処理
+    public void saveCutInList(){
+        String json = gson.toJson(cutInList);
+        SharedPreferences.Editor editor = sp.edit();
+        editor.putString(SAVE_KEY, json);
+        editor.putFloat(VER_KEY, CutIn.CUT_IN_VERSION);
+        editor.apply();
+        Toast.makeText(this, "カットイン保存", Toast.LENGTH_SHORT).show();
+    }
+
+    //TODO: 読み込み処理
+    public boolean loadCutInList(){
+        //カットインバージョン照合
+        if(sp.getFloat(VER_KEY, CutIn.CUT_IN_VERSION) != CutIn.CUT_IN_VERSION){
+            Toast.makeText(this, "読み込んだカットインのバージョンが違います", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        //カットイン読み込み
+        String json = sp.getString(SAVE_KEY, null);
+        if(json == null){
+            Toast.makeText(this, "カットインが存在しません", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        cutInList = (ArrayList<CutIn>) gson.fromJson(json, new TypeToken<ArrayList<CutIn>>(){}.getType());
+        Toast.makeText(this, "カットイン読み込み完了", Toast.LENGTH_SHORT).show();
+        return true;
+    }
+
+    private void makeGson(){
+        RuntimeTypeAdapterFactory<AnimObj> animObjAdapterFactory = RuntimeTypeAdapterFactory.of(AnimObj.class)
+                .registerSubtype(ImageObj.class)
+                .registerSubtype(TextObj.class);
+        RuntimeTypeAdapterFactory<TimeInterpolator> timeInterpolatorAdapterFactory = RuntimeTypeAdapterFactory.of(TimeInterpolator.class)
+                .registerSubtype(LinearInterpolator.class)
+                .registerSubtype(AccelerateDecelerateInterpolator.class)
+                .registerSubtype(AccelerateInterpolator.class)
+                .registerSubtype(AnticipateInterpolator.class)
+                .registerSubtype(AnticipateOvershootInterpolator.class)
+                .registerSubtype(BounceInterpolator.class)
+                .registerSubtype(CycleInterpolator.class)
+                .registerSubtype(DecelerateInterpolator.class)
+                .registerSubtype(OvershootInterpolator.class);
+
+        gson = new GsonBuilder()
+                .registerTypeAdapterFactory(animObjAdapterFactory)
+                .registerTypeAdapterFactory(timeInterpolatorAdapterFactory)
+                .create();
+    }
+
     //コンテキストをどこからでも取得できるように
     public static synchronized UtilCommon getInstance() {
         return sInstance;
+    }
+
+    public static ImageUtils getImageUtils(){
+        return imageUtils;
     }
 }

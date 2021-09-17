@@ -1,7 +1,7 @@
-package com.ryokusasa.cut_in_app.CutInEditer;
+package com.ryokusasa.cut_in_app.Activity.CutInEditer;
 
 import android.content.Context;
-import android.graphics.Color;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
 import com.ryokusasa.cut_in_app.R;
 
 import java.util.ArrayList;

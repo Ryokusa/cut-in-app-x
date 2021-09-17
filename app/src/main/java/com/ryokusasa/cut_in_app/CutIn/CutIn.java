@@ -7,14 +7,15 @@ import android.graphics.drawable.Drawable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
-import android.os.Handler;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.ryokusasa.cut_in_app.AppDataManager.AnimObj;
+import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
 import com.ryokusasa.cut_in_app.CutInCanvas;
+import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -25,58 +26,40 @@ import java.util.ArrayList;
  */
 
 /* TODO:終了時の消去処理 */
-public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
+/* TODO: 保存のために画像をファイルパスで指定*/
+public class CutIn{
     @SuppressWarnings("FieldCanBeLocal")
-    private final String TAG = "CutIn";
+    private static final String TAG = "CutIn";
 
-    private Context context;
-    private Drawable thumbnail;
-    private String title;
+    //カットインのバージョン(カットイン読み込む際、整合性を保つため)
+    public static final int CUT_IN_VERSION = 2;
+
+    public ImageData imageData;
+    public String title;
     private ArrayList<AnimObj> animObjList;
+    private
 
     private boolean playing = false;
 
-    //ワーニング避け
-    public CutIn(Context context, AttributeSet attrs){
-        super(context, attrs);
-    }
-
-    public CutIn(Context context, String title, int resource){
-        super(context);
-        //コンテキスト取得
-        this.context = context;
+    public CutIn(String title, ImageData imageData){
 
         //サムネ設定
-        this.thumbnail = ResourcesCompat.getDrawable(getResources(), resource, null);
+        this.imageData = imageData;
 
         //タイトル設定
         this.title = title;
-
-        //初期化
-        setLayoutParams(new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        setBackgroundColor(Color.argb(0,0,0,0));
-        setVisibility(View.INVISIBLE);
 
         //アニメオブジェリスト
         animObjList = new ArrayList<AnimObj>();
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public Drawable getThumbnail() {
-        return thumbnail;
+        return  UtilCommon.getImageUtils().getDrawable(imageData);
     }
 
     public void play(CutInCanvas cutInCanvas){
         initAnim();
         stop();
-        this.setVisibility(View.VISIBLE);
         playing = true;
         cutInCanvas.setDrawListener(new CutInCanvas.DrawListener() {
             @Override
@@ -101,7 +84,6 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     //停止
     public void stop(){
         playing = false;
-        this.setVisibility(View.INVISIBLE);
     }
 
     //アニメーション初期化
@@ -112,10 +94,8 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
     }
 
     //animObjを追加
-    //TODO:animObjをViewとして使うか、画像を描画するかきめる
     public void addAnimObj(AnimObj animObj){
         animObjList.add(animObj);
-//        this.addView(animObj.getObjView());
     }
 
     public ArrayList<AnimObj> getAnimObjList() {
@@ -124,22 +104,5 @@ public class CutIn extends ConstraintLayout implements Cloneable, Serializable {
 
     public void setAnimObjList(ArrayList<AnimObj> animObjList) {
         this.animObjList = animObjList;
-    }
-
-    @Override
-    public CutIn clone() {
-        CutIn cutIn = null;
-
-        /*ObjectクラスのcloneメソッドはCloneNotSupportedExceptionを投げる可能性があるので、try-catch文で記述(呼び出し元に投げても良い)*/
-        try {
-            cutIn=(CutIn)super.clone();
-            cutIn.thumbnail = this.thumbnail.getConstantState().newDrawable();
-            cutIn.animObjList = new ArrayList<>(this.animObjList);
-            cutIn.title = this.title;
-            cutIn.context = null;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return cutIn;
     }
 }

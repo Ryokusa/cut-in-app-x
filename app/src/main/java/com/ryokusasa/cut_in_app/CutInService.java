@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.LinearLayout;
 
-import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.Activity.MainActivity;
 
 /**
  * Created by Ryokusasa on 2017/12/18.

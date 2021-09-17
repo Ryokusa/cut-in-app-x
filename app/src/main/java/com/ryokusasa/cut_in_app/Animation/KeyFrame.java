@@ -5,7 +5,7 @@ import android.animation.TimeInterpolator;
 import java.util.HashMap;
 
 //キーフレーム
-public class KeyFrame implements Cloneable {
+public class KeyFrame {
     private int frame;
     private TimeInterpolator interpolator;
     public HashMap<String, Double> values; //値のマップ
@@ -35,20 +35,6 @@ public class KeyFrame implements Cloneable {
 
     public void setInterpolator(TimeInterpolator interpolator) {
         this.interpolator = interpolator;
-    }
-
-    @Override
-    public KeyFrame clone() throws CloneNotSupportedException {
-        KeyFrame rKeyFrame;
-        try{
-            rKeyFrame = (KeyFrame) super.clone();
-            rKeyFrame = new KeyFrame(frame, interpolator);
-            return rKeyFrame;
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        return null;
     }
 
     //移動キーフレーム

@@ -91,7 +91,7 @@ public class CutInAdapter extends BaseAdapter {
 
         //カットインサムネイルとタイトル設定予定
         viewHolder.imageView.setImageDrawable(cutin.getThumbnail());
-        viewHolder.textView.setText(cutin.getTitle());
+        viewHolder.textView.setText(cutin.title);
 
         return convertView;
 

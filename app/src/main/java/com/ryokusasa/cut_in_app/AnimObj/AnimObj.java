@@ -1,12 +1,13 @@
-package com.ryokusasa.cut_in_app.AppDataManager;
+package com.ryokusasa.cut_in_app.AnimObj;
 
 import android.animation.TimeInterpolator;
-import android.content.Context;
 import android.graphics.Canvas;
 import android.util.Log;
 import android.view.animation.LinearInterpolator;
 import com.ryokusasa.cut_in_app.Animation.KeyFrame;
 import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
+
+import java.security.Key;
 
 /**
  * アニメーションオブジェクト
@@ -22,7 +23,7 @@ abstract public class AnimObj {
     private final KeyFrameAnimation.ScaleKeyFrameAnimation scaleKeyFrameAnimation;
 
     //フレーム関連
-    private final int frameNum;
+    private int frameNum;
     private int currentFrame;
 
     //プロパティ
@@ -32,6 +33,18 @@ abstract public class AnimObj {
     public double scaleX;
     public double scaleY;
 
+    public AnimObj(KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation, KeyFrameAnimation.RotateKeyFrameAnimation rotateKeyFrameAnimation, KeyFrameAnimation.ScaleKeyFrameAnimation scaleKeyFrameAnimation, int frameNum, int currentFrame, double x, double y, double radian, double scaleX, double scaleY) {
+        this.moveKeyFrameAnimation = moveKeyFrameAnimation;
+        this.rotateKeyFrameAnimation = rotateKeyFrameAnimation;
+        this.scaleKeyFrameAnimation = scaleKeyFrameAnimation;
+        this.frameNum = frameNum;
+        this.currentFrame = currentFrame;
+        this.x = x;
+        this.y = y;
+        this.radian = radian;
+        this.scaleX = scaleX;
+        this.scaleY = scaleY;
+    }
 
     //画像オブジェクト作成
     //w,hは伸縮
