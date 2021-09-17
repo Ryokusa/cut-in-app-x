@@ -44,11 +44,6 @@ public class MainActivity extends AppCompatActivity {
     //レイアウト
     private LinearLayout frameList;
 
-    //カットイン関連
-    private ArrayList<CutInHolder> cutInHolderList;
-    private ArrayList<CutIn> cutInList;
-
-
     //グローバルクラス
     private UtilCommon utilCommon;
 
@@ -63,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
         Objects.requireNonNull(getSupportActionBar()).setDisplayShowTitleEnabled(false);    //タイトル消去
 
         utilCommon = (UtilCommon)getApplication();
-        cutInList = utilCommon.cutInList;
-        cutInHolderList = utilCommon.cutInHolderList;
         permissionUtils = new PermissionUtils(this);
 
         //カットインホルダー追加ボタン
@@ -100,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
     //カットインホルダーを表示
     private void cutInHolderListDisplay(){
         Log.i(TAG, "cutInHolderListDisplay");
-        for (CutInHolder cih : cutInHolderList){
+        for (CutInHolder cih : utilCommon.cutInHolderList){
             frameList.addView(new FrameView(this, cih)
                     .setCutInName(cih.getCutIn().title)
                     .setEventType(cih.getEventType())
@@ -121,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
     private void onClickAddCutInHolder(){
         //追加できるのはアプリ通知のみ
         //アプリ選択ウィンドウ開く
-        AppDialog appDialog = new AppDialog();
+        AppDialog appDialog = new AppDialog(utilCommon.appDataList);
         appDialog.showWithTask(getSupportFragmentManager(), "appDialog", this, null);
     }
 
@@ -133,7 +126,7 @@ public class MainActivity extends AppCompatActivity {
             cutInHolder.setAppData(appData);
         } else {
             //ホルダー追加処理
-            cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, cutInList.get(0), appData));
+            utilCommon.cutInHolderList.add(new CutInHolder(EventType.APP_NOTIFICATION, utilCommon.cutInList.get(0), appData));
         }
         appData.setUsed(true);
         setCutInHolderListDisplayReset();
@@ -163,6 +156,13 @@ public class MainActivity extends AppCompatActivity {
             if (utilCommon.isConnection) utilCommon.endCutInService(this);
             else utilCommon.startCutInService(this);
             return true;
+        }else if (itemId == R.id.save_menu_icon){
+            utilCommon.save();
+            return true;
+        }else if (itemId == R.id.load_menu_item){
+            utilCommon.load();
+            setCutInHolderListDisplayReset();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -184,7 +184,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         Log.i(TAG, "onDestroy");
-        //utilCommon.saveCutInList();
         super.onDestroy();
     }
 }

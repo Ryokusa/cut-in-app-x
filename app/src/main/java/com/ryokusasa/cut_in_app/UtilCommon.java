@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
@@ -58,6 +59,7 @@ public class UtilCommon extends Application {
 
     //保存キー
     private static final String SAVE_KEY = "cutInList";
+    private static final String SAVE_HOLDER_KEY = "cutInHolderList";
     private static final String VER_KEY = "cutInVersion";
 
     private static UtilCommon sInstance;
@@ -96,6 +98,9 @@ public class UtilCommon extends Application {
         cutInCanvas = new CutInCanvas(this);
         cutInView.addView(cutInCanvas, new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
+        //保存用
+        sp = PreferenceManager.getDefaultSharedPreferences(this);
+
 //        /* とりあえずのカットイン */
 //        CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
 //        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
@@ -104,14 +109,9 @@ public class UtilCommon extends Application {
 //        cutInList.add(cutIn1);
 //        cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
 //        cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));
-
-
-        //保存用
-        sp = PreferenceManager.getDefaultSharedPreferences(this);
-        loadCutInList();
-
-        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
-        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
+//
+//        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
+//        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
 
     }
 
@@ -241,17 +241,65 @@ public class UtilCommon extends Application {
         windowManager.removeView(layout);
     }
 
-    //TODO: 保存処理
-    public void saveCutInList(){
-        String json = gson.toJson(cutInList);
+    public void saveCutInHolder(){
+        String json = gson.toJson(cutInHolderList);
         SharedPreferences.Editor editor = sp.edit();
-        editor.putString(SAVE_KEY, json);
-        editor.putFloat(VER_KEY, CutIn.CUT_IN_VERSION);
+        editor.putString(SAVE_HOLDER_KEY, json);
         editor.apply();
-        Toast.makeText(this, "カットイン保存", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "カットインホルダー保存", Toast.LENGTH_SHORT).show();
     }
 
-    //TODO: 読み込み処理
+    public boolean loadCutInHolder() {
+        String json = sp.getString(SAVE_HOLDER_KEY, null);
+        if(json == null){
+            Toast.makeText(this, "カットインホルダーが存在しません", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+
+        cutInHolderList = (ArrayList<CutInHolder>) gson.fromJson(json, new TypeToken<ArrayList<CutInHolder>>(){}.getType());
+        Toast.makeText(this, "カットインホルダー読み込み完了", Toast.LENGTH_SHORT).show();
+
+        for (CutInHolder cutInHolder : cutInHolderList){
+            if (!cutInHolder.loadComponent(cutInList)) {
+                Toast.makeText(this, "カットインホルダー読み込み失敗", Toast.LENGTH_SHORT).show();
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public void save(){
+        save(true);
+    }
+
+    public void save(boolean f){
+        saveCutInList(f);
+        saveCutInHolder();
+    }
+
+    public void load(){
+        if (!loadCutInList() | !loadCutInHolder()){
+            Log.i(TAG, "読み込めませんでした");
+        }
+    }
+
+    public void saveCutInList(){
+        saveCutInList(false);
+    }
+
+    public void saveCutInList(boolean f){
+        if(f) {
+            String json = gson.toJson(cutInList);
+            SharedPreferences.Editor editor = sp.edit();
+            editor.putString(SAVE_KEY, json);
+            editor.putFloat(VER_KEY, CutIn.CUT_IN_VERSION);
+            editor.apply();
+            Toast.makeText(this, "カットイン保存", Toast.LENGTH_SHORT).show();
+        }else{
+            Log.i(TAG, "保存しません");
+        }
+    }
+
     public boolean loadCutInList(){
         //カットインバージョン照合
         if(sp.getFloat(VER_KEY, CutIn.CUT_IN_VERSION) != CutIn.CUT_IN_VERSION){

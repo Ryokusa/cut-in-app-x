@@ -22,9 +22,12 @@ public class FrameView extends LinearLayout {
     private final TextView cutInName;
     private final ImageView thumbnail;
     private final ImageView appIcon;
+    private final UtilCommon utilCommon;
 
     public FrameView(final MainActivity activity, final CutInHolder cutInHolder){
         super(activity);
+
+        utilCommon = (UtilCommon) activity.getApplication();
 
         //レイアウト展開
         LayoutInflater.from(activity).inflate(R.layout.frame, this);
@@ -39,7 +42,7 @@ public class FrameView extends LinearLayout {
         appIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppDialog appDialog = new AppDialog();
+                AppDialog appDialog = new AppDialog(utilCommon.appDataList);
                 appDialog.showWithTask(activity.getSupportFragmentManager(), "appDialog", activity, cutInHolder);
             }
         });

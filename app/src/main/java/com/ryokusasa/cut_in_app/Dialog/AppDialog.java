@@ -30,7 +30,11 @@ import java.util.List;
 public class AppDialog extends DialogFragment{
 
     CutInHolder cutInHolder;
-    UtilCommon utilCommon;
+    ArrayList<AppData> appDataList;
+
+    public AppDialog(ArrayList<AppData> appDataList){
+        this.appDataList = appDataList;
+    }
 
     @NonNull
     @Override
@@ -39,17 +43,16 @@ public class AppDialog extends DialogFragment{
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle("アプリ選択\n");
         final MainActivity activity = (MainActivity) getActivity();
-        utilCommon = (UtilCommon) activity.getApplication();
 
         //アダプター作成
-        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, utilCommon.appDataList);
+        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, appDataList);
 
         //オンクリックイベント
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //コールバック
-                activity.appDialogCallBack(utilCommon.appDataList.get(which), cutInHolder);
+                activity.appDialogCallBack(appDataList.get(which), cutInHolder);
             }
         });
 
@@ -58,7 +61,6 @@ public class AppDialog extends DialogFragment{
 
     //アクティビティとアプリデータリストを作成確認しながら表示
     public void showWithTask(FragmentManager manager, String tag, AppCompatActivity activity, CutInHolder cutInHolder) {
-        ArrayList<AppData> appDataList = utilCommon.appDataList;
         this.cutInHolder = cutInHolder;
 
         if(!appDataList.isEmpty()) {
@@ -107,13 +109,13 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
                 //プリインストールアプリは除外（と思ったけどいらないかも）
                 /* 仮想機上ではなぜか一部がプリインストール扱いになる */
                 if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-                    appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
+                    appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
                     //it's a system app, not interested
                 } else if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                     //Discard this one
                     //in this case, it should be a user-installed app
                 } else {
-                    appDataList.add(new AppData(appInfo.toString(), pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(appInfo)));
+                    appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
                 }
             }
         }

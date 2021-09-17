@@ -12,4 +12,10 @@ xmlns:android="http://schemas.android.com/apk/res/android">
 <item
     android:id="@+id/cut_in_enable"
     android:title="@string/cut_in_enable"/>
+    <item
+        android:id="@+id/save_menu_icon"
+        android:title="保存(テスト)" />
+    <item
+        android:id="@+id/load_menu_item"
+        android:title="yomikomi" />
 </menu>

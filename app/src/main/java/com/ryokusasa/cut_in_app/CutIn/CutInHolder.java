@@ -1,20 +1,27 @@
 package com.ryokusasa.cut_in_app.CutIn;
 
 
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import com.ryokusasa.cut_in_app.Dialog.AppData;
 import com.ryokusasa.cut_in_app.EventType;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 //カットインとイベントをまとめたホルダー
 public class CutInHolder implements Serializable {
     private final String TAG = "CutInHolder";
 
     private EventType eventType;
-    private AppData appData;
-    private CutIn cutIn;
+    transient private AppData appData;
+    private String packageName;
+    transient private CutIn cutIn;
+    private String cutInName;
 
 
     //コンストラクタ
@@ -27,9 +34,33 @@ public class CutInHolder implements Serializable {
 
     }
 
+    //データ読み込み時に不足変数をロード
+    public boolean loadComponent(ArrayList<CutIn> cutInList) {
+        PackageManager pm = UtilCommon.getInstance().getPackageManager();
+
+        if(eventType == EventType.APP_NOTIFICATION) {
+            ApplicationInfo appInfo;
+            try {
+                appInfo = pm.getApplicationInfo(packageName, 0);
+                appData = new AppData(packageName, pm.getApplicationLabel(appInfo).toString(), pm.getApplicationIcon(packageName));
+            } catch (PackageManager.NameNotFoundException e) {
+                Log.i(TAG, "アプリが存在しません");
+                return false;
+            }
+        }
+
+        for (CutIn cutIn : cutInList){
+            if(cutIn.title.equals(cutInName)){
+                this.cutIn = cutIn;
+                return true;
+            }
+        }
+        return false;
+    }
+
     public CutInHolder(EventType eventType, CutIn cutIn, AppData appData){
         this(eventType, cutIn);
-        this.appData = appData;
+        this.setAppData(appData);
     }
 
     public CutInHolder setEventType(EventType eventType) {
@@ -47,11 +78,13 @@ public class CutInHolder implements Serializable {
 
     public CutInHolder setCutIn(CutIn cutIn) {
         this.cutIn = cutIn;
+        this.cutInName = cutIn.title;
         return this;
     }
 
     public void setAppData(AppData appData) {
         this.appData = appData;
+        this.packageName = appData.getPackageName();
     }
 
     public AppData getAppData() {
