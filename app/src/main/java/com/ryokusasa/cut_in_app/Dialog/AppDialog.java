@@ -30,10 +30,10 @@ import java.util.List;
 public class AppDialog extends DialogFragment{
 
     CutInHolder cutInHolder;
-    ArrayList<AppData> appDataList;
+    UtilCommon utilCommon;
 
-    public AppDialog(ArrayList<AppData> appDataList){
-        this.appDataList = appDataList;
+    public AppDialog(){
+        utilCommon = UtilCommon.getInstance();
     }
 
     @NonNull
@@ -45,14 +45,14 @@ public class AppDialog extends DialogFragment{
         final MainActivity activity = (MainActivity) getActivity();
 
         //アダプター作成
-        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, appDataList);
+        AppDataAdapter adapter = new AppDataAdapter(builder.getContext(), 0, utilCommon.appDataList);
 
         //オンクリックイベント
         builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 //コールバック
-                activity.appDialogCallBack(appDataList.get(which), cutInHolder);
+                activity.appDialogCallBack(utilCommon.appDataList.get(which), cutInHolder);
             }
         });
 
@@ -63,10 +63,10 @@ public class AppDialog extends DialogFragment{
     public void showWithTask(FragmentManager manager, String tag, AppCompatActivity activity, CutInHolder cutInHolder) {
         this.cutInHolder = cutInHolder;
 
-        if(!appDataList.isEmpty()) {
+        if(!UtilCommon.getInstance().appDataList.isEmpty()) {
             super.show(manager, tag);
         }else{
-            LoadAppInfoTask loadAppInfoTask = new LoadAppInfoTask(activity, this, appDataList);
+            LoadAppInfoTask loadAppInfoTask = new LoadAppInfoTask(activity, this, utilCommon.appDataList);
             loadAppInfoTask.execute(0);
         }
     }

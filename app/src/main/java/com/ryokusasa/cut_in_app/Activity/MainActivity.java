@@ -109,7 +109,7 @@ public class MainActivity extends AppCompatActivity {
     private void onClickAddCutInHolder(){
         //追加できるのはアプリ通知のみ
         //アプリ選択ウィンドウ開く
-        AppDialog appDialog = new AppDialog(utilCommon.appDataList);
+        AppDialog appDialog = new AppDialog();
         appDialog.showWithTask(getSupportFragmentManager(), "appDialog", this, null);
     }
 

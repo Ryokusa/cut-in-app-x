@@ -48,7 +48,7 @@ public class FrameView extends LinearLayout {
         appIcon.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
-                AppDialog appDialog = new AppDialog(utilCommon.appDataList);
+                AppDialog appDialog = new AppDialog();
                 appDialog.showWithTask(activity.getSupportFragmentManager(), "appDialog", activity, cutInHolder);
             }
         });

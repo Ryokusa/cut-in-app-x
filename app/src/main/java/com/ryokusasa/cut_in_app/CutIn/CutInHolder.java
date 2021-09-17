@@ -35,8 +35,9 @@ public class CutInHolder implements Serializable {
     }
 
     //データ読み込み時に不足変数をロード
-    public boolean loadComponent(UtilCommon utilCommon) {
-        PackageManager pm = UtilCommon.getInstance().getPackageManager();
+    public boolean loadComponent() {
+        UtilCommon utilCommon = UtilCommon.getInstance();
+        PackageManager pm = utilCommon.getPackageManager();
 
         if(eventType == EventType.APP_NOTIFICATION) {
             ApplicationInfo appInfo;

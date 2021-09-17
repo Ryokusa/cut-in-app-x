@@ -266,7 +266,7 @@ public class UtilCommon extends Application {
         Toast.makeText(this, "カットインホルダー読み込み完了", Toast.LENGTH_SHORT).show();
 
         for (CutInHolder cutInHolder : cutInHolderList){
-            if (!cutInHolder.loadComponent(this)) {
+            if (!cutInHolder.loadComponent()) {
                 Toast.makeText(this, "カットインホルダー読み込み失敗", Toast.LENGTH_SHORT).show();
                 return false;
             }
