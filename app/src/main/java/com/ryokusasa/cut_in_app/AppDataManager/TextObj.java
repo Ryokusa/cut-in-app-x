@@ -12,8 +12,8 @@ public class TextObj extends AnimObj{
     private int textSize;  //変形後
     private Paint mPaint;
 
-    public TextObj(Context context, double x, double y, String text, int textSize){
-        super(context, x, y);
+    public TextObj(double x, double y, String text, int textSize){
+        super(x, y);
 
         this.text = text;
         this.textSize = textSize;
@@ -22,13 +22,10 @@ public class TextObj extends AnimObj{
     }
 
     public TextObj(Context context, String text, int textSize){
-        this(context, 0, 0, text, textSize);
+        this( 0, 0, text, textSize);
     }
 
-    @Override
     public void draw(Canvas canvas) {
-        super.draw(canvas);
-
         mPaint.setColor(Color.BLACK);
         mPaint.setTextSize(textSize);
         canvas.drawText(text, (float)x, (float)y ,mPaint);

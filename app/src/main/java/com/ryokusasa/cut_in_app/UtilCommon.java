@@ -39,9 +39,9 @@ public class UtilCommon extends Application {
     private static UtilCommon sInstance;
 
     //カットインリスト
-    public ArrayList<CutIn> cutInList = new ArrayList<CutIn>();
+    public ArrayList<CutIn> cutInList = new ArrayList<>();
     //カットイン関連
-    public ArrayList<CutInHolder> cutInHolderList = new ArrayList<CutInHolder>();//TODO　後々外部ファイル
+    public ArrayList<CutInHolder> cutInHolderList = new ArrayList<>();//TODO　後々外部ファイル
     private ConstraintLayout cutInView;
     private LinearLayout layout;
     private WindowManager windowManager;
@@ -49,7 +49,7 @@ public class UtilCommon extends Application {
     private int selCutInId = -1;
 
     //アプリデータ
-    public ArrayList<AppData> appDataList = new ArrayList<AppData>();
+    public ArrayList<AppData> appDataList = new ArrayList<>();
 
     //コネクション作成
     private ServiceConnection serviceConnection;
@@ -72,7 +72,7 @@ public class UtilCommon extends Application {
         /* とりあえずのカットイン */
         CutIn cutIn1 = new CutIn(this, "None CutIn", R.drawable.ic_launcher_background);
         Drawable drawable = ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null);
-        AnimObj ao = new ImageObj(this, ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
+        AnimObj ao = new ImageObj(ResourcesCompat.getDrawable(getResources(), R.drawable.foo, null),400, 0, 300, 300 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
         cutInList.add(cutIn1);
@@ -183,33 +183,27 @@ public class UtilCommon extends Application {
         windowManager.addView(cutInView, layoutParams);
         windowManager.addView(layout,layoutParams2);
 
-        layout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Log.i(TAG, "onTouch:" + event.getAction());
-                switch (event.getAction()) {
-                    case MotionEvent.ACTION_UP:
-                        v.performClick();
-                        break;
-                    case MotionEvent.ACTION_OUTSIDE:
-                        //画面タッチ処理
-                        break;
-                    default:
-                        break;
-                }
-                return false;
+        layout.setOnTouchListener((v, event) -> {
+            Log.i(TAG, "onTouch:" + event.getAction());
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_UP:
+                    v.performClick();
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+                    //画面タッチ処理
+                    break;
+                default:
+                    break;
             }
+            return false;
         });
         layout.setClickable(false);
         layout.setFocusable(false);
 
 
-        layout.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Log.i(TAG, "LongClick");
-                return false;
-            }
+        layout.setOnLongClickListener(v -> {
+            Log.i(TAG, "LongClick");
+            return false;
         });
     }
 
