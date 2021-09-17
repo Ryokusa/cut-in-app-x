@@ -101,10 +101,6 @@ public class SelCutInActivity extends AppCompatActivity {
                         case CUT_IN_SET: //カットイン設定
                             // カットインをセット
                             cutInHolder.setCutIn((CutIn)cutInAdapter.getItem(position));
-
-                            //TODO カットインセット保存
-                            //new CutInDataManager(getApplicationContext()).cutInSetListSave(new ArrayList<CutInSet>(CutInService.cutInSetList));
-
                             finish();
                             break;
 

@@ -54,6 +54,10 @@ import static com.ryokusasa.cut_in_app.PermissionUtils.checkOverlayPermission;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.res.ResourcesCompat;
 
+//TODO: カットインタイトル変更機能(タイトルは唯一にならないと行けないのでここで一括管理)
+//TODO: カットインホルダーにアプリ名表示
+//TODO: カットインホルダー削除機能
+//TODO: 重複したイベントの追加防止
 public class UtilCommon extends Application {
     private static final String TAG = "UtilCommon";
 
@@ -262,7 +266,7 @@ public class UtilCommon extends Application {
         Toast.makeText(this, "カットインホルダー読み込み完了", Toast.LENGTH_SHORT).show();
 
         for (CutInHolder cutInHolder : cutInHolderList){
-            if (!cutInHolder.loadComponent(cutInList)) {
+            if (!cutInHolder.loadComponent(this)) {
                 Toast.makeText(this, "カットインホルダー読み込み失敗", Toast.LENGTH_SHORT).show();
                 return false;
             }

@@ -22,8 +22,6 @@ public class CutInAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;  //レイアウト設定用
     private final List<CutIn> cutInList;
 
-    private UtilCommon utilCommon;
-
     private OnImageClickListener imageClickListener;
 
     //タグ付け用

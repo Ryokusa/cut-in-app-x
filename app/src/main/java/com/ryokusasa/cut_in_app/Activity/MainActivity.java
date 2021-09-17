@@ -93,12 +93,7 @@ public class MainActivity extends AppCompatActivity {
     //カットインホルダーを表示
     private void cutInHolderListDisplay(){
         Log.i(TAG, "cutInHolderListDisplay");
-        for (CutInHolder cih : utilCommon.cutInHolderList){
-            frameList.addView(new FrameView(this, cih)
-                    .setCutInName(cih.getCutIn().title)
-                    .setEventType(cih.getEventType())
-                    .setThumbnail(cih.getCutIn().getThumbnail())
-                    .setAppIcon(cih.getAppIcon()),
+        for (CutInHolder cih : utilCommon.cutInHolderList){ frameList.addView(new FrameView(this, cih),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                                                   ViewGroup.LayoutParams.WRAP_CONTENT));
         }

@@ -35,7 +35,7 @@ public class CutInHolder implements Serializable {
     }
 
     //データ読み込み時に不足変数をロード
-    public boolean loadComponent(ArrayList<CutIn> cutInList) {
+    public boolean loadComponent(UtilCommon utilCommon) {
         PackageManager pm = UtilCommon.getInstance().getPackageManager();
 
         if(eventType == EventType.APP_NOTIFICATION) {
@@ -49,7 +49,11 @@ public class CutInHolder implements Serializable {
             }
         }
 
-        for (CutIn cutIn : cutInList){
+        if(cutInName.equals(utilCommon.initialCutIn.title)){
+            //初期カットイン
+            cutIn = utilCommon.initialCutIn;
+        }
+        for (CutIn cutIn : utilCommon.cutInList){
             if(cutIn.title.equals(cutInName)){
                 this.cutIn = cutIn;
                 return true;

@@ -38,6 +38,12 @@ public class FrameView extends LinearLayout {
         appIcon.setVisibility(INVISIBLE);
         appIcon.setLayoutParams(new LayoutParams(0, ViewGroup.LayoutParams.MATCH_PARENT));
 
+        //設定
+        setEventType(cutInHolder.getEventType());
+        setCutInName(cutInHolder.getCutIn().title);
+        setThumbnail(cutInHolder.getCutIn().getThumbnail());
+        setAppIcon(cutInHolder.getAppIcon());
+
         //クリックリスナー
         appIcon.setOnClickListener(new OnClickListener() {
             @Override
