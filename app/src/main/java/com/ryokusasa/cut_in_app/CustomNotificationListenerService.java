@@ -11,6 +11,13 @@ import android.util.Log;
 public class CustomNotificationListenerService extends NotificationListenerService {
     private final String TAG = "CNLS";
 
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.i(TAG, "CNLS起動");
+    }
+
     //通知が来たとき
     @Override
     public void onNotificationPosted(StatusBarNotification sbn){
@@ -38,19 +45,8 @@ public class CustomNotificationListenerService extends NotificationListenerServi
             Log.i(TAG, "" + sbn.getNotification().tickerText.toString());
         }
 
+        //TODO: 対応したカットイン再生
 
-        final String appNameFinal = appName;
-
-        //別スレッドからUIを操作するのでメインスレッドにまかせる
-        //アプリ名より対応したカットイン再生
-        /*
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                play(appNameFinal);
-            }
-        });
-        */
     }
 
     @Override

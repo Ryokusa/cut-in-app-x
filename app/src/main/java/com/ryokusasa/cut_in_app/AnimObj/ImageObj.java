@@ -16,13 +16,6 @@ public class ImageObj extends AnimObj{
     private final int width;
     private final int height;  //変形後
 
-    public ImageObj(KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation, KeyFrameAnimation.RotateKeyFrameAnimation rotateKeyFrameAnimation, KeyFrameAnimation.ScaleKeyFrameAnimation scaleKeyFrameAnimation, int frameNum, int currentFrame, double x, double y, double radian, double scaleX, double scaleY, ImageData imageData, int width, int height) {
-        super(moveKeyFrameAnimation, rotateKeyFrameAnimation, scaleKeyFrameAnimation, frameNum, currentFrame, x, y, radian, scaleX, scaleY);
-        this.imageData = imageData;
-        this.width = width;
-        this.height = height;
-    }
-
     public ImageObj(double x, double y, ImageData imageData, int width, int height) {
         super(x, y);
         this.imageData = imageData;

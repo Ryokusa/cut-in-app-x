@@ -22,9 +22,6 @@ public class CutInService extends Service{
 
     private final String TAG = "FilterService";
     private final IBinder iBinder = new ServiceBinder();
-    View v;                 //カットインを表示するView
-    LinearLayout layout;
-    WindowManager windowManager;
 
     UtilCommon utilCommon;
 

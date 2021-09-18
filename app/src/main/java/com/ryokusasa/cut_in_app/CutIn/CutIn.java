@@ -26,7 +26,6 @@ import java.util.ArrayList;
  */
 
 /* TODO:終了時の消去処理 */
-/* TODO: 保存のために画像をファイルパスで指定*/
 public class CutIn{
     @SuppressWarnings("FieldCanBeLocal")
     private static final String TAG = "CutIn";
