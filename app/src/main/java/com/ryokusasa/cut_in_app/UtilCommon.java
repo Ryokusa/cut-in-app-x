@@ -117,6 +117,7 @@ public class UtilCommon extends Application {
         AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
+        cutIn1.setFrameNum(250);
         cutInList.add(cutIn1);
         cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
         cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));

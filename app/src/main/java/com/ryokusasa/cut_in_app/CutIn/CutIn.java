@@ -91,6 +91,12 @@ public class CutIn{
         }
     }
 
+    public void setFrameNum(int frameNum){
+        for (AnimObj animObj : animObjList){
+            animObj.setFrameNum(frameNum);
+        }
+    }
+
     //animObjを追加
     public void addAnimObj(AnimObj animObj){
         animObjList.add(animObj);
