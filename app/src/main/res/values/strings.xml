@@ -16,6 +16,7 @@
         <item>カットイン内容編集</item>
         <item>カットイン内容削除</item>
         <item>カットインタイトル変更</item>
+        <item>カットインサムネ編集(DEBUG)</item>
     </string-array>
 
     <string-array name="object_type">

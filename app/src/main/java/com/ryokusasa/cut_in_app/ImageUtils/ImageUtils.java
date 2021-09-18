@@ -1,7 +1,11 @@
 package com.ryokusasa.cut_in_app.ImageUtils;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

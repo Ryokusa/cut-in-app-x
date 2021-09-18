@@ -2,9 +2,14 @@ package com.ryokusasa.cut_in_app.Activity;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.AlertDialog;
+
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 
 import android.util.Log;
 import android.view.Menu;
@@ -17,6 +22,7 @@ import android.widget.GridView;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.CutIn.CutInAdapter;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
+import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
 import com.ryokusasa.cut_in_app .R;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
@@ -33,11 +39,16 @@ public class SelCutInActivity extends AppCompatActivity {
     private static final int CUT_IN_EDIT = 1;
     private static final int CUT_IN_DELETE = 2;
     private static final int CUT_IN_TITLE_CHANGE = 3;
+    private static final int CUT_IN_SET_THUMBNAIL = 4;
 
     private CutInAdapter cutInAdapter;
     private CutInHolder cutInHolder;
 
     private UtilCommon utilCommon;
+
+    private ActivityResultLauncher<Intent> thumbnailSelectLauncher;
+
+    private int selCutInId = -1;
 
     @Override
     public void onCreate(Bundle savedInstanceState){
@@ -46,6 +57,16 @@ public class SelCutInActivity extends AppCompatActivity {
         setSupportActionBar(findViewById(R.id.cut_in_toolbar));
 
         utilCommon = (UtilCommon)getApplication();
+
+        //画像選択用ActivityResult
+        //画像選択用ActivityResult
+        thumbnailSelectLauncher = this.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
+            if(result.getResultCode() == RESULT_OK) {
+                utilCommon.cutInList.get(selCutInId).imageData = new ImageData(result.getData().getData(), ImageData.EXTERNAL_STORAGE);
+            }
+        });
+
+
 
         //カットインアダプター追加処理
         cutInAdapter = new CutInAdapter(this, 0, utilCommon.cutInList);
@@ -90,6 +111,7 @@ public class SelCutInActivity extends AppCompatActivity {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
             Log.i(TAG, "onItemClick:" + position);
+            selCutInId = position;
 
             /* 設定及び編集画面選択ウィンドウ表示 */
             AlertDialog.Builder builder = new AlertDialog.Builder(SelCutInActivity.this);
@@ -146,6 +168,11 @@ public class SelCutInActivity extends AppCompatActivity {
                             editBuilder.create().show();
                             break;
 
+                        case CUT_IN_SET_THUMBNAIL:
+                            //TODO: サムネイル選択
+                            startImageSelectWindow();
+                            break;
+
                     }
                 }
             });
@@ -160,5 +187,17 @@ public class SelCutInActivity extends AppCompatActivity {
         bundle.putInt("selCutInId", cutInId);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+    private void startImageSelectWindow(){
+        Intent intent;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
+            intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+            intent.addCategory(Intent.CATEGORY_OPENABLE);
+        }else {
+            intent = new Intent(Intent.ACTION_GET_CONTENT);
+        }
+        intent.setType("image/*");
+        thumbnailSelectLauncher.launch(intent);
     }
 }

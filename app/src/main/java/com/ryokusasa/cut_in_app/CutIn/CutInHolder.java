@@ -53,6 +53,7 @@ public class CutInHolder implements Serializable {
         if(cutInName.equals(utilCommon.initialCutIn.title)){
             //初期カットイン
             cutIn = utilCommon.initialCutIn;
+            return true;
         }
         for (CutIn cutIn : utilCommon.cutInList){
             if(cutIn.title.equals(cutInName)){

@@ -40,7 +40,7 @@ public class ImageData {
     //Drawable取得関数
     public Drawable getDrawable(){
         if(flag == INTERNAL_STORAGE){
-            //TODO: 内部ストレージ（使わないかも）
+            //TODO: 内部固有ストレージ（使わないかも）
             InputStream inputStream;
             try{
                 inputStream = UtilCommon.getInstance().getContentResolver().openInputStream(uri);

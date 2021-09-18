@@ -68,6 +68,9 @@ public class UtilCommon extends Application {
     private static final String SAVE_HOLDER_KEY = "cutInHolderList";
     private static final String VER_KEY = "cutInVersion";
 
+    //デバッグフラグ
+    public static boolean DEBUG = true;
+
     private static UtilCommon sInstance;
 
     //カットインリスト
@@ -118,8 +121,8 @@ public class UtilCommon extends Application {
         cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
         cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));
 
-        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
-        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
+        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, initialCutIn));
+        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, initialCutIn));
 
     }
 

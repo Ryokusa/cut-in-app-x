@@ -137,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater menuInflater = getMenuInflater();
         menuInflater.inflate(R.menu.main_menu, menu);
+        if (!UtilCommon.DEBUG) {
+            menu.getItem(3).setVisible(false);
+            menu.getItem(4).setVisible(false);
+        }
         return true;
     }
 
