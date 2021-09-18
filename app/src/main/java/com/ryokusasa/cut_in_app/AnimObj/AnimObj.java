@@ -15,7 +15,9 @@ import java.security.Key;
  * アニメーション情報も持つ
  */
 
+//TODO: 座標にdpを指定できるように
 abstract public class AnimObj {
+
 
     //キーフレームアニメーション
     private final KeyFrameAnimation.MoveKeyFrameAnimation moveKeyFrameAnimation;
@@ -24,6 +26,7 @@ abstract public class AnimObj {
 
     //フレーム関連
     private int frameNum;
+    private static final int MAX_FRAME_NUM = 1000;
     private int currentFrame;
 
     //プロパティ
@@ -37,7 +40,7 @@ abstract public class AnimObj {
     //w,hは伸縮
     public AnimObj(double x, double y){
 
-        frameNum = 1000;    //アニメーションの長さ
+        frameNum = MAX_FRAME_NUM;    //アニメーションの長さ
         currentFrame = 0;   //現在のフレーム
 
         //初期化
@@ -47,7 +50,7 @@ abstract public class AnimObj {
         initMove(x, y);
         initRotate(0);
         initScale(1, 1);
-        makeAnimation();
+        makeAnimation(frameNum);
     }
 
     /* アニメーション作成関連 */
@@ -85,10 +88,20 @@ abstract public class AnimObj {
     }
 
     //アニメーション作成
-    public void makeAnimation(){
+    public void makeAnimation(int frameNum){
         moveKeyFrameAnimation.makeKeyFrameAnimation();
         rotateKeyFrameAnimation.makeKeyFrameAnimation();
         scaleKeyFrameAnimation.makeKeyFrameAnimation();
+    }
+
+    //フレーム数設定
+    public void setFrameNum(int frameNum){
+        if(frameNum >= 0 && frameNum <= MAX_FRAME_NUM){
+            this.frameNum = frameNum;
+        }else{
+            this.frameNum = MAX_FRAME_NUM;
+        }
+        setFrame(0);    //初期化
     }
 
     //描画
