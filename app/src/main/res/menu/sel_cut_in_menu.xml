@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/newCutIn"
+        android:enabled="false"
         android:title="カットイン新規作成" />
 </menu>

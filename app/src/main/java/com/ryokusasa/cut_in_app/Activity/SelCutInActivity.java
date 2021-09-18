@@ -105,7 +105,7 @@ public class SelCutInActivity extends AppCompatActivity {
                             break;
 
                         case CUT_IN_EDIT:    //TODO カットイン編集
-                            startCutInEditerActivity(position);
+                            //startCutInEditerActivity(position);
                             break;
                         case CUT_IN_DELETE:  //カットイン削除
                             //カットイン削除確認ウィンドウ
