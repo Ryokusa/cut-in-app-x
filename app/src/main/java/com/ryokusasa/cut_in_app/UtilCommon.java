@@ -16,11 +16,15 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
+import android.util.DisplayMetrics;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.WindowMetrics;
 import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.AnticipateInterpolator;
@@ -108,13 +112,14 @@ public class UtilCommon extends Application {
         cutInView = new ConstraintLayout(this);
         cutInCanvas = new CutInCanvas(this);
         cutInView.addView(cutInCanvas, new ConstraintLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+        getDisplayInfo();
 
         //保存用
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
         /* とりあえずのカットイン */
         CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
-        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
+        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 1000, 1000 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
         cutIn1.setFrameNum(250);
@@ -355,6 +360,11 @@ public class UtilCommon extends Application {
                 .create();
     }
 
+    //ディスプレイ情報取得
+    public DisplayInfo getDisplayInfo(){
+        return new DisplayInfo(cutInCanvas.getWidth(), cutInCanvas.getHeight());
+    }
+
     //コンテキストをどこからでも取得できるように
     public static synchronized UtilCommon getInstance() {
         return sInstance;
@@ -362,5 +372,29 @@ public class UtilCommon extends Application {
 
     public static ImageUtils getImageUtils(){
         return imageUtils;
+    }
+
+    class DisplayInfo{
+        private int width;
+        private int height;
+        private float widthDp;
+        private float heightDp;
+
+        public DisplayInfo(int width, int height){
+            this.width = width;
+            this.height = height;
+
+            widthDp = UtilCommon.px2dp(width);
+            heightDp = UtilCommon.px2dp(height);
+        }
+    }
+
+    public static float px2dp(int px){
+        DisplayMetrics metrics = UtilCommon.getInstance().getResources().getDisplayMetrics();
+        return px / metrics.density;
+    }
+
+    public static float dp2px(float dp){
+        return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,dp,UtilCommon.getInstance().getResources().getDisplayMetrics());
     }
 }
