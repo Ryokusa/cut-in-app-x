@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity {
             Log.i(TAG, "" + i + ", " + keyFrame.values.get("x") + ", " + keyFrame.values.get("y"));
             i++;
         }
+
+        //テスト
+        String[] files = this.fileList();
+        for (String file : files)Log.i(TAG, file);
+
     }
 
     //カットインホルダーを表示

@@ -12,6 +12,7 @@ import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.shapes.Shape;
+import android.net.Uri;
 import android.os.Build;
 import android.os.IBinder;
 import android.preference.PreferenceManager;
@@ -46,6 +47,7 @@ import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageUtils;
+import com.ryokusasa.cut_in_app.ImageUtils.UriTypeHierarchyAdapter;
 
 import java.util.ArrayList;
 
@@ -107,17 +109,17 @@ public class UtilCommon extends Application {
         //保存用
         sp = PreferenceManager.getDefaultSharedPreferences(this);
 
-//        /* とりあえずのカットイン */
-//        CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
-//        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
-//        ao.addMove(200, 400, 1700, new BounceInterpolator());
-//        cutIn1.addAnimObj(ao);
-//        cutInList.add(cutIn1);
-//        cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
-//        cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));
-//
-//        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
-//        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
+        /* とりあえずのカットイン */
+        CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
+        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
+        ao.addMove(200, 400, 1700, new BounceInterpolator());
+        cutIn1.addAnimObj(ao);
+        cutInList.add(cutIn1);
+        cutInList.add(new CutIn("First CutIn", new ImageData(R.mipmap.ic_launcher)));
+        cutInList.add(new CutIn("Second CutIn", new ImageData(R.mipmap.ic_launcher_round)));
+
+        cutInHolderList.add(new CutInHolder(EventType.SCREEN_ON, cutInList.get(0)));
+        cutInHolderList.add(new CutInHolder(EventType.LOW_BATTERY, cutInList.get(0)));
 
     }
 
@@ -336,9 +338,16 @@ public class UtilCommon extends Application {
                 .registerSubtype(DecelerateInterpolator.class)
                 .registerSubtype(OvershootInterpolator.class);
 
+
+        /*
+        * AnimObj
+        * TimeInterpolator
+        * Uri
+        */
         gson = new GsonBuilder()
                 .registerTypeAdapterFactory(animObjAdapterFactory)
                 .registerTypeAdapterFactory(timeInterpolatorAdapterFactory)
+                .registerTypeHierarchyAdapter(Uri.class, new UriTypeHierarchyAdapter())
                 .create();
     }
 

@@ -48,7 +48,9 @@ public class ImageObj extends AnimObj{
     //描画
     public void draw(Canvas canvas) {
         Drawable drawable = UtilCommon.getImageUtils().getDrawable(imageData);
-        drawable.setBounds((int)this.x, (int)this.y,(int)this.x+this.width, (int)this.y+this.height);
-        drawable.draw(canvas);
+        if (drawable != null) {
+            drawable.setBounds((int) this.x, (int) this.y, (int) this.x + this.width, (int) this.y + this.height);
+            drawable.draw(canvas);
+        }
     }
 }
