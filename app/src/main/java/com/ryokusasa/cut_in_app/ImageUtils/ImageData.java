@@ -39,23 +39,13 @@ public class ImageData {
 
     //Drawable取得関数
     public Drawable getDrawable(){
-        if(flag == INTERNAL_STORAGE){
-            //TODO: 内部固有ストレージ（使わないかも）
+        if(flag == INTERNAL_STORAGE || flag == EXTERNAL_STORAGE){
+            //内部固有ストレージは使わないかも
             InputStream inputStream;
             try{
                 inputStream = UtilCommon.getInstance().getContentResolver().openInputStream(uri);
             }catch (FileNotFoundException e){
-                Log.i(TAG, "ファイルがINTERNALに存在しません\n" + uri);
-                return null;
-            }
-            return Drawable.createFromStream(inputStream, null);
-        }else if(flag == EXTERNAL_STORAGE){
-            //TODO: 外部ストレージ
-            InputStream inputStream;
-            try{
-                inputStream = UtilCommon.getInstance().getContentResolver().openInputStream(uri);
-            }catch (FileNotFoundException e){
-                Log.i(TAG, "ファイルがEXTERNALストレージに存在しません\n" + uri);
+                Log.i(TAG, "ファイルが存在しません\n" + uri);
                 return null;
             }
             return Drawable.createFromStream(inputStream, null);

@@ -180,6 +180,7 @@ public class SelCutInActivity extends AppCompatActivity {
         }
     };
 
+    //カットイン編集アクティビティ起動
     private void startCutInEditerActivity(int cutInId){
         Intent intent = new Intent(SelCutInActivity.this, CutInEditerActivity.class);
         //選択カットイン番号を伝える
@@ -189,6 +190,7 @@ public class SelCutInActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    //画像選択ウィンドウ表示
     private void startImageSelectWindow(){
         Intent intent;
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT){
