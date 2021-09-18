@@ -15,7 +15,8 @@ import java.security.Key;
  * アニメーション情報も持つ
  */
 
-//TODO: 座標にdpを指定できるように
+//TODO: 座標形式を複数に(中心・右上など)
+//TODO: 画面の右端などの定数を設定
 abstract public class AnimObj {
 
 
