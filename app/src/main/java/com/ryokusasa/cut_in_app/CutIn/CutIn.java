@@ -24,8 +24,6 @@ import java.util.ArrayList;
 /*
   アニメーション情報やタイトル情報や動かすビューを持つ
  */
-
-/* TODO:終了時の消去処理 */
 public class CutIn{
     @SuppressWarnings("FieldCanBeLocal")
     private static final String TAG = "CutIn";
