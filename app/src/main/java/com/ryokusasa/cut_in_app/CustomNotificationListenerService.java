@@ -11,10 +11,13 @@ import android.util.Log;
 public class CustomNotificationListenerService extends NotificationListenerService {
     private final String TAG = "CNLS";
 
+    private UtilCommon utilCommon;
 
     @Override
     public void onCreate() {
         super.onCreate();
+        utilCommon = (UtilCommon)getApplication();
+
         Log.i(TAG, "CNLS起動");
     }
 
@@ -46,6 +49,7 @@ public class CustomNotificationListenerService extends NotificationListenerServi
         }
 
         //TODO: 対応したカットイン再生
+        utilCommon.play(sbn.getPackageName());
 
     }
 

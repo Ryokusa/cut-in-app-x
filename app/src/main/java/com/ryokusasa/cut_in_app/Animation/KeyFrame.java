@@ -5,6 +5,8 @@ import android.animation.TimeInterpolator;
 import java.util.HashMap;
 
 //キーフレーム
+//TODO: キーフレームにString, String のハッシュマップを追加し、その他設定を管理可能に
+/* 画面端の座標を使ったりするときに使えるか？ */
 public class KeyFrame {
     private int frame;
     private TimeInterpolator interpolator;

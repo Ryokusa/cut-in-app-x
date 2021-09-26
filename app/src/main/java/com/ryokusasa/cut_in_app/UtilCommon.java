@@ -119,7 +119,7 @@ public class UtilCommon extends Application {
 
         /* とりあえずのカットイン */
         CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
-        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 1000, 1000 );
+        AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
         cutIn1.addAnimObj(ao);
         cutIn1.setFrameNum(250);
@@ -135,6 +135,17 @@ public class UtilCommon extends Application {
     public void play(int id){
         Log.i(TAG, "play" + id);
         cutInList.get(id).play(cutInCanvas);
+    }
+
+    //パッケージネームで再生
+    public void play(String packageName){
+        for(CutInHolder cutInHolder : cutInHolderList){
+            if (cutInHolder.getEventType() == EventType.APP_NOTIFICATION) {
+                if (cutInHolder.getAppData().getPackageName().equals(packageName)) {
+                    cutInHolder.getCutIn().play(cutInCanvas);
+                }
+            }
+        }
     }
 
     //サービス接続
