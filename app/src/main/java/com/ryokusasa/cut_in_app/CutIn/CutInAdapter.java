@@ -22,8 +22,6 @@ public class CutInAdapter extends BaseAdapter {
     private final LayoutInflater layoutInflater;  //レイアウト設定用
     private final List<CutIn> cutInList;
 
-    private OnImageClickListener imageClickListener;
-
     //タグ付け用
     private static class ViewHolder{
         int position;
@@ -69,15 +67,6 @@ public class CutInAdapter extends BaseAdapter {
             viewHolder = new ViewHolder(convertView, position);
             convertView.setTag(viewHolder);
 
-            //イメージビューのクリックリスナー
-            viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Log.i("onClick", "" + viewHolder.position);
-                    imageClickListener.onImageClick(position);
-                }
-            });
-
         }else{
             viewHolder = (ViewHolder) convertView.getTag();
 
@@ -94,15 +83,5 @@ public class CutInAdapter extends BaseAdapter {
         return convertView;
 
     }
-
-    public void setOnImageClickListener(OnImageClickListener listener){
-        this.imageClickListener = listener;
-    }
-
-    public interface OnImageClickListener{
-        void onImageClick(int position);
-    }
-
-
 
 }

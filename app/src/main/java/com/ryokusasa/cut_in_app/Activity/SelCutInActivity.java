@@ -31,6 +31,7 @@ import com.ryokusasa.cut_in_app.UtilCommon;
  * カットイン選択アクティビティ
  */
 
+//TODO: タッチでプレビュー　長押しで選択
 public class SelCutInActivity extends AppCompatActivity {
 
     private static final String TAG = "SelCutInActivity";
@@ -59,7 +60,6 @@ public class SelCutInActivity extends AppCompatActivity {
         utilCommon = (UtilCommon)getApplication();
 
         //画像選択用ActivityResult
-        //画像選択用ActivityResult
         thumbnailSelectLauncher = this.registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if(result.getResultCode() == RESULT_OK) {
                 utilCommon.cutInList.get(selCutInId).imageData = new ImageData(result.getData().getData(), ImageData.EXTERNAL_STORAGE);
@@ -72,8 +72,11 @@ public class SelCutInActivity extends AppCompatActivity {
         cutInAdapter = new CutInAdapter(this, 0, utilCommon.cutInList);
         GridView gridView = findViewById(R.id.gridView);
         gridView.setAdapter(cutInAdapter);
-        gridView.setOnItemClickListener(onCutInClick);
-        cutInAdapter.setOnImageClickListener((position) -> utilCommon.play(position));
+        gridView.setOnItemLongClickListener(onItemLongClickListener);
+        gridView.setOnItemClickListener((parent, view, position, id) -> {
+            Log.i(TAG, "onItemClick:" + position);
+            utilCommon.play(position);
+        });
 
         //ホルダー取得
         cutInHolder = utilCommon.cutInHolderList.get(getIntent().getIntExtra("id", 0));
@@ -107,10 +110,9 @@ public class SelCutInActivity extends AppCompatActivity {
         return true;
     }
 
-    private final AdapterView.OnItemClickListener onCutInClick = new AdapterView.OnItemClickListener() {
+    private final AdapterView.OnItemLongClickListener onItemLongClickListener = new AdapterView.OnItemLongClickListener() {
         @Override
-        public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
-            Log.i(TAG, "onItemClick:" + position);
+        public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
             selCutInId = position;
 
             /* 設定及び編集画面選択ウィンドウ表示 */
@@ -177,6 +179,7 @@ public class SelCutInActivity extends AppCompatActivity {
                 }
             });
             builder.create().show();
+            return true;
         }
     };
 

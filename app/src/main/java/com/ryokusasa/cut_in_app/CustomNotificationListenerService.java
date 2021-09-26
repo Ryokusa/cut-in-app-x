@@ -1,5 +1,6 @@
 package com.ryokusasa.cut_in_app;
 
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.service.notification.NotificationListenerService;
 import android.service.notification.StatusBarNotification;
