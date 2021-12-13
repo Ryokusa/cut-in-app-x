@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name">カットインアプリ改善版</string>
+    <string name="notification_service">通知アクセスサービス</string>
+    <string name="cut_in_service">カットインサービス</string>
+    <string name="request_overlay">オーバーレイ権限設定</string>
+    <string name="request_notification">通知アクセス権限設定</string>
+    <string name="cut_in_enable">カットイン表示/非表示</string>
+    <string name="event_name">イベント名！！！！あ</string>
+    <string name="cut_in_name">カットイン名！！</string>
+    <string name="thumbnail_description">カットインサムネイル</string>
+    <string name="sel_cut_in">カットイン選択</string>
+    <string name="control_cutin_menu">カットイン操作メニュー</string>
+
+    <string-array name="control_cutin_menu_items">
+        <item>動作カットインに設定</item>
+        <item>カットイン内容編集</item>
+        <item>カットイン内容削除</item>
+        <item>カットインタイトル変更</item>
+        <item>カットインサムネ編集(DEBUG)</item>
+    </string-array>
+
+    <string-array name="object_type">
+        <item>画像</item>
+        <item>テキスト</item>
+    </string-array>
+</resources>

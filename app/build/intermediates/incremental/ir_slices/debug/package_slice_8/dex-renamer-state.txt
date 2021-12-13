@@ -1,0 +1,4 @@
+#Sun Jul 28 08:02:35 JST 2019
+base.0=D\:\\Documents\\school\\gidai\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\8
+path.0=classes.dex
+renamed.0=classes.dex
