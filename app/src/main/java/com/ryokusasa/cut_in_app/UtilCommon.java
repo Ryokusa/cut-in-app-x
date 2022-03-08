@@ -208,8 +208,10 @@ public class UtilCommon extends Application {
         final WindowManager.LayoutParams layoutParams = new WindowManager.LayoutParams(
                 WindowManager.LayoutParams.MATCH_PARENT,
                 WindowManager.LayoutParams.MATCH_PARENT,
-                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
-                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL | WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
+                Build.VERSION.SDK_INT >= 26 ? WindowManager.LayoutParams.TYPE_APPLICATION_OVERLAY : WindowManager.LayoutParams.TYPE_SYSTEM_ALERT,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL
+                        | WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE | WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE
+                        | WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
                 PixelFormat.TRANSLUCENT
         );
 
@@ -231,30 +233,27 @@ public class UtilCommon extends Application {
         layout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT ));
         layout.setBackgroundColor(Color.argb(0, 0, 0,0));
 
-
-        //Viewにフィルターセット
-        cutInView.setBackgroundColor(Color.argb(0,0,0,0));
-
         //重ね合わせる
         windowManager.addView(cutInView, layoutParams);
-        windowManager.addView(layout,layoutParams2);
 
-        layout.setOnTouchListener((v, event) -> {
-            Log.i(TAG, "onTouch:" + event.getAction());
-            switch (event.getAction()) {
-                case MotionEvent.ACTION_UP:
-                    v.performClick();
-                    break;
-                case MotionEvent.ACTION_OUTSIDE:
-                    //画面タッチ処理
-                    break;
-                default:
-                    break;
-            }
-            return false;
-        });
-        layout.setClickable(false);
-        layout.setFocusable(false);
+//        windowManager.addView(layout,layoutParams2);
+//
+//        layout.setOnTouchListener((v, event) -> {
+//            Log.i(TAG, "onTouch:" + event.getAction());
+//            switch (event.getAction()) {
+//                case MotionEvent.ACTION_UP:
+//                    v.performClick();
+//                    break;
+//                case MotionEvent.ACTION_OUTSIDE:
+//                    //画面タッチ処理
+//                    break;
+//                default:
+//                    break;
+//            }
+//            return false;
+//        });
+//        layout.setClickable(false);
+//        layout.setFocusable(false);
 
 
         layout.setOnLongClickListener(v -> {
@@ -266,7 +265,7 @@ public class UtilCommon extends Application {
     public void removeWindow() {
         //View削除
         windowManager.removeView(cutInView);
-        windowManager.removeView(layout);
+        //windowManager.removeView(layout);
     }
 
     public void saveCutInHolder(){

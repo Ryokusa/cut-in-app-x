@@ -109,11 +109,12 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
                 //プリインストールアプリは除外（と思ったけどいらないかも）
                 /* 仮想機上ではなぜか一部がプリインストール扱いになる */
                 if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-                    appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
+
                     //it's a system app, not interested
                 } else if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
                     //Discard this one
                     //in this case, it should be a user-installed app
+                    //appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
                 } else {
                     appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
                 }
