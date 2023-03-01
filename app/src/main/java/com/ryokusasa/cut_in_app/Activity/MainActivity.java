@@ -98,9 +98,11 @@ public class MainActivity extends AppCompatActivity {
     //カットインホルダーを表示
     private void cutInHolderListDisplay(){
         Log.i(TAG, "cutInHolderListDisplay");
-        for (CutInHolder cih : utilCommon.cutInHolderList){ frameList.addView(new FrameView(this, cih),
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                                                  ViewGroup.LayoutParams.WRAP_CONTENT));
+        for (CutInHolder cutInHolder : utilCommon.cutInHolderList){
+            frameList.addView(
+                    new FrameView(this, cutInHolder),
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
+            );
         }
     }
 

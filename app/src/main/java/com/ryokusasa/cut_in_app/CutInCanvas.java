@@ -2,30 +2,22 @@ package com.ryokusasa.cut_in_app;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.util.Log;
 import android.view.View;
+import java.util.Timer;
+import java.util.TimerTask;
 
 //カットインを描画するView
 public class CutInCanvas extends View {
     private static final String TAG = "CutInCanvas";
 
-    private final Handler handler;
-    private final Runnable runnable = new Runnable() {
-        @Override
-        public void run() {
-            postInvalidate();
-            handler.postDelayed(this, 13);
-        }
-    };
     private DrawListener drawListener = (c) -> {};
 
     public CutInCanvas(Context context){
         super(context);
-        handler = new Handler();
-        handler.post(runnable);
+
+        Timer timer = new Timer();
+        TimerTask cutInTimerTask = new CutInCanvasTimerTask(this);
+        timer.scheduleAtFixedRate(cutInTimerTask, 0, 13);
     }
 
     @Override

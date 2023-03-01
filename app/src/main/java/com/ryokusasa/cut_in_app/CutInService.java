@@ -77,7 +77,7 @@ public class CutInService extends Service{
 
         //通知作成
         Intent testIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, testIntent, 0);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, testIntent, PendingIntent.FLAG_IMMUTABLE);
         Notification notification;
         String channelID = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ?
                 createNotificationChannel("cut_in_service", "CutIn_Service"): "";
