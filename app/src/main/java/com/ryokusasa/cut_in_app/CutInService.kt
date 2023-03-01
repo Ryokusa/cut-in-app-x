@@ -1,122 +1,102 @@
-package com.ryokusasa.cut_in_app;
+package com.ryokusasa.cut_in_app
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.Service;
-import android.content.Context;
-import android.content.Intent;
-import android.graphics.Color;
-import android.os.Binder;
-import android.os.Build;
-import android.os.Handler;
-import android.os.IBinder;
-import android.util.Log;
-import android.view.View;
-import android.view.WindowManager;
-import android.widget.LinearLayout;
-
-import androidx.annotation.RequiresApi;
-import androidx.core.app.NotificationCompat;
-
-import com.ryokusasa.cut_in_app.Activity.MainActivity;
+import android.app.*
+import android.content.Intent
+import android.graphics.Color
+import android.os.Binder
+import android.os.Build
+import android.os.Handler
+import android.os.IBinder
+import android.os.Looper
+import android.util.Log
+import androidx.annotation.RequiresApi
+import androidx.core.app.NotificationCompat
+import com.ryokusasa.cut_in_app.Activity.MainActivity
+import com.ryokusasa.cut_in_app.CustomNotificationListenerService
 
 /**
  * Created by Ryokusasa on 2017/12/18.
  */
+class CutInService : Service() {
 
-public class CutInService extends Service{
+    companion object {
+        const val TAG = "CutInService"
+    }
 
-    private final String TAG = "FilterService";
-    private final IBinder iBinder = new ServiceBinder();
-
-    UtilCommon utilCommon;
+    private val iBinder: IBinder = ServiceBinder()
+    private lateinit var utilCommon: UtilCommon
 
     //別スレッドから実行するためのHandler
     //実際は通知受け取り時は別スレッドなため、再生処理をメインスレッドに渡すため
-    Handler handler;
+    private lateinit var handler: Handler
 
     //自身を返す
-    public class ServiceBinder extends Binder{
-        CutInService getService(){
-            return CutInService.this;
-        }
+    inner class ServiceBinder : Binder() {
+        val service: CutInService
+            get() = this@CutInService
     }
 
-    @Override
-    public void onCreate()
-    {
+    override fun onCreate() {
+        Log.i(TAG, "onCreate()")
+
         //メインスレッドのHandler取得
-        handler = new Handler();
-
-        utilCommon = (UtilCommon) getApplication();
-
-        //リスナーサービス起動
-        Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
-        startService(i);
+        handler = Handler(Looper.getMainLooper())
+        utilCommon = application as UtilCommon
     }
 
-    @Override
-    public IBinder onBind(Intent intent){
-        Log.i(TAG, "onBind");
-        return iBinder;
+    override fun onBind(intent: Intent): IBinder {
+        Log.i(TAG, "onBind")
+        return iBinder
     }
 
-    @Override
-    public boolean onUnbind(Intent intent){
-        Log.i(TAG, "unBind");
-        return true;
+    override fun onUnbind(intent: Intent): Boolean {
+        Log.i(TAG, "unBind")
+        return true
     }
 
-    @Override
-    public int onStartCommand(Intent intent, int flags, int startId){
+    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
         //カットイン等ウィンドウの設定
-        utilCommon.windowSetting();
+        utilCommon.windowSetting()
 
         //通知作成
-        Intent testIntent = new Intent(this, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, testIntent, PendingIntent.FLAG_IMMUTABLE);
-        Notification notification;
-        String channelID = (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) ?
-                createNotificationChannel("cut_in_service", "CutIn_Service"): "";
-
-        notification = new NotificationCompat.Builder(this, channelID)
-                .setContentIntent(pendingIntent)
-                .setContentTitle("カットインアプリ")
-                .setContentText("動作中")
-                .setSmallIcon(R.mipmap.ic_launcher).build();
-
-        startForeground(startId, notification);
-        return START_NOT_STICKY;
-
+        val testIntent = Intent(this, MainActivity::class.java)
+        val pendingIntent =
+            PendingIntent.getActivity(this, 0, testIntent, PendingIntent.FLAG_IMMUTABLE)
+        val notification: Notification
+        val channelID =
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel(
+                "cut_in_service",
+                "CutIn_Service"
+            ) else ""
+        notification = NotificationCompat.Builder(this, channelID)
+            .setContentIntent(pendingIntent)
+            .setContentTitle("カットインアプリ")
+            .setContentText("動作中")
+            .setSmallIcon(R.mipmap.ic_launcher).build()
+        startForeground(startId, notification)
+        return START_NOT_STICKY
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private String createNotificationChannel(String channelId, String channelName){
-        NotificationChannel chan = new NotificationChannel(channelId,
-                channelName, NotificationManager.IMPORTANCE_NONE);
-        chan.setLightColor(Color.BLUE);
-        chan.setLockscreenVisibility(Notification.VISIBILITY_PRIVATE);
-        NotificationManager service = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-        service.createNotificationChannel(chan);
-        return channelId;
+    private fun createNotificationChannel(channelId: String, channelName: String): String {
+        val chan = NotificationChannel(
+            channelId,
+            channelName, NotificationManager.IMPORTANCE_NONE
+        )
+        chan.lightColor = Color.BLUE
+        chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
+        val service = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        service.createNotificationChannel(chan)
+        return channelId
     }
 
-    @Override
-    public void onDestroy(){
-        Log.i(TAG, "onDestroy()");
+    override fun onDestroy() {
+        Log.i(TAG, "onDestroy()")
 
         //オーバーレイウィンドウ削除
-        utilCommon.removeWindow();
+        utilCommon.removeWindow()
 
-        //通知リスナー削除
-        Intent i = new Intent(CutInService.this, CustomNotificationListenerService.class);
-        stopService(i);
-
-        super.onDestroy();
+        super.onDestroy()
     }
-
-
 }
