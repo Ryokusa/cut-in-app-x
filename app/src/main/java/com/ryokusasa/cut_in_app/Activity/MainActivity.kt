@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.view.animation.AccelerateInterpolator
@@ -19,36 +18,30 @@ import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation.MoveKeyFrameAnimatio
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder
 import com.ryokusasa.cut_in_app.Dialog.AppData
 import com.ryokusasa.cut_in_app.Dialog.AppDialog
-import java.util.*
 
 /*
   メインアクティビティ
   by Ryokusasa
  */
 class MainActivity : AppCompatActivity() {
-    //レイアウト
-    private lateinit var frameList: LinearLayout
 
-    //グローバルクラス
-    private lateinit var utilCommon: UtilCommon
-
-    //パーミッション申請用
-    private var permissionUtils: PermissionUtils? = null
+    private lateinit var frameList: LinearLayout //レイアウト
+    private lateinit var utilCommon: UtilCommon //グローバルクラス
+    private lateinit var permissionUtils: PermissionUtils //パーミッション申請用
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         utilCommon = application as UtilCommon
+        permissionUtils = PermissionUtils(this)
 
         initComponent()
-
-        permissionUtils = PermissionUtils(this)
 
         //サービス接続
         utilCommon.connectService()
 
         //権限確認
-        if (!PermissionUtils.checkOverlayPermission(this)) permissionUtils!!.requestOverlayPermission()
+        if (!PermissionUtils.checkOverlayPermission(this)) permissionUtils.requestOverlayPermission()
 
         /* キーフレームアニメーションテスト */
         val moveKeyFrameAnimation = MoveKeyFrameAnimation(60)
@@ -69,10 +62,6 @@ class MainActivity : AppCompatActivity() {
             i++
             keyFrame = moveKeyFrameAnimation.nextFrame()
         }
-
-        //テスト
-//        val files = fileList()
-//        for (file in files) Log.i(TAG, file!!)
     }
 
     //部品初期化
@@ -159,15 +148,15 @@ class MainActivity : AppCompatActivity() {
         /* url:http://tools.android.com/tips/non-constant-fields */
         when (item.itemId) {
             R.id.request_overlay -> {
-                permissionUtils!!.requestOverlayPermission()
+                permissionUtils.requestOverlayPermission()
                 return true
             }
             R.id.request_notification -> {
-                permissionUtils!!.requestNotificationPermission()
+                permissionUtils.requestNotificationPermission()
                 return true
             }
             R.id.cut_in_enable -> {
-                if (utilCommon.isConnection) utilCommon.endCutInService(this) else utilCommon!!.startCutInService(
+                if (utilCommon.isConnection) utilCommon.endCutInService(this) else utilCommon.startCutInService(
                     this
                 )
                 return true
