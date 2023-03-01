@@ -96,13 +96,14 @@ class MainActivity : AppCompatActivity() {
     //カットインホルダーを表示
     private fun cutInHolderListDisplay() {
         Log.i(TAG, "cutInHolderListDisplay")
+        val layoutParams = LinearLayout.LayoutParams(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
         for (cutInHolder in utilCommon.cutInHolderList) {
             frameList.addView(
                 FrameView(this, cutInHolder),
-                LinearLayout.LayoutParams(
-                    ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT
-                )
+                layoutParams
             )
         }
     }
