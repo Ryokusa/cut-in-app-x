@@ -1,23 +1,15 @@
 package com.ryokusasa.cut_in_app.CutIn;
 
-import android.content.Context;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.core.content.res.ResourcesCompat;
 
-import android.util.AttributeSet;
 import android.util.Log;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
-import com.ryokusasa.cut_in_app.CutInCanvas;
+import com.ryokusasa.cut_in_app.CutIn.CutInView.CutInCanvas;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 //カットインクラス

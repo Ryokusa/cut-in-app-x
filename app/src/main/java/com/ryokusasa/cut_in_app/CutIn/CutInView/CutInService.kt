@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app
+package com.ryokusasa.cut_in_app.CutIn.CutInView
 
 import android.app.*
 import android.content.Intent
@@ -11,8 +11,9 @@ import android.os.Looper
 import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.core.app.NotificationCompat
-import com.ryokusasa.cut_in_app.Activity.MainActivity
-import com.ryokusasa.cut_in_app.CustomNotificationListenerService
+import com.ryokusasa.cut_in_app.Activity.Main.MainActivity
+import com.ryokusasa.cut_in_app.R
+import com.ryokusasa.cut_in_app.UtilCommon
 
 /**
  * Created by Ryokusasa on 2017/12/18.

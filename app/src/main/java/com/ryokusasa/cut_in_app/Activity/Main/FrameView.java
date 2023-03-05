@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app;
+package com.ryokusasa.cut_in_app.Activity.Main;
 
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
@@ -10,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.ryokusasa.cut_in_app.Activity.MainActivity;
-import com.ryokusasa.cut_in_app.Activity.SelCutInActivity;
+import com.ryokusasa.cut_in_app.Activity.SelCutIn.SelCutInActivity;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppDialog;
+import com.ryokusasa.cut_in_app.EventType;
+import com.ryokusasa.cut_in_app.R;
+import com.ryokusasa.cut_in_app.UtilCommon;
 
 //設定されたカットインを表示するview
 

@@ -24,7 +24,7 @@ import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
 import com.ryokusasa.cut_in_app.AnimObj.ImageObj;
 import com.ryokusasa.cut_in_app.AnimObj.TextObj;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
-import com.ryokusasa.cut_in_app.CutIn.CutInViewController;
+import com.ryokusasa.cut_in_app.CutIn.CutInView.CutInViewController;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.Dialog.AppData;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageData;

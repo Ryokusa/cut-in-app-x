@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app.CutIn
+package com.ryokusasa.cut_in_app.CutIn.CutInView
 
 import android.app.Service
 import android.content.ComponentName
@@ -19,7 +19,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.ContextCompat.startForegroundService
 import com.ryokusasa.cut_in_app.*
-import com.ryokusasa.cut_in_app.CutInService.ServiceBinder
+import com.ryokusasa.cut_in_app.CutIn.CutInView.CutInService.ServiceBinder
 import com.ryokusasa.cut_in_app.PermissionUtils.Companion.checkOverlayPermission
 
 

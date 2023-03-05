@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app
+package com.ryokusasa.cut_in_app.CutIn.CutInView
 
 import android.os.Handler
 import android.os.Looper

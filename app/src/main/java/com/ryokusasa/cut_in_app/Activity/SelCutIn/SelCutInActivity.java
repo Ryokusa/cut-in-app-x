@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app.Activity;
+package com.ryokusasa.cut_in_app.Activity.SelCutIn;
 
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.res.ResourcesCompat;
 
 import android.util.Log;
 import android.view.Menu;
@@ -19,8 +18,8 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 
+import com.ryokusasa.cut_in_app.Activity.CutInEditer.CutInEditerActivity;
 import com.ryokusasa.cut_in_app.CutIn.CutIn;
-import com.ryokusasa.cut_in_app.CutIn.CutInAdapter;
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
 import com.ryokusasa.cut_in_app .R;

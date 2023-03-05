@@ -14,7 +14,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 
 import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app.Activity.MainActivity;
+import com.ryokusasa.cut_in_app.Activity.Main.MainActivity;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.util.ArrayList;

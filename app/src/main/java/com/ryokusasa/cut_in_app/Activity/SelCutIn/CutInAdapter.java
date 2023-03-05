@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app.CutIn;
+package com.ryokusasa.cut_in_app.Activity.SelCutIn;
 
 import android.content.Context;
 import android.util.Log;
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.ryokusasa.cut_in_app.CutIn.CutIn;
 import com.ryokusasa.cut_in_app.R;
 import com.ryokusasa.cut_in_app.UtilCommon;
 

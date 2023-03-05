@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app.Activity;
+package com.ryokusasa.cut_in_app.Activity.CutInEditer;
 
 import android.os.Bundle;
 

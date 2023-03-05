@@ -1,4 +1,4 @@
-package com.ryokusasa.cut_in_app.Activity
+package com.ryokusasa.cut_in_app.Activity.Main
 
 import android.os.Bundle
 import android.util.Log
@@ -88,7 +88,10 @@ class MainActivity : AppCompatActivity() {
         )
         for (cutInHolder in utilCommon.cutInHolderList) {
             frameList.addView(
-                FrameView(this, cutInHolder),
+                FrameView(
+                    this,
+                    cutInHolder
+                ),
                 layoutParams
             )
         }

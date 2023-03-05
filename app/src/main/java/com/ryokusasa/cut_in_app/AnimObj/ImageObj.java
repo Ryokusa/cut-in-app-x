@@ -1,13 +1,11 @@
 package com.ryokusasa.cut_in_app.AnimObj;
 
-import static com.ryokusasa.cut_in_app.CutIn.CutInViewControllerKt.px2dp;
+import static com.ryokusasa.cut_in_app.CutIn.CutInView.CutInViewControllerKt.px2dp;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
-import com.ryokusasa.cut_in_app.Animation.KeyFrameAnimation;
 import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
-import com.ryokusasa.cut_in_app.ImageUtils.ImageUtils;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
 //画像オブジェクト
