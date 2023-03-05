@@ -56,38 +56,43 @@ class CutInService : Service() {
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
 
+        Log.i(TAG, "onStartCommand")
+
         //カットイン等ウィンドウの設定
         utilCommon.windowSetting()
 
         //通知作成
         val testIntent = Intent(this, MainActivity::class.java)
         val pendingIntent =
-            PendingIntent.getActivity(this, 0, testIntent, PendingIntent.FLAG_IMMUTABLE)
-        val notification: Notification
-        val channelID =
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel(
-                "cut_in_service",
-                "CutIn_Service"
-            ) else ""
-        notification = NotificationCompat.Builder(this, channelID)
+            PendingIntent.getActivity(this, startId, testIntent, PendingIntent.FLAG_IMMUTABLE)
+
+        val channelId = "cut_in_service_channel"
+        val channelName = "CutInService"
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) createNotificationChannel(channelId, channelName)
+        val notification = NotificationCompat.Builder(this, channelId)
             .setContentIntent(pendingIntent)
             .setContentTitle("カットインアプリ")
             .setContentText("動作中")
-            .setSmallIcon(R.mipmap.ic_launcher).build()
-        startForeground(startId, notification)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setSmallIcon(R.mipmap.ic_launcher)
+            .build()
+        startForeground(2222, notification)
         return START_NOT_STICKY
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
-    private fun createNotificationChannel(channelId: String, channelName: String): String {
+    private fun createNotificationChannel(channelId: String, channelName: String):String {
         val chan = NotificationChannel(
             channelId,
-            channelName, NotificationManager.IMPORTANCE_NONE
+            channelName, NotificationManager.IMPORTANCE_DEFAULT
         )
         chan.lightColor = Color.BLUE
         chan.lockscreenVisibility = Notification.VISIBILITY_PRIVATE
-        val service = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
-        service.createNotificationChannel(chan)
+        chan.description = "cutIn App"
+        chan.enableLights(true)
+
+        val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        notificationManager.createNotificationChannel(chan)
         return channelId
     }
 
@@ -97,6 +102,7 @@ class CutInService : Service() {
         //オーバーレイウィンドウ削除
         utilCommon.removeWindow()
 
+        stopSelf()
         super.onDestroy()
     }
 }

@@ -156,9 +156,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.cut_in_enable -> {
-                if (utilCommon.isConnection) utilCommon.endCutInService(this) else utilCommon.startCutInService(
-                    this
-                )
+                if (utilCommon.isConnection) utilCommon.endCutInService(this)
+                else utilCommon.startCutInService(this)
                 return true
             }
             R.id.save_menu_icon -> {
