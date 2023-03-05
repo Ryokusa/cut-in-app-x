@@ -18,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/toolbarTheme"
         android:name="com.ryokusasa.cut_in_app.UtilCommon">
-        <activity android:name="com.ryokusasa.cut_in_app.Activity.Main.MainActivity"
+        <activity android:name="com.ryokusasa.cut_in_app.activity.main.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,10 +26,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.ryokusasa.cut_in_app.Activity.SelCutIn.SelCutInActivity"
-            android:parentActivityName="com.ryokusasa.cut_in_app.Activity.Main.MainActivity"/>
-        <activity android:name=".Activity.CutInEditer.CutInEditerActivity"/>
-        <service android:name="com.ryokusasa.cut_in_app.CutIn.CutInView.CutInService"/>
+        <activity android:name="com.ryokusasa.cut_in_app.activity.sel_cut_in.SelCutInActivity"
+            android:parentActivityName="com.ryokusasa.cut_in_app.activity.main.MainActivity"/>
+        <activity android:name=".activity.cut_in_editer.CutInEditerActivity"/>
+        <service android:name="com.ryokusasa.cut_in_app.cut_in.cut_in_view.CutInService"/>
 
     </application>
 

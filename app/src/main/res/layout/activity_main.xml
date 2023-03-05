@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="com.ryokusasa.cut_in_app.Activity.Main.MainActivity">
+    tools:context="com.ryokusasa.cut_in_app.activity.main.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/cut_in_toolbar"

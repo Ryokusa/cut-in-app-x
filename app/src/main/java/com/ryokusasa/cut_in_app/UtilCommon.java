@@ -20,16 +20,16 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.ryokusasa.cut_in_app.AnimObj.AnimObj;
-import com.ryokusasa.cut_in_app.AnimObj.ImageObj;
-import com.ryokusasa.cut_in_app.AnimObj.TextObj;
-import com.ryokusasa.cut_in_app.CutIn.CutIn;
-import com.ryokusasa.cut_in_app.CutIn.CutInView.CutInViewController;
-import com.ryokusasa.cut_in_app.CutIn.CutInHolder;
-import com.ryokusasa.cut_in_app.Dialog.AppData;
-import com.ryokusasa.cut_in_app.ImageUtils.ImageData;
-import com.ryokusasa.cut_in_app.ImageUtils.ImageUtils;
-import com.ryokusasa.cut_in_app.ImageUtils.UriTypeHierarchyAdapter;
+import com.ryokusasa.cut_in_app.anim_obj.AnimObj;
+import com.ryokusasa.cut_in_app.anim_obj.ImageObj;
+import com.ryokusasa.cut_in_app.anim_obj.TextObj;
+import com.ryokusasa.cut_in_app.cut_in.CutIn;
+import com.ryokusasa.cut_in_app.cut_in.cut_in_view.CutInViewController;
+import com.ryokusasa.cut_in_app.cut_in.CutInHolder;
+import com.ryokusasa.cut_in_app.dialog.AppData;
+import com.ryokusasa.cut_in_app.image_utils.ImageData;
+import com.ryokusasa.cut_in_app.image_utils.ImageUtils;
+import com.ryokusasa.cut_in_app.image_utils.UriTypeHierarchyAdapter;
 
 import java.util.ArrayList;
 
