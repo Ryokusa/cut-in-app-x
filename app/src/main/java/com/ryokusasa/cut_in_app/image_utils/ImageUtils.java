@@ -1,5 +1,7 @@
 package com.ryokusasa.cut_in_app.image_utils;
 
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
 import java.util.HashMap;
@@ -20,5 +22,9 @@ public class ImageUtils {
         }else{
             return drawable;
         }
+    }
+
+    public Bitmap getBitmap(ImageData imageData){
+        return ((BitmapDrawable)getDrawable(imageData)).getBitmap();
     }
 }

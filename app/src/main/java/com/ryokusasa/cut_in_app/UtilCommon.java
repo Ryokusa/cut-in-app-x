@@ -87,6 +87,7 @@ public class UtilCommon extends Application {
         CutIn cutIn1 = new CutIn("None CutIn", new ImageData(R.drawable.ic_launcher_background));
         AnimObj ao = new ImageObj(new ImageData(R.drawable.foo),400, 0, 300, 300 );
         ao.addMove(200, 400, 1700, new BounceInterpolator());
+        ao.addRotate(200, 2*Math.PI, new LinearInterpolator());
         cutIn1.addAnimObj(ao);
         cutIn1.setFrameNum(250);
         cutInList.add(cutIn1);
