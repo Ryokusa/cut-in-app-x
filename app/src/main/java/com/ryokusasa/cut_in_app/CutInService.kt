@@ -58,9 +58,6 @@ class CutInService : Service() {
 
         Log.i(TAG, "onStartCommand")
 
-        //カットイン等ウィンドウの設定
-        utilCommon.windowSetting()
-
         //通知作成
         val testIntent = Intent(this, MainActivity::class.java)
         val pendingIntent =
@@ -98,9 +95,6 @@ class CutInService : Service() {
 
     override fun onDestroy() {
         Log.i(TAG, "onDestroy()")
-
-        //オーバーレイウィンドウ削除
-        utilCommon.removeWindow()
 
         stopSelf()
         super.onDestroy()

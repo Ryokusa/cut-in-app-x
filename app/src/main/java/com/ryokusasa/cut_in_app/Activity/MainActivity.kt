@@ -37,9 +37,6 @@ class MainActivity : AppCompatActivity() {
 
         initComponent()
 
-        //サービス接続
-        utilCommon.connectService()
-
         //権限確認
         if (!PermissionUtils.checkOverlayPermission(this)) permissionUtils.requestOverlayPermission()
 
@@ -156,8 +153,8 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.cut_in_enable -> {
-                if (utilCommon.isConnection) utilCommon.endCutInService(this)
-                else utilCommon.startCutInService(this)
+                if (utilCommon.isConnection) utilCommon.cutInViewController.endCutInViewService(this)
+                else utilCommon.cutInViewController.startCutInViewService(this)
                 return true
             }
             R.id.save_menu_icon -> {

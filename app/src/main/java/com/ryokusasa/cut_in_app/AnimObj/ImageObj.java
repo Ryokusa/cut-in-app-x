@@ -1,5 +1,7 @@
 package com.ryokusasa.cut_in_app.AnimObj;
 
+import static com.ryokusasa.cut_in_app.CutIn.CutInViewControllerKt.px2dp;
+
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 
@@ -42,10 +44,10 @@ public class ImageObj extends AnimObj{
     public void draw(Canvas canvas) {
         Drawable drawable = UtilCommon.getImageUtils().getDrawable(imageData);
         if (drawable != null) {
-            int dp_x = (int)UtilCommon.px2dp((int)this.x);
-            int dp_y = (int)UtilCommon.px2dp((int)this.y);
-            int dp_w= (int)UtilCommon.px2dp((int)this.width);
-            int dp_h = (int)UtilCommon.px2dp((int)this.height);
+            int dp_x = (int)px2dp((int)this.x);
+            int dp_y = (int)px2dp((int)this.y);
+            int dp_w= (int)px2dp((int)this.width);
+            int dp_h = (int)px2dp((int)this.height);
             drawable.setBounds((int) this.x, (int) this.y, (int) this.x + this.width, (int) this.y + this.height);
             drawable.draw(canvas);
         }
