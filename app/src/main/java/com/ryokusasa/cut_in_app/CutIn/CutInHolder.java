@@ -11,7 +11,6 @@ import com.ryokusasa.cut_in_app.EventType;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 //カットインとイベントをまとめたホルダー
 public class CutInHolder implements Serializable {
