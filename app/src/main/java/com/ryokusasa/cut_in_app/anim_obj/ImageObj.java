@@ -56,10 +56,11 @@ public class ImageObj extends AnimObj{
             int dp_h = (int)px2dp((int)this.height);
 
             matrix.reset();
-            float sx = (float)this.width / bitmap.getWidth();
-            float sy = (float)this.height / bitmap.getHeight();
-            matrix.postScale(sx, sy);
+
             matrix.postRotate((float)(this.radian * 180 / Math.PI), (float)halfWidth, (float)halfHeight);
+            float sx = (float)this.width / bitmap.getWidth() * (float)this.scaleX;
+            float sy = (float)this.height / bitmap.getHeight() * (float)this.scaleY;
+            matrix.postScale(sx, sy);
             matrix.postTranslate((int)this.x, (int)this.y);
 
 //            drawable.setBounds((int) this.x, (int) this.y, (int) this.x + this.width, (int) this.y + this.height);
