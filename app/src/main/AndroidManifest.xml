@@ -30,6 +30,13 @@
             android:parentActivityName="com.ryokusasa.cut_in_app.activity.main.MainActivity"/>
         <activity android:name=".activity.cut_in_editer.CutInEditerActivity"/>
         <service android:name="com.ryokusasa.cut_in_app.cut_in.cut_in_view.CutInService"/>
+        <service android:name=".CustomNotificationListenerService"
+            android:permission="android.permission.BIND_NOTIFICATION_LISTENER_SERVICE"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.service.notification.NotificationListenerService"/>
+            </intent-filter>
+        </service>
 
     </application>
 
