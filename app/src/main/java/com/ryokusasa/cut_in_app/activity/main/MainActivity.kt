@@ -35,6 +35,8 @@ class MainActivity : AppCompatActivity() {
         utilCommon = application as UtilCommon
         permissionUtils = PermissionUtils(this)
 
+
+
         initComponent()
 
         //権限確認
@@ -156,7 +158,7 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
             R.id.cut_in_enable -> {
-                if (utilCommon.isConnection) utilCommon.cutInViewController.endCutInViewService(this)
+                if (utilCommon.cutInViewController.isConnected) utilCommon.cutInViewController.endCutInViewService(this)
                 else utilCommon.cutInViewController.startCutInViewService(this)
                 return true
             }
