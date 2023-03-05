@@ -9,16 +9,21 @@ import androidx.fragment.app.DialogFragment;
 import androidx.fragment.app.FragmentManager;
 import android.content.DialogInterface;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.PermissionInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.ryokusasa.cut_in_app.cut_in.CutInHolder;
 import com.ryokusasa.cut_in_app.activity.main.MainActivity;
 import com.ryokusasa.cut_in_app.UtilCommon;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * Created by Ryokusasa on 2017/12/18.
@@ -102,21 +107,14 @@ class LoadAppInfoTask extends AsyncTask<Integer, Integer, Integer>{
         //アプリ情報取得
         if(appDataList.isEmpty()) {    //読み込み済みの場合は無視
             PackageManager pm = activity.getPackageManager();
-            List<ApplicationInfo> appInfoList = pm.getInstalledApplications(PackageManager.GET_META_DATA);
+            List<PackageInfo> packageInfoList = pm.getInstalledPackages(PackageManager.GET_PERMISSIONS | PackageManager.PERMISSION_GRANTED);
 
-            for (ApplicationInfo appInfo : appInfoList) {
-
-                //プリインストールアプリは除外（と思ったけどいらないかも）
-                /* 仮想機上ではなぜか一部がプリインストール扱いになる */
-                if((appInfo.flags & ApplicationInfo.FLAG_UPDATED_SYSTEM_APP) != 0) {
-
-                    //it's a system app, not interested
-                } else if ((appInfo.flags & ApplicationInfo.FLAG_SYSTEM) != 0) {
-                    //Discard this one
-                    //in this case, it should be a user-installed app
-                    //appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
-                } else {
-                    appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
+            for (PackageInfo packageInfo : packageInfoList){
+                if (packageInfo.requestedPermissions != null) {
+                    if ( Arrays.asList(packageInfo.requestedPermissions).contains("android.permission.POST_NOTIFICATIONS")) {
+                        ApplicationInfo appInfo = packageInfo.applicationInfo;
+                        appDataList.add(new AppData(appInfo.packageName, appInfo.loadLabel(pm).toString(), pm.getApplicationIcon(appInfo)));
+                    }
                 }
             }
         }
